@@ -10,6 +10,10 @@ const GameSchema = new Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: Number,
+        required: true,
+    },
     first_release_date: {
         type: Number,
         required: true,
