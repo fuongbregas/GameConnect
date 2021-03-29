@@ -1,1 +1,1 @@
-// post_id, game_id, comment_id_list, karma, status (Solved or Unsolved), post_type, content
+// post_id, game_id, comment_id_list, karma, status (Solved or Unsolved), post_type, content, image_list

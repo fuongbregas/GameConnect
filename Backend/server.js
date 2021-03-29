@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const connectMongoDB = require("./config/initMongoDB");
 
 const axios = require ('axios');
 const { response } = require('express');
