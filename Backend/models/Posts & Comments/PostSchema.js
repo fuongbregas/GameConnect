@@ -1,0 +1,1 @@
+// post_id, game_id, comment_id_list, karma, status, post_type
