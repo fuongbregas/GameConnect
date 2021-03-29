@@ -36,10 +36,11 @@ app.use(() => {
             'Client-ID': 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn',
             'Authorization': 'Bearer ke6pc6yxno2y2qp1g5ggbfp8bq4gg3',
         },
-        data:'fields name; where release_dates.platform = 6 & rating >= 90 & release_dates.date >= 946735200000; limit 80;',
+        data:'fields *; where release_dates.platform = 6 & rating >= 90 & release_dates.date >= 946735200000; limit 80;',
     }).then(response => {
-        console.log(response.data);
+        obj = response.data;
+        //console.log(obj);
+        console.log(obj); // id, name, first_release_date, cover, rating, genres, similar_games, updated_at
     });
-    
     
 } );
