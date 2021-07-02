@@ -2,6 +2,12 @@ import requests
 import pymongo
 import time
 
+url ='https://api.igdb.com/v4/games/'
+# Authorization number has expiration, need to change it over time
+headers = {'Client-ID':'bvtuqo4e9i0uoscphs9pxqdrb2q2zn', 'Authorization':'Bearer pujolmx5q5189wcp56o9buaulw2y0k',}
+raw_body ='fields *; where release_dates.platform = 6 & rating >= 90 & release_dates.date >= 1616996761228; limit 10;'
+# raw_body ='fields *; where release_dates.platform = 6;'
+
 try:
     from pymongo import MongoClient
 except ImportError:
@@ -26,32 +32,21 @@ class MongoDB(object):
         self._collection.update(post, post, upsert = True)
 
 def getGames():
-    url ='https://api.igdb.com/v4/games/'
-    # Authorization number has expiration, need to update/change it automatically
-    headers = {'Client-ID':'bvtuqo4e9i0uoscphs9pxqdrb2q2zn', 'Authorization':'Bearer pujolmx5q5189wcp56o9buaulw2y0k',}
-    
-    # raw_body ='fields *; where release_dates.platform = 6 & rating >= 90 & release_dates.date >= 1616996761228; limit 10;'
-    #print("Test")    
+    print("Test")
+    response = requests.post(url, raw_body, headers={ 'Client-ID': 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn', 'Authorization': 'Bearer pujolmx5q5189wcp56o9buaulw2y0k'})
     # Check for connection
-    #if response.status_code != 200:
-    #    print('Failed to get data:', response.status_code)
-    #else:
-    #    print('Worked')
+    if response.status_code != 200:
+        print('Failed to get data:', response.status_code)
+    else:
+        print('Worked')
     
+    jsonResponse = (response.json())
     mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
-    
-    for x in range(84):
-        # Get PC games, offset 500+ to get 500 games every call
-        raw_body ='fields *; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(x + 500) + ';'
-
-        response = requests.post(url, raw_body, headers)
-        jsonResponse = (response.json())
-        time.sleep(2) # Pause for 2 seconds every call
-        # Insert or Update to MongoDB
-        for collection in jsonResponse:
+    for collection in jsonResponse:
         # Insert or Update
-            mongo_db.insert(collection)
+        mongo_db.insert(collection)
         
+
 getGames()
 
     
