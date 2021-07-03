@@ -29,10 +29,12 @@ class MongoDB(object):
         # insert/update to DB without duplication
         self._collection.update(post, post, upsert = True)
 
+# getOffset():
+
 def getGames():
     
     mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
-    offset_value = 0
+    offset_value = 0 # current value 51000
     # There are 50765 PC games on IGDB at the moment
     for x in range(103):  
         # Get PC games, offset 500+ to get 500 games every call
@@ -51,6 +53,8 @@ def getGames():
         # Insert or Update
             mongo_db.insert(collection)
         offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation       
+
+    # Store offset_value
         
 getGames()
 
