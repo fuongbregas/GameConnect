@@ -2,6 +2,9 @@ import requests
 import pymongo
 import time
 
+# Important fields of game data from IGDB
+filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
+
 url ='https://api.igdb.com/v4/games/'
 client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
 authorization = 'Bearer pujolmx5q5189wcp56o9buaulw2y0k' # Need to update/change it automatically once expired
@@ -25,20 +28,43 @@ class MongoDB(object):
         if collection_name:
             self._collection = self._database[collection_name]
 
+    # Insert game data
     def insert(self, post):
         # insert/update to DB without duplication
-        self._collection.update(post, post, upsert = True)
+        self._collection.update(post, post, upsert = True) # Warning: update() is deprecated
 
-# getOffset():
+    # Storing new offset value
+    def update_offset(self, post, new_value):
+        # update old offset with new offset
+        self._collection.update_one(post, new_value)
 
-def getGames():
+    # Default value is 0   
+    def get_offset_value(self):
+        returnValues = self._collection.find_one()
+        # get offset value from Python dict
+        return returnValues['currentOffsetValue']
     
+# Get all the game info from IGDB and store locally
+def getGames():
+    # MongoDB object for game data
     mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
-    offset_value = 0 # current value 51000
+    # MongoDB object for offset value
+    igdb_config = MongoDB(database_name = 'gameConnect', collection_name = 'igdbConfiguration')
+
+    offset_value = igdb_config.get_offset_value() # get the current offset from local DB
+    old_offset = offset_value # temporary save the offset
+
+    # If offset is equal to 0, we set number of calls to 103
+    # if not, we loop/call 10 times
+    if offset_value == 0:
+        number_of_calls = 103
+    else:
+        number_of_calls = 2
+
     # There are 50765 PC games on IGDB at the moment
-    for x in range(103):  
+    for x in range(number_of_calls):  
         # Get PC games, offset 500+ to get 500 games every call
-        raw_body ='fields *; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(offset_value) + ';'
+        raw_body ='fields ' + str(filter) + '; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(offset_value) + ';'
         response = requests.post(url, raw_body, headers = {'Client-ID':client_id, 'Authorization':authorization,})
         
         # Check for connection
@@ -54,10 +80,15 @@ def getGames():
             mongo_db.insert(collection)
         offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation       
 
-    # Store offset_value
+    # Store offset_value back to igdbConfiguration
+    old_offset_query = {'currentOffsetValue': old_offset}
+    new_offset_query = {'$set': {'currentOffsetValue': offset_value}}
+    igdb_config.update_offset(old_offset_query, new_offset_query)
         
 getGames()
 
-    
+
+
+ 
 
 
