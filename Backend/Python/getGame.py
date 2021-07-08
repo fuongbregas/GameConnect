@@ -44,7 +44,7 @@ class MongoDB(object):
         # get offset value from Python dict
         return returnValues['currentOffsetValue']
     
-# Get all the game info from IGDB and store locally
+# Get all the game info from IGDB and store locally, current total PC games are 50866
 def getGames():
     # MongoDB object for game data
     mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
@@ -54,14 +54,14 @@ def getGames():
     offset_value = igdb_config.get_offset_value() # get the current offset from local DB
     old_offset = offset_value # temporary save the offset
 
-    # If offset is equal to 0, we set number of calls to 103
+    # If offset is equal to 0, we set number of calls to 102
     # if not, we loop/call 10 times
     if offset_value == 0:
-        number_of_calls = 103
+        number_of_calls = 104
     else:
-        number_of_calls = 2
+        number_of_calls = 2 
 
-    # There are 50765 PC games on IGDB at the moment
+    # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
         # Get PC games, offset 500+ to get 500 games every call
         raw_body ='fields ' + str(filter) + '; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(offset_value) + ';'
@@ -75,10 +75,17 @@ def getGames():
 
         time.sleep(2) # Sleep 2 seconds every call
         jsonResponse = (response.json())
+        
         for collection in jsonResponse:
         # Insert or Update
             mongo_db.insert(collection)
-        offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation       
+        
+        # If the response length is 500, there are still values after that
+        if len(jsonResponse) == 500:
+            offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation
+        # If not, then the response is less than 500, we reached the end, break the loop
+        else:
+            break        
 
     # Store offset_value back to igdbConfiguration
     old_offset_query = {'currentOffsetValue': old_offset}
