@@ -54,12 +54,7 @@ def getGames():
     offset_value = igdb_config.get_offset_value() # get the current offset from local DB
     old_offset = offset_value # temporary save the offset
 
-    # If offset is equal to 0, we set number of calls to 102
-    # if not, we loop/call 10 times
-    if offset_value == 0:
-        number_of_calls = 104
-    else:
-        number_of_calls = 2 
+    number_of_calls = 1000
 
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
