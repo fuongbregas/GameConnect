@@ -1,6 +1,7 @@
 import requests
 import pymongo
 import time
+import json
 
 # Important fields of game data from IGDB
 filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
@@ -72,8 +73,33 @@ def getGames():
         jsonResponse = (response.json())
         
         for collection in jsonResponse:
-        # Insert or Update
-            mongo_db.insert(collection)
+        # Insert or Update, may need to rewrite code            
+            if 'aggregated_rating' not in collection:
+                collection['aggregated_rating'] = 0.0
+            elif 'category' not in collection:
+                collection['category'] = 0
+            elif 'cover' not in collection:
+                collection['cover'] = 0
+            elif 'first_release_date' not in collection:
+                collection['first_release_date'] = 0
+            elif 'game_modes' not in collection:
+                collection['game_modes'] = None
+            elif 'genres' not in collection:
+                collection['genres'] = None
+            elif 'keywords' not in collection:
+                collection['keywords'] = None
+            elif 'multiplayer_modes' not in collection:
+                collection['multiplayer_modes'] = None
+            elif 'name' not in collection:
+                collection['name'] = None
+            elif 'rating' not in collection:
+                collection['rating'] = 0.0
+            elif 'similar_games' not in collection:
+                collection['similar_games'] = None
+            elif 'summary' not in collection:
+                collection['summary'] = None
+            
+            mongo_db.insert(collection) # Insert or Update data
         
         # If the response length is 500, there are still values after that
         if len(jsonResponse) == 500:
