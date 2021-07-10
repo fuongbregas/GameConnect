@@ -73,30 +73,31 @@ def getGames():
         jsonResponse = (response.json())
         
         for collection in jsonResponse:
-        # Insert or Update, may need to rewrite code            
+        # Insert or Update, may need to rewrite code in a method?
+        # Missing fields are set to Null?            
             if 'aggregated_rating' not in collection:
-                collection['aggregated_rating'] = 0.0
-            elif 'category' not in collection:
-                collection['category'] = 0
-            elif 'cover' not in collection:
-                collection['cover'] = 0
-            elif 'first_release_date' not in collection:
-                collection['first_release_date'] = 0
-            elif 'game_modes' not in collection:
+                collection['aggregated_rating'] = None
+            if 'category' not in collection:
+                collection['category'] = None
+            if 'cover' not in collection:
+                collection['cover'] = None
+            if 'first_release_date' not in collection:
+                collection['first_release_date'] = None
+            if 'game_modes' not in collection:
                 collection['game_modes'] = None
-            elif 'genres' not in collection:
+            if 'genres' not in collection:
                 collection['genres'] = None
-            elif 'keywords' not in collection:
+            if 'keywords' not in collection:
                 collection['keywords'] = None
-            elif 'multiplayer_modes' not in collection:
+            if 'multiplayer_modes' not in collection:
                 collection['multiplayer_modes'] = None
-            elif 'name' not in collection:
+            if 'name' not in collection:
                 collection['name'] = None
-            elif 'rating' not in collection:
-                collection['rating'] = 0.0
-            elif 'similar_games' not in collection:
+            if 'rating' not in collection:
+                collection['rating'] = None
+            if 'similar_games' not in collection:
                 collection['similar_games'] = None
-            elif 'summary' not in collection:
+            if 'summary' not in collection:
                 collection['summary'] = None
             
             mongo_db.insert(collection) # Insert or Update data
