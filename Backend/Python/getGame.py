@@ -104,13 +104,16 @@ def getGames():
         # Missing fields are set to Null?            
             set_none(collection)            
             mongo_db.insert(collection) # Insert or Update data
+            
+        # If the response length is 500, there are still values after that
+        if len(jsonResponse) == 500:
+            offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation
+
             # Store offset_value back to igdbConfiguration
             old_offset_query = {'currentOffsetValue': old_offset}
             new_offset_query = {'$set': {'currentOffsetValue': offset_value}}
             igdb_config.update_offset(old_offset_query, new_offset_query)
-        # If the response length is 500, there are still values after that
-        if len(jsonResponse) == 500:
-            offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation
+            
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
