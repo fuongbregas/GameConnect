@@ -44,6 +44,34 @@ class MongoDB(object):
         returnValues = self._collection.find_one()
         # get offset value from Python dict
         return returnValues['currentOffsetValue']
+
+# def date_epoch_time_converter, ISO 8061
+
+def set_none(collection):
+    if 'aggregated_rating' not in collection:
+        collection['aggregated_rating'] = None
+    if 'category' not in collection:
+        collection['category'] = None
+    if 'cover' not in collection:
+        collection['cover'] = None
+    if 'first_release_date' not in collection:
+        collection['first_release_date'] = None
+    if 'game_modes' not in collection:
+        collection['game_modes'] = None
+    if 'genres' not in collection:
+        collection['genres'] = None
+    if 'keywords' not in collection:
+        collection['keywords'] = None
+    if 'multiplayer_modes' not in collection:
+        collection['multiplayer_modes'] = None
+    if 'name' not in collection:
+        collection['name'] = None
+    if 'rating' not in collection:
+        collection['rating'] = None
+    if 'similar_games' not in collection:
+        collection['similar_games'] = None
+    if 'summary' not in collection:
+        collection['summary'] = None
     
 # Get all the game info from IGDB and store locally, current total PC games are 50866
 def getGames():
@@ -55,7 +83,7 @@ def getGames():
     offset_value = igdb_config.get_offset_value() # get the current offset from local DB
     old_offset = offset_value # temporary save the offset
 
-    number_of_calls = 1000
+    number_of_calls = 100000
 
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
@@ -68,52 +96,26 @@ def getGames():
             print('Failed to get data: ', response.status_code)
         else:
             print('Current offset value: ' + str(offset_value))
-
-        time.sleep(2) # Sleep 2 seconds every call
+        
         jsonResponse = (response.json())
         
         for collection in jsonResponse:
         # Insert or Update, may need to rewrite code in a method?
         # Missing fields are set to Null?            
-            if 'aggregated_rating' not in collection:
-                collection['aggregated_rating'] = None
-            if 'category' not in collection:
-                collection['category'] = None
-            if 'cover' not in collection:
-                collection['cover'] = None
-            if 'first_release_date' not in collection:
-                collection['first_release_date'] = None
-            if 'game_modes' not in collection:
-                collection['game_modes'] = None
-            if 'genres' not in collection:
-                collection['genres'] = None
-            if 'keywords' not in collection:
-                collection['keywords'] = None
-            if 'multiplayer_modes' not in collection:
-                collection['multiplayer_modes'] = None
-            if 'name' not in collection:
-                collection['name'] = None
-            if 'rating' not in collection:
-                collection['rating'] = None
-            if 'similar_games' not in collection:
-                collection['similar_games'] = None
-            if 'summary' not in collection:
-                collection['summary'] = None
-            
+            set_none(collection)            
             mongo_db.insert(collection) # Insert or Update data
-        
+            # Store offset_value back to igdbConfiguration
+            old_offset_query = {'currentOffsetValue': old_offset}
+            new_offset_query = {'$set': {'currentOffsetValue': offset_value}}
+            igdb_config.update_offset(old_offset_query, new_offset_query)
         # If the response length is 500, there are still values after that
         if len(jsonResponse) == 500:
             offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
-
-    # Store offset_value back to igdbConfiguration
-    old_offset_query = {'currentOffsetValue': old_offset}
-    new_offset_query = {'$set': {'currentOffsetValue': offset_value}}
-    igdb_config.update_offset(old_offset_query, new_offset_query)
-        
+        time.sleep(1.2) # Sleep 1.2 seconds every call       
+      
 getGames()
 
 
