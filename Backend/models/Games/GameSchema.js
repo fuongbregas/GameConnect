@@ -6,11 +6,15 @@ const GameSchema = new Schema({
         type: Number,
         required: true
     },
-    name:{
-        type: String,
+    aggregate_rating:{
+        type: Mixed,
         required: true,
     },
     category: {
+        type: Number,
+        required: true,
+    },
+    cover:{
         type: Number,
         required: true,
     },
@@ -18,24 +22,41 @@ const GameSchema = new Schema({
         type: Number,
         required: true,
     },
-    cover: {
-        type: Number,
-        required: true,
-    },
-    rating: {
-        type: Number,
-        required: true,
-    },
-    updated_at: {
-        type: Number,
+    // Need ISO 8601 date here
+    
+    game_modes: {
+        type: Array,
         required: true,
     },
     genres: {
         type: Array,
         required: true,
     },
+    keywords: {
+        type: Array,
+        required: true,
+    },    
+    multiplayer_modes:{
+        type: Mixed,
+        required: true,
+    },
+    name:{
+        type: String,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+    },
+
     similar_games: {
         type: Array,
         required: true,
     },
+    summary:{
+        type: String,
+        required: true,
+    },
 });
+
+module.exports = GameSchema = mongoose("game_schema", GameSchema);
