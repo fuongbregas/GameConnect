@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/GameConnect"
+const mongoURI = "mongodb://localhost:27017/gameConnect"
 
 const options = {
     userNewUrlParser: true,
