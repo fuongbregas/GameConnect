@@ -6,7 +6,7 @@ const GameSchema = new Schema({
         type: Number,
         required: true
     },
-    aggregate_rating:{
+    aggregated_rating:{
         type: Mixed,
         required: true,
     },
@@ -59,4 +59,4 @@ const GameSchema = new Schema({
     },
 });
 
-module.exports = GameSchema = mongoose("game_schema", GameSchema);
+module.exports = GameSchema = mongoose.model("game_schema", GameSchema);

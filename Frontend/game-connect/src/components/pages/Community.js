@@ -7,7 +7,7 @@ class Community extends Component {
 
     }
   }
-
+  /*
   componentDidMount() {
     axios.get('/community').then((res) =>{
 
@@ -16,6 +16,7 @@ class Community extends Component {
       console.log(error);
     });
   }
+  */
 
   render() {
     return(

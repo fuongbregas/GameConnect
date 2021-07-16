@@ -11,6 +11,7 @@ const initDB = async () => {
     try{
         await mongoose.connect(mongoURI, options);
         console.log("Successfully connected to MongoDB");
+        console.log('Listening on 3001');
     }
     catch(err){
         console.log("Failed to connect to MongoDB");

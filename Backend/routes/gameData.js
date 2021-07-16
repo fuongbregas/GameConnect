@@ -3,7 +3,7 @@ const router = express.Router();
 const Game = require('../models/Games/GameSchema');
 
 router.get('/community', (req, res) =>{
-    Game.find({'name' : 'Plants vs. Zombies'}).exec(function(err, gameData){
+    Game.find({}).sort('name').exec(function(err, gameData){
         if (err){
             console.log (err, err.stack);
         }
