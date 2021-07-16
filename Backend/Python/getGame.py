@@ -80,13 +80,13 @@ def getGames():
     # MongoDB object for offset value
     igdb_config = MongoDB(database_name = 'gameConnect', collection_name = 'igdbConfiguration')
 
-    offset_value = igdb_config.get_offset_value() # get the current offset from local DB
-    old_offset = offset_value # temporary save the offset
-
     number_of_calls = 100000
 
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
+        offset_value = igdb_config.get_offset_value() # get the current offset from local DB
+        old_offset = offset_value # temporary save the offset
+        
         # Get PC games, offset 500+ to get 500 games every call
         raw_body ='fields ' + str(filter) + '; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(offset_value) + ';'
         response = requests.post(url, raw_body, headers = {'Client-ID':client_id, 'Authorization':authorization,})
@@ -99,9 +99,8 @@ def getGames():
         
         jsonResponse = (response.json())
         
-        for collection in jsonResponse:
-        # Insert or Update, may need to rewrite code in a method?
-        # Missing fields are set to Null?            
+        for collection in jsonResponse:        
+                
             set_none(collection)            
             mongo_db.insert(collection) # Insert or Update data
             
