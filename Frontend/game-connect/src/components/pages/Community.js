@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function Community() {
+class Community extends Component {
+
+  render() {
     return(
-        <>
-          <h1 className='community'>Community Page</h1>
-        </>
+      <>
+        <h1 className='community'>Community Page</h1>
+      </>
     );
+  }
+    
 }
+
+export default Community;

@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 connectMongoDB();
 
 app.listen(PORT, function(){
-    console.log('Listening on 3000');
+    console.log('Listening on 3001');
 });
 
 
