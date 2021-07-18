@@ -76,7 +76,7 @@ def set_none(collection):
 # Get all the game info from IGDB and store locally, current total PC games are 50866
 def getGames():
     # MongoDB object for game data
-    mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gamedatas')
+    mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
     # MongoDB object for offset value
     igdb_config = MongoDB(database_name = 'gameConnect', collection_name = 'igdbConfiguration')
 

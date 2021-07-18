@@ -62,6 +62,6 @@ const GameSchema = new Schema({
         required: true,
     },
     
-});
+}, {collection: 'gameData'});
 
-module.exports = Games = mongoose.model("gameData", GameSchema);
+module.exports = Games = mongoose.model('gameData', GameSchema);
