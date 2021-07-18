@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-    /*
+    
     id: {
         type: Number,
         required: true
@@ -42,12 +42,12 @@ const GameSchema = new Schema({
         type: Schema.Types.Mixed,
         required: true,
     },
-    */
+    
     name:{
         type: String,
         required: true,
     },
-    /*
+    
     rating: {
         type: Number,
         required: true,
@@ -61,7 +61,7 @@ const GameSchema = new Schema({
         type: String,
         required: true,
     },
-    */
+    
 });
 
 module.exports = Games = mongoose.model("gameData", GameSchema);
