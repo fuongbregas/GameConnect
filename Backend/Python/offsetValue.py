@@ -5,7 +5,7 @@ list_of_db = connection.list_database_names()
 def offset_value_check():
     gameConnect_database = connection['gameConnect']
     list_of_collections = gameConnect_database.list_collection_names()
-
+    print(list_of_collections)
     # check if igdbConfiguration collection is available
     if 'igdbConfiguration' in list_of_collections:
         print('igdbConfiguration collection exists') # Do nothing!
@@ -15,4 +15,4 @@ def offset_value_check():
         offset = {'offset_value' : 0}
         igdb_collection.insert_one(offset)
     
-offset_value_check
+offset_value_check()
