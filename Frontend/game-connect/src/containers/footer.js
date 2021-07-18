@@ -1,36 +1,41 @@
 import React from 'react';
 import Footer from '../components/footer';
-import { Link } from 'react-router-dom';
+import {InternalItems, ExternalItems} from '../components/footer/FooterItems';
+import './links.css';
 
 export function FooterContainer() {
     return(
         <Footer>
             <Footer.Wrapper>
                 <Footer.Row>
-                <Footer.Column>
-                    <Footer.Title>Links</Footer.Title>
-                    <Footer.Link href="#">Team Members</Footer.Link>
-                    <Footer.Link href="#">Privacy Policy</Footer.Link>
-                    <Footer.Link href="#">Terms of Use</Footer.Link>
-                </Footer.Column>
-                <Footer.Column>
-                    <Footer.Title>Related Sites</Footer.Title>
-                    <Footer.Link href="#">IGDB</Footer.Link>
-                    <Footer.Link href="#">Twitch</Footer.Link>
-                    <Footer.Link href="#">Steam</Footer.Link>
-                </Footer.Column>
-                <Footer.Column>
-                    <Footer.Title>GameConnect</Footer.Title>
-                    <Footer.Link href="#">Community</Footer.Link>
-                    <Footer.Link href="#">About Us</Footer.Link>
-                    <Footer.Link href="#">Support</Footer.Link>
-                </Footer.Column>
-                <Footer.Column>
-                    <Footer.Title>Social</Footer.Title>
-                    <Footer.Link href="#">Facebook</Footer.Link>
-                    <Footer.Link href="#">Instagram</Footer.Link>
-                    <Footer.Link href="#">Youtube</Footer.Link>
-                </Footer.Column>
+                    {InternalItems.map((item,index) => {
+                        return(
+                          <>
+                            <Footer.Column key={index}>
+                            <Footer.Title key={index}>{item.title}</Footer.Title>
+                            {item.links.map((link,key) => {
+                                return (
+                                    <Footer.Links key={key} href={link.url}>{link.name}</Footer.Links>   
+                                )
+                            })}
+                            </Footer.Column>
+                          </>  
+                        )
+                    })}
+                    {ExternalItems.map((item,index) => {
+                        return(
+                          <>
+                            <Footer.Column>
+                            <Footer.Title key={index}>{item.title}</Footer.Title>
+                            {item.links.map((link,key) => {
+                                return (
+                                    <a href={link.url} key={key} target="_blank" rel="noreferrer" className="exlinks">{link.name}</a>  
+                                )
+                            })}
+                            </Footer.Column>
+                          </>  
+                        )
+                    })}
                 </Footer.Row>
             </Footer.Wrapper>
             <h5 style={{ color: "white", 
