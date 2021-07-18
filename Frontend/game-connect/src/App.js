@@ -6,8 +6,11 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Community from './components/pages/Community';
 import Support from './components/pages/Support';
-import NotFound from './components/pages/NotFound';
 import Login from './components/pages/Login';
+import TeamMembers from './components/pages/TeamMembers';
+import Privacy from './components/pages/Privacy';
+import Terms from './components/pages/Terms';
+import NotFound from './components/pages/NotFound';
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
           <Route path='/community' exact component={Community} />
           <Route path='/support' exact component={Support} />
           <Route path='/login' exact component={Login} />
+          <Route path='/team' exact component={TeamMembers} />
+          <Route path='/privacy' exact component={Privacy} />
+          <Route path='/terms' exact component={Terms} />
           <Route component={NotFound} />
         </Switch>
 
