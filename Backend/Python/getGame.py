@@ -1,7 +1,7 @@
 import requests
-import pymongo
+from datetime import datetime
 import time
-import json
+
 
 # Important fields of game data from IGDB
 filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
@@ -32,7 +32,7 @@ class MongoDB(object):
     # Insert game data
     def insert(self, post):
         # insert/update to DB without duplication
-        self._collection.update(post, post, upsert = True) # Warning: update() is deprecated
+        self._collection.update(post, post, upsert = True) # Warning: update() is deprecated, lazy to rewrite.
 
     # Storing new offset value
     def update_offset(self, post, new_value):
@@ -51,9 +51,11 @@ class MongoDB(object):
         # get token value from Python dict
         return 'Bearer ' + str(returnToken['igdb_token']) # The full authorization is 'Bearer token_key'
 
-# def date_epoch_time_converter, ISO 8061
+# Convert seconds to_epoch_time_converter, ISO 8061
+def time_converter(epoch_time):
+    return datetime.utcfromtimestamp(epoch_time).isoformat()
 
-# Function helps adding missing fields as NULL
+# Function helps adding missing fields as NULL,  except time
 def set_none(document):
     if 'aggregated_rating' not in document:
         document['aggregated_rating'] = None
@@ -61,6 +63,13 @@ def set_none(document):
         document['category'] = None
     if 'cover' not in document:
         document['cover'] = None
+    # Timestamp is available in the document
+    if 'first_release_date' in document:
+        epoch_time = document['first_release_date']
+        ISO_date = time_converter(epoch_time)
+        # ISO time can only be stored in String in MongoDB        
+        document['first_release_date'] = ISO_date 
+    # Missing timestamp in the document
     if 'first_release_date' not in document:
         document['first_release_date'] = None
     if 'game_modes' not in document:

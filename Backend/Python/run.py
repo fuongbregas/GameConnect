@@ -17,13 +17,12 @@ def check_igdbAuthorization_existance(authorization_collection, authorization_to
     new_token_set = {'igdb_token': authorization_token}
 
     if 'igdbAuthorization' in list_of_collections:
-        # Update the current token with a new one    
-        # Get current token key if it exists
-        current_token = authorization_collection.find_one()
+        # Update the current token with a new one        
+        current_token = authorization_collection.find_one() # Get current token key if it exists
         old_token_set = {'igdb_token': current_token}
-        authorization_collection.replace_one(old_token_set, new_token_set)
+        authorization_collection.replace_one(old_token_set, new_token_set) # Replace old token
     else: 
-        authorization_collection.insert_one(new_token_set)
+        authorization_collection.insert_one(new_token_set) # Insert new token to DB
 
 def run():
     # Get authorization token from IGDB

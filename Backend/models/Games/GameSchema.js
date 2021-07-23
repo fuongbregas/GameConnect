@@ -9,7 +9,7 @@ const GameSchema = new Schema({
     },
     
     aggregated_rating:{
-        type: Schema.Types.Mixed,
+        type: Number,
         required: true,
     },
     category: {
@@ -20,12 +20,12 @@ const GameSchema = new Schema({
         type: Number,
         required: true,
     },
+    // Need ISO 8601 date here
     first_release_date: {
-        type: Number,
+        type: String,
         required: true,
     },
-    // Need ISO 8601 date here
-    
+        
     game_modes: {
         type: Array,
         required: true,
@@ -39,7 +39,7 @@ const GameSchema = new Schema({
         required: true,
     },    
     multiplayer_modes:{
-        type: Schema.Types.Mixed,
+        type: Array,
         required: true,
     },
     
