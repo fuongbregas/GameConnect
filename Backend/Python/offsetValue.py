@@ -15,4 +15,3 @@ def offset_value_check():
         offset = {'currentOffsetValue' : 0}
         igdb_collection.insert_one(offset)
     
-offset_value_check()
