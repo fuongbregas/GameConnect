@@ -26,6 +26,7 @@ def check_igdbAuthorization_existance(authorization_collection, authorization_to
         authorization_collection.insert_one(new_token_set)
 
 def run():
+    # Get authorization token from IGDB
     response = requests.post(url)
     jsonResponse = response.json()
     authorization_token = jsonResponse['access_token']
@@ -38,6 +39,6 @@ def run():
 
     # Run other two python files
     offsetValue.offset_value_check()
-    #getGame.getGames()
+    getGame.getGames()
     
 run()
