@@ -12,11 +12,6 @@ const ConversationSchema = new Schema({
         type: String,
         required: true,
     },
-    // List of messages of this conversation
-    message_list:{
-        type: Array,
-        required: true,
-    },
     // Date the conversation was created
     date: {
         type: Date,

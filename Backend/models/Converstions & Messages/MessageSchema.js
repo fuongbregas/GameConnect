@@ -6,6 +6,11 @@ const MessageSchema = new Schema({
         type: Number,
         required: true,
     },
+    // The ID of the conversation that the message belongs to
+    conversation_id: {
+        type: Number,
+        required: true,
+    },
     user_id: {
         type: Number,
         required: true,
