@@ -14,4 +14,3 @@ def offset_value_check():
         igdb_collection = gameConnect_database['igdbConfiguration']
         offset = {'currentOffsetValue' : 0}
         igdb_collection.insert_one(offset)
-    

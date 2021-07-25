@@ -93,11 +93,4 @@ def getGames():
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
-        time.sleep(1.2) # Sleep 1.2 seconds every call       
-      
-
-
-
- 
-
-
+        time.sleep(1.2) # Sleep 1.2 seconds every call
