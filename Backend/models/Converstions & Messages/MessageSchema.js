@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
-    message_id: {
-        type: Number,
-        required: true,
-    },
     // The ID of the conversation that the message belongs to
     conversation_id: {
         type: Number,
