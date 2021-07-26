@@ -2,16 +2,16 @@ import {useContext, useRef, React} from 'react';
 import {Link} from 'react-router-dom';
 import './Login.css';
 
-
-const email = useRef();
-const password = useRef();
-
-const loginClick = (e) => {
-  e.preventDefault();
-  
-};
-
 const Login = () => {
+
+    const email = useRef(null);
+    const password = useRef(null);
+    
+    const loginClick = (e) => {
+      e.preventDefault();
+      
+    };
+
     return (
         <>
           <div>

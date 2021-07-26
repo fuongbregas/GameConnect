@@ -2,17 +2,17 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {FooterContainer} from './containers/footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Home from './components/pages/Home';
-import About from './components/pages/About';
-import Community from './components/pages/Community';
-import Support from './components/pages/Support';
-import Signin from './components/pages/Signin';
-import TeamMembers from './components/pages/TeamMembers';
-import Privacy from './components/pages/Privacy';
-import Terms from './components/pages/Terms';
-import Forgot from './components/pages/Forgot';
-import Signup from './components/pages/Signup';
-import NotFound from './components/pages/NotFound';
+import Home from './pages/Home';
+import About from './pages/About';
+import Community from './pages/Community';
+import Support from './pages/Support';
+import Signin from './pages/Signin';
+import TeamMembers from './pages/TeamMembers';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Forgot from './pages/Forgot';
+import Signup from './pages/Signup';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
