@@ -30,7 +30,7 @@ const UserSchema = new Schema({
         required: true,
     },
     join_date: {
-        type: Date,
+        type: String,
         required: true,
     },
     friend_list: {

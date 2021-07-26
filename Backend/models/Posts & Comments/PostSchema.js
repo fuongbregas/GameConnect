@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-    post_id: {
-        type: Number,
-        required: true,
-    },
+    
     // The ID of the game/community the post belongs to
     game_id: {
         type: Number,

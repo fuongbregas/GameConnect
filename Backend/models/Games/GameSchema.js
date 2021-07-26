@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-    
+    // ID of the game from IGDB
     id: {
         type: Number,
         required: true
