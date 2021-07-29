@@ -10,7 +10,8 @@ router.post('/register', async (req, res) => {
     try {
         // generate hash password
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        // const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        hashedPassword = 'abcd';
         var datetime = new Date(Date.now()).toISOString();
         
         // create new user
@@ -18,20 +19,31 @@ router.post('/register', async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
+            profile_picture: "",
             join_date: datetime,
-
+            friend_list: [],
+            post_history: [],
+            comment_history: [],
+            communities: [],
+            conversations: [],
+            saved_games: [],
+            is_creator: false,
+            is_banned: false,
+            login_token: "",
+            
         });
 
         // save user
         const user = await newUser.save();
+        console.log(user);
         res.status(200).json(user);
     }
 
-    catch {
+    catch (err) {
         res.status(500).json(err);
     }
 });
-
+/*
 // Login User
 router.post('/login', async (req, res) => {
     try {
@@ -48,5 +60,5 @@ router.post('/login', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
+*/
 module.exports = router;

@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const connectMongoDB = require("./config/initMongoDB");
 const PORT = process.env.PORT || 3001;
 const CORS = require('cors');
+
+// routes
+const gameDataRoute = require('./routes/gameData');
+const authorization = require('./routes/authorization');
 
 // Connect MongoDB
 connectMongoDB();
@@ -16,7 +19,8 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 // Initialize routes
-app.use(require('./routes/gameData'));
+app.use('/backend/', gameDataRoute);
+app.use('/backend/', authorization);
 
 app.listen(PORT, function(){
     console.log('Worked');

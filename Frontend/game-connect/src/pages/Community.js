@@ -10,7 +10,7 @@ class Community extends Component {
   }
   
   componentDidMount() {
-    axios.get('http://localhost:3001/backend/game_data').then((res) =>{
+    axios.get('/backend/game_data').then((res) =>{
 
       let data = res.gameData;
       console.log("Test \n" + JSON.stringify(res));

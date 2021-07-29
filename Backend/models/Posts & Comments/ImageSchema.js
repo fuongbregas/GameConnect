@@ -8,12 +8,7 @@ const ImageSchema = new Schema({
         type: String,
         required: true,
     },
-    // Path to the image in local machine
-    image_path: {
-        type: String,
-        required: true,
-    },
-    
+        
 }, {collection: 'imageData'});
 
 module.exports = Images = mongoose.model('imageData', ImageSchema);
