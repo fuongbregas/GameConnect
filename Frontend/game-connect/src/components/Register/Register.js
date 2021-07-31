@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {useContext, useRef, React} from 'react';
+import {useContext, useRef, React, useState} from 'react';
 import { useHistory } from 'react-router';
 import {Link} from 'react-router-dom';
 import './Register.css';
@@ -9,6 +9,7 @@ const Register = () => {
     const email = useRef();
     const password = useRef();
     const history = useHistory();
+    const [error, setError] = useState("");
     
     const registerClick = async (e) => {
       e.preventDefault();
@@ -26,6 +27,7 @@ const Register = () => {
       }
       catch (err) {
         console.log(err)
+        setError("This account already exists!");
       }
 
     };
@@ -52,6 +54,7 @@ const Register = () => {
                   </label>
                   <button className="button" type="submit">Sign Up</button>
                   <span className="text"><Link to='/signin' className="nav-links">Login to Account</Link></span>
+                  {(error !== "") ? <div className="error">{error}</div>: ""}
                 </form>
               </div>
             </div>

@@ -7,8 +7,9 @@ export const Container = styled.div`
     position:absolute;
     bottom: 0;
     width: 100%;
+    height: 230px;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1900px) {
         padding: 5px 30px;
         display: none;
     }
