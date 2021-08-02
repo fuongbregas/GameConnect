@@ -10,7 +10,9 @@ export const loginCall = async (userCredential, dispatch) => {
         dispatch(
             {type: 'LOGIN_SUCCESS'}, 
             {payload: response.data}
+            
         );
+        console.log("Response data: " + JSON.stringify(response.data));
     }
     catch (err) {
         dispatch(

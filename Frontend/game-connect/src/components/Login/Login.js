@@ -18,8 +18,8 @@ const Login = () => {
          password: password.current.value}, 
          dispatch);
 
-      console.log("Check for user: " + user);
     };
+    console.log(user);
     
     return (
         <>
