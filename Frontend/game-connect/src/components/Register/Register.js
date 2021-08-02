@@ -47,7 +47,7 @@ const Register = () => {
                   <input className="form-input" ref = {email} type="email" required />
 
                   <label className="form-label" htmlFor="for">Password</label>
-                  <input className="form-input" ref = {password} type="password" required />
+                  <input className="form-input" ref = {password} type="password" required minLength = '6' />
 
                   <label className="form-label" htmlFor="for">
                     <input type="checkbox" name="remember" /> Remember me
