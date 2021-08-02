@@ -27,7 +27,7 @@ const Register = () => {
       }
       catch (err) {
         console.log(err)
-        setError("This account already exists!");
+        setError("Email or Username already existed!");
       }
 
     };
