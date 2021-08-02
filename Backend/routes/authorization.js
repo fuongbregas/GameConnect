@@ -47,12 +47,15 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne ({email: req.body.email}); // find the user in MongoDB with the given email
-        !user && res.status(404).json("Failed to login"); // no email found
+        console.log("Login request: " + JSON.stringify(req.body));
+        !user && res.status(404).json("user not found"); // no email found
         
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("Failed to login"); // no email found
+        !validPassword && res.status(400).json("Wrong password"); // no email found
 
+        console.log("Login user: " + user);
         res.status(200).json(user);
+        
     }
 
     catch (err) {

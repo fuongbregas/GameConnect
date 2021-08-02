@@ -1,8 +1,7 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-//import Navbar from './components/Navbar';
 import {FooterContainer} from './containers/footer';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Community from './pages/Community';
@@ -15,18 +14,30 @@ import Forgot from './pages/Forgot';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+
 function App() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="App">
       <Router>
         <Navbar />
 
         <Switch>
-          <Route path='/' exact component={Home} />
+          <Route exact path='/'>
+            {user ? <Home/> : <Signup/>}
+          </Route>
+
           <Route path='/about' exact component={About} />
           <Route path='/community' exact component={Community} />
           <Route path='/support' exact component={Support} />
-          <Route path='/signin' exact component={Signin} />
+
+          <Route exact path='/signin'>
+            {user ? <Redirect to = "/" /> : <Signin/>}
+          </Route>
+          
           <Route path='/team' exact component={TeamMembers} />
           <Route path='/privacy' exact component={Privacy} />
           <Route path='/terms' exact component={Terms} />
