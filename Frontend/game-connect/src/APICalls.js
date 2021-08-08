@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export const loginCall = async (userCredential, dispatch) => {
+
+
     dispatch({
         type: 'LOGIN_START'
     });
@@ -12,7 +14,7 @@ export const loginCall = async (userCredential, dispatch) => {
             {payload: response.data}
             
         );
-        console.log("Response data: " + JSON.stringify(response.data));
+        console.log(response.data);
     }
     catch (err) {
         dispatch(

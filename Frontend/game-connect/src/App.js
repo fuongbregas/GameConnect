@@ -19,7 +19,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-
+  console.log("User: " + user);
   return (
     <div className="App">
       <Router>
@@ -30,19 +30,22 @@ function App() {
             {user ? <Home/> : <Signup/>}
           </Route>
 
-          <Route path='/about' exact component={About} />
-          <Route path='/community' exact component={Community} />
-          <Route path='/support' exact component={Support} />
+          <Route path='/about'> <About/> </Route>
+          <Route path='/community'> <Community/> </Route>
+          <Route path='/support'> <Support/> </Route>
 
-          <Route exact path='/signin'>
-            {user ? <Redirect to = "/" /> : <Signin/>}
+          <Route path='/signin'>
+            {user ? <Redirect to = "/"/> : <Signin/>}
           </Route>
           
-          <Route path='/team' exact component={TeamMembers} />
-          <Route path='/privacy' exact component={Privacy} />
-          <Route path='/terms' exact component={Terms} />
-          <Route path='/forgot' exact component={Forgot} />
-          <Route path='/signup' exact component={Signup} />
+          <Route path='/team'> <TeamMembers/> </Route>
+
+          <Route path='/privacy'> <Privacy/> </Route>
+          <Route path='/terms'> <Terms/> </Route>
+          <Route path='/forgot'> <Forgot/> </Route>
+          <Route path='/signup'>
+             {user ? <Redirect to = "/"/> : <Signup/>} 
+          </Route>
           <Route component={NotFound} />
         </Switch>
 

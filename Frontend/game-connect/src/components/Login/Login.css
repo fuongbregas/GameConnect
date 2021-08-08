@@ -74,6 +74,14 @@
     /*button*/
 }
 
+.button:focus{
+    outline: none;
+}
+
+.button:disabled{
+    cursor:not-allowed;
+}
+
 .button:hover {
     background: #fff;
     color: #6568F4;
