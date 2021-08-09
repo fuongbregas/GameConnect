@@ -14,8 +14,8 @@ class Community extends Component {
 
       let data = res.gameData;
       console.log("Test \n" + JSON.stringify(res));
-      this.setState({game : data.name}); 
-      console.log(this.state.game);
+      //this.setState({game : data.name}); 
+      //console.log(this.state.game);
     })
     .catch((error) => {
       console.log(error);

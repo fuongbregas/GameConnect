@@ -18,11 +18,10 @@ const Login = () => {
       loginCall (
         {email: email.current.value, 
          password: password.current.value}, 
-         dispatch);
-      
+         dispatch);     
       
     };
-    console.log("Login user " + user);
+    console.log(user);
     
     return (
         <>

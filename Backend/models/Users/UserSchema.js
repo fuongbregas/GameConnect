@@ -57,11 +57,7 @@ const UserSchema = new Schema({
     is_banned: {
         type: Boolean,
         required: true,
-    },
-    login_token: {
-        type: String,
-    },
-    
+    },    
 
 }, {collection: 'userData'}); // Name of the collection
 

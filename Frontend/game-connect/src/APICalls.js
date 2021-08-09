@@ -1,25 +1,21 @@
 import axios from "axios";
+import {LoginStart, LoginSuccess, LoginFailure} from "./context/AuthActions";
 
 export const loginCall = async (userCredential, dispatch) => {
 
-
-    dispatch({
-        type: 'LOGIN_START'
-    });
+    dispatch(LoginStart());
 
     try {
         const response = await axios.post('/backend/login', userCredential);
         dispatch(
-            {type: 'LOGIN_SUCCESS'}, 
-            {payload: response.data}
+            LoginSuccess(response.data)      
             
         );
         console.log(response.data);
     }
     catch (err) {
         dispatch(
-            {type: 'LOGIN_FAILURE'},
-            {payload: err}
+            LoginFailure(err)          
         );
     }
 };
