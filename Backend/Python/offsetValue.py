@@ -1,3 +1,5 @@
+# This file is used in run.py
+
 from pymongo import MongoClient
 connection = MongoClient('localhost', 27017) # connect to mongo_db
 
