@@ -1,6 +1,7 @@
 import requests
 import offsetValue
 import getGame
+import getGenres
 
 from pymongo import MongoClient
 connection = MongoClient('localhost', 27017) # connect to mongo_db
@@ -36,7 +37,8 @@ def run():
     
     check_igdbAuthorization_existance(authorization_collection, authorization_token)       
 
-    # Run other two python files
+    # Run other python files
+    getGenres.getGenres()
     offsetValue.offset_value_check()
     getGame.getGames()
     

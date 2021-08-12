@@ -8,7 +8,7 @@ const CommunitySchema = new Schema({
         required: true,
     },
     // Name of the community is the name of the game
-    game_name: {
+    name: {
         type: String,
         required: true,
     },
@@ -22,4 +22,9 @@ const CommunitySchema = new Schema({
         type: Array,
         required: true,
     },
+    // Number of memebers
+    total_members:{
+        type: Number,
+        required: true,
+    }
 }, {collection: 'communityData'});

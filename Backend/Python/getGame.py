@@ -1,7 +1,10 @@
+# This file is used in run.py
+
 import requests
 from datetime import datetime
 import time
 from MongoDB_Object import MongoDB
+import createCommunities
 
 # Important fields of game data from IGDB
 filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
@@ -50,9 +53,11 @@ def set_none(document):
 # Get all the game info from IGDB and store locally, current total PC games are 50866
 def getGames():
     # MongoDB object for game data
-    mongo_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
+    game_data = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
     # MongoDB object for offset value
     igdb_config = MongoDB(database_name = 'gameConnect', collection_name = 'igdbConfiguration')
+    # MongoDB object for communities
+    communities_db = MongoDB(database_name = 'gameConnect', collection_name = 'gameCommunities')
     # MongoDB object for authorization token
     igdb_authorization = MongoDB(database_name = 'gameConnect', collection_name = 'igdbAuthorization')
     authorization_token = igdb_authorization.get_authorization_token() # token
@@ -79,8 +84,10 @@ def getGames():
         for document in jsonResponse:        
                 
             set_none(document) # Check for missing fields            
-            mongo_db.insert(document) # Insert or Update data
-            
+            game_data.insert(document) # Insert or Update data
+            community = createCommunities.create_community_dict(document) # create a community dictionary from a game document
+            communities_db.insert(community) # Insert into community DB
+             
         # If the response length is 500, there are still values after that
         if len(jsonResponse) == 500:
             offset_value = offset_value + 500 # Increases by 500 due to IGDB limitation
