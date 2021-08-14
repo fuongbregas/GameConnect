@@ -19,10 +19,9 @@ def time_converter(epoch_time):
 # Get cover image in 1080p resolution
 def get_HQ_cover(cover_url):
     new_cover_url = cover_url.replace('//image','image').replace('t_thumb','t_1080p')
-    #print(new_cover_url)
     return new_cover_url
 
-# Function helps adding missing fields as NULL,  except time
+# Function helps adding missing fields as NULL
 def set_none(document):
     if 'aggregated_rating' not in document:
         document['aggregated_rating'] = None

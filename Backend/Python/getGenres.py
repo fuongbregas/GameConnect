@@ -16,8 +16,6 @@ def createGenres():
     igdb_authorization = MongoDB(database_name = 'gameConnect', collection_name = 'igdbAuthorization')
     authorization_token = igdb_authorization.get_authorization_token() # token
 
-    
-
     for x in range(37):
         # Get genre name
         raw_body = 'fields name; where id = ' + str(x) + ';'

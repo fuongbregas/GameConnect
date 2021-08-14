@@ -21,15 +21,15 @@ router.post('/register', async (req, res) => {
             profile_picture: "",
             join_date: datetime,
             friend_list: [],
+            blocked_list: [],
+            pending_friend_requests: [],
             post_history: [],
             comment_history: [],
             communities: [],
             conversations: [],
             saved_games: [],
             is_creator: false,
-            is_banned: false,
-            login_token: "",
-            
+            is_banned: false,            
         });
 
         // save user
