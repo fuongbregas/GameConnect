@@ -1,17 +1,22 @@
 import requests
 from MongoDB_Object import MongoDB
 
+from pymongo import MongoClient
+connection = MongoClient('localhost', 27017) # connect to mongo_db
+
 # Get genre ID and name
 url ='https://api.igdb.com/v4/genres/' # Get genre information
 client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
 
-def getGenres():
+def createGenres():
     # MongoDB object for genre
     game_genre = MongoDB(database_name = 'gameConnect', collection_name = 'gameGenres')
 
     # MongoDB object for authorization token
     igdb_authorization = MongoDB(database_name = 'gameConnect', collection_name = 'igdbAuthorization')
     authorization_token = igdb_authorization.get_authorization_token() # token
+
+    
 
     for x in range(37):
         # Get genre name
@@ -32,3 +37,15 @@ def getGenres():
             game_genre.insert(jsonResponse[0]) # Insert into gameGenres database
         else:
             print("Empty response!")
+
+def getGenres():
+    gameConnect_database = connection['gameConnect']
+    # List all collections
+    list_of_collections = gameConnect_database.list_collection_names()
+
+    # check if gameGenres collection is available
+    if 'gameGenres' in list_of_collections:
+        print('gameGenres collection exists') # Do nothing!
+    else:
+        # Create gameGenres
+        createGenres()

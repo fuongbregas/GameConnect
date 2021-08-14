@@ -30,6 +30,14 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
+    blocked_list: {
+        type: Array,
+        required: true,
+    },
+    pending_friend_requests: {
+        type: Array,
+        required: true,
+    },
     post_history: {
         type: Array,
         required: true,

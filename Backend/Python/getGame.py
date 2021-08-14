@@ -7,7 +7,7 @@ from MongoDB_Object import MongoDB
 import createCommunities
 
 # Important fields of game data from IGDB
-filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
+filter = 'id,aggregated_rating,cover.url,category,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
 
 url ='https://api.igdb.com/v4/games/'
 client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
@@ -22,6 +22,9 @@ def set_none(document):
         document['aggregated_rating'] = None
     if 'category' not in document:
         document['category'] = None
+    if 'cover' in document:
+        cover_url = document['cover']['url']
+        document['cover'] = cover_url
     if 'cover' not in document:
         document['cover'] = None
     # Timestamp is available in the document
