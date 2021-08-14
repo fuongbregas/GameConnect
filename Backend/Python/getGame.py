@@ -16,15 +16,22 @@ client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
 def time_converter(epoch_time):
     return datetime.utcfromtimestamp(epoch_time).isoformat()
 
+# Get cover image in 1080p resolution
+def get_HQ_cover(cover_url):
+    new_cover_url = cover_url.replace('//image','image').replace('t_thumb','t_1080p')
+    #print(new_cover_url)
+    return new_cover_url
+
 # Function helps adding missing fields as NULL,  except time
 def set_none(document):
     if 'aggregated_rating' not in document:
         document['aggregated_rating'] = None
     if 'category' not in document:
         document['category'] = None
+    # Get the URL of the cover from the JSON response
     if 'cover' in document:
         cover_url = document['cover']['url']
-        document['cover'] = cover_url
+        document['cover'] = get_HQ_cover(cover_url)
     if 'cover' not in document:
         document['cover'] = None
     # Timestamp is available in the document
