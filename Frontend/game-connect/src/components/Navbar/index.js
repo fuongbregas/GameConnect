@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FaBars} from 'react-icons/fa';
+import Sidebar from '../Sidebar';
 import { 
   Nav, 
   NavbarContainer, 
@@ -13,12 +14,19 @@ import {
 } from './NavbarElements';
 
 const Navbar = () => {
+    const [isOpen, setisOpen] = useState(false);
+
+    const toggle = () => {
+      setisOpen(!isOpen);
+    }
+
     return (
       <>
+        <Sidebar isOpen={isOpen} toggle={toggle}/>
         <Nav>
           <NavbarContainer>
             <NavLogo to="/">GameConnect</NavLogo>
-            <MobileIcon>
+            <MobileIcon onClick={toggle}>
                 <FaBars />
             </MobileIcon>
             <NavMenu>
@@ -26,13 +34,13 @@ const Navbar = () => {
                 <NavLinks to="/">Home</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="community">Community</NavLinks>
+                <NavLinks to="/community">Community</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="about">About</NavLinks>
+                <NavLinks to="/about">About</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="support">Support</NavLinks>
+                <NavLinks to="/support">Support</NavLinks>
               </NavItem>
             </NavMenu>
             <NavBtn>
