@@ -59,7 +59,7 @@ def set_none(document):
     if 'summary' not in document:
         document['summary'] = None
     
-# Get all the game info from IGDB and store locally, current total PC games are 50866
+# Get all the game info from IGDB and store locally
 def getGames():
     # MongoDB object for game data
     game_data = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
@@ -71,7 +71,7 @@ def getGames():
     igdb_authorization = MongoDB(database_name = 'gameConnect', collection_name = 'igdbAuthorization')
     authorization_token = igdb_authorization.get_authorization_token() # token
     
-    number_of_calls = 100000 # We can set to a huge number
+    number_of_calls = 100000 # We can set to an infinite number
 
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
@@ -109,4 +109,4 @@ def getGames():
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
-        time.sleep(1.2) # Sleep 1.2 seconds every call
+        time.sleep(0.8) # Sleep 0.8 seconds every call

@@ -1,8 +1,8 @@
 import requests
 from MongoDB_Object import MongoDB
 
-from pymongo import MongoClient
-connection = MongoClient('localhost', 27017) # connect to mongo_db
+import createMongoClient
+connection = createMongoClient.createMongoClient()
 
 # Get genre ID and name
 url ='https://api.igdb.com/v4/genres/' # Get genre information

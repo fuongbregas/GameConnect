@@ -3,8 +3,9 @@ import offsetValue
 import getGame
 import getGenres
 
-from pymongo import MongoClient
-connection = MongoClient('localhost', 27017) # connect to mongo_db
+import createMongoClient
+connection = createMongoClient.createMongoClient()
+
 # Create/Update authorization collection in MongoDB
 gameConnect_database = connection['gameConnect'] # gameConnect database
 

@@ -1,4 +1,4 @@
-import {useContext, useRef, React} from 'react';
+import {useContext, useRef, React, useState} from 'react';
 import {Link} from 'react-router-dom';
 import './Login.css';
 import {loginCall} from '../../APICalls';
@@ -9,8 +9,8 @@ import {CircularProgress} from '@material-ui/core';
 const Login = () => {
     const email = useRef();
     const password = useRef();
-    const {user, isFetching, dispatch} = useContext(AuthContext);
-    //const history = useHistory();
+    const {user, isFetching, error, dispatch} = useContext(AuthContext);
+    const [err, setError] = useState("");
     
     const loginClick = (e) => {
       e.preventDefault();
@@ -20,7 +20,10 @@ const Login = () => {
          password: password.current.value}, 
          dispatch);     
       
+
+      
     };
+    console.log(error)
     console.log(user);
     
     return (
