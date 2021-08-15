@@ -14,6 +14,13 @@ export const loginCall = async (userCredential, dispatch) => {
         console.log(response.data);
     }
     catch (err) {
+
+        if(err.response.status === 400 || err.response.status === 404){
+            console.log("Error logging in. Please try again");
+        }
+        else{
+            console.log("This account is banned");
+        }
         dispatch(
             LoginFailure(err)          
         );

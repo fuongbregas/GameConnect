@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
             post_history: [],
             comment_history: [],
             communities: [],
+            communities_mod: [],
             conversations: [],
             saved_games: [],
             is_creator: false,
@@ -53,9 +54,13 @@ router.post('/login', async (req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         !validPassword && res.status(400).json("Wrong password"); // no email found
 
-        console.log("Login user: " + user);
-        res.status(200).json(user);
-        
+        if (user.is_banned == true){
+            res.status(405).json("User is banned");
+        }
+        else {
+            console.log("Login user: " + user);
+            res.status(200).json(user);
+        }
     }
 
     catch (err) {

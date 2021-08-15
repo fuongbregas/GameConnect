@@ -50,6 +50,10 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
+    communities_mod: {
+        type: Array,
+        required: true,
+    },
     conversations: {
         type: Array,
         required: true,
