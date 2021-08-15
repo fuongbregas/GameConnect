@@ -1,3 +1,5 @@
+# This file is used in getGame.py, getGenres.py and offsetValue.py to init a connection to MongoDB
+
 try:
     from pymongo import MongoClient
 except ImportError:
