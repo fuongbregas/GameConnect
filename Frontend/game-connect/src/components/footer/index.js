@@ -1,27 +1,93 @@
 import React from 'react';
-import {Container, Wrapper, Row, Column, Links, Title} from './styles/footer';
+import {
+    FaFacebook, 
+    FaInstagram, 
+    FaYoutube, 
+    FaTwitter, 
+    FaLinkedin
+} from 'react-icons/fa';
+import { 
+    FooterContainer, 
+    FooterWrap, 
+    FooterLinksContainer, 
+    FooterLinksWrapper, 
+    FooterLinkItems, 
+    FooterLinkTitle,
+    FooterLink,
+    SocialMedia,
+    SocialMediaWrap,
+    SocialLogo,
+    WebsiteRights,
+    SocialIcons,
+    SocialIconLink
+  } from './FooterElements';
 
-export default function Footer({children, ...restProps}) {
-    return <Container {...restProps}>{children}</Container>
+const Footer = () => {
+    return (
+        <FooterContainer>
+            <FooterWrap>
+                <FooterLinksContainer>
+                    <FooterLinksWrapper>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>About Us</FooterLinkTitle>
+                            <FooterLink to="/purpose">Purpose</FooterLink>
+                            <FooterLink to="/developers">Developers</FooterLink>
+                            <FooterLink to="/description">Description</FooterLink>
+                            <FooterLink to="/privacy">Privacy Policy</FooterLink>
+                        </FooterLinkItems>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Technologies</FooterLinkTitle>
+                            <FooterLink to="/react">React.js</FooterLink>
+                            <FooterLink to="/node">Node.js/Express</FooterLink>
+                            <FooterLink to="/mongodb">MongoDB</FooterLink>
+                            <FooterLink to="/hadoop">Hadoop</FooterLink>
+                        </FooterLinkItems>
+                    </FooterLinksWrapper>
+                    <FooterLinksWrapper>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>More Information</FooterLinkTitle>
+                            <FooterLink to="/contact">Contact Us</FooterLink>
+                            <FooterLink to="/support">Support</FooterLink>
+                            <FooterLink to="/news">News</FooterLink>
+                            <FooterLink to="/faqs">FAQs</FooterLink>
+                        </FooterLinkItems>
+                        <FooterLinkItems>
+                            <FooterLinkTitle>Dependencies</FooterLinkTitle>
+                            <FooterLink to="/axios">Axios</FooterLink>
+                            <FooterLink to="/style">Styled-components</FooterLink>
+                            <FooterLink to="/mongoose">Mongoose</FooterLink>
+                            <FooterLink to="/cors">CORS</FooterLink>
+                        </FooterLinkItems>
+                    </FooterLinksWrapper>
+                </FooterLinksContainer>
+                <SocialMedia>
+                   <SocialMediaWrap>
+                        <SocialLogo to="#">
+                            GameConnect    
+                        </SocialLogo>
+                        <WebsiteRights>GameConnect &copy; {new Date().getFullYear()} All rights reserved.</WebsiteRights>
+                        <SocialIcons>
+                            <SocialIconLink href="//www.facebook.com" target="_blank" aria-label="Facebook">
+                                <FaFacebook />
+                            </SocialIconLink>
+                            <SocialIconLink href="//www.instagram.com" target="_blank" aria-label="Instagram">
+                                <FaInstagram />
+                            </SocialIconLink> 
+                            <SocialIconLink href="//www.youtube.com" target="_blank" aria-label="Youtube">
+                                <FaYoutube />
+                            </SocialIconLink> 
+                            <SocialIconLink href="//www.twitter.com" target="_blank" aria-label="Twitter">
+                                <FaTwitter />
+                            </SocialIconLink> 
+                            <SocialIconLink href="//www.linkedin.com" target="_blank" aria-label="Linkedin">
+                                <FaLinkedin />
+                            </SocialIconLink>    
+                        </SocialIcons>  
+                    </SocialMediaWrap> 
+                </SocialMedia>
+            </FooterWrap>
+        </FooterContainer>
+    )
 }
 
-Footer.Wrapper = function FooterWrapper({children, ...restProps}) {
-    return <Wrapper {...restProps}>{children}</Wrapper>
-}
-
-Footer.Row = function FooterRow({children, ...restProps}) {
-    return <Row {...restProps}>{children}</Row>
-}
-
-Footer.Column = function FooterColumn({children, ...restProps}) {
-    return <Column {...restProps}>{children}</Column>
-}
-
-Footer.Links = function FooterLink({children, ...restProps}) {
-    return <Links {...restProps} to={restProps.href}>{children}</Links>
-}
-
-Footer.Title = function FooterTitle({children, ...restProps}) {
-    return <Title {...restProps}>{children}</Title>
-}
-  
+export default Footer
