@@ -1,4 +1,5 @@
 import React from 'react';
+import {useLocation} from 'react-router-dom';
 import {
     FaFacebook, 
     FaInstagram, 
@@ -23,6 +24,9 @@ import {
   } from './FooterElements';
 
 const Footer = () => {
+    const location = useLocation();
+    if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass") return null;
+
     return (
         <FooterContainer>
             <FooterWrap>
@@ -32,7 +36,7 @@ const Footer = () => {
                             <FooterLinkTitle>About Us</FooterLinkTitle>
                             <FooterLink to="/purpose">Purpose</FooterLink>
                             <FooterLink to="/developers">Developers</FooterLink>
-                            <FooterLink to="/description">Description</FooterLink>
+                            <FooterLink to="/about">Description</FooterLink>
                             <FooterLink to="/privacy">Privacy Policy</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
@@ -52,11 +56,11 @@ const Footer = () => {
                             <FooterLink to="/faqs">FAQs</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
-                            <FooterLinkTitle>Dependencies</FooterLinkTitle>
-                            <FooterLink to="/axios">Axios</FooterLink>
-                            <FooterLink to="/style">Styled-components</FooterLink>
-                            <FooterLink to="/mongoose">Mongoose</FooterLink>
-                            <FooterLink to="/cors">CORS</FooterLink>
+                            <FooterLinkTitle>Resources</FooterLinkTitle>
+                            <FooterLink to="/igdb">IGDB</FooterLink>
+                            <FooterLink to="/twitch">Twitch</FooterLink>
+                            <FooterLink to="/steam">Steam</FooterLink>
+                            <FooterLink to="/reddit">Reddit</FooterLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
                 </FooterLinksContainer>

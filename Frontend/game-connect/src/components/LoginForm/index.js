@@ -1,6 +1,6 @@
 import {useContext, useRef, React} from 'react';
 import {Link} from 'react-router-dom';
-import './Login.css';
+import './LoginFormElements.css';
 import {loginCall} from '../../APICalls';
 import {AuthContext} from '../../context/AuthContext';
 import {CircularProgress} from '@material-ui/core';
@@ -38,7 +38,7 @@ const Login = () => {
                   <button className="button" type="submit" disabled={isFetching}>
                     {isFetching? <CircularProgress size = "20px"/> : "Continue"} 
                   </button>
-                  <span className="text"><Link to='/forgot' className="nav-links">Forgot Password</Link></span>
+                  <span className="text"><Link to='/resetpass' className="nav-links">Forgot Password</Link></span>
                   <span className="text"><Link to='/signup' className="nav-links">Create New Account</Link></span>
                 </form>
               </div>

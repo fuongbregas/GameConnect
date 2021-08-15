@@ -2,7 +2,7 @@ import axios from 'axios';
 import {useRef, React, useState} from 'react';
 import { useHistory } from 'react-router';
 import {Link} from 'react-router-dom';
-import './Register.css';
+import './RegisterFormElements.css';
 
 const Register = () => {
     const username = useRef();

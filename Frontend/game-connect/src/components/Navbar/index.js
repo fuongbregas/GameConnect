@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
-import {FaBars} from 'react-icons/fa';
-import Sidebar from '../Sidebar';
+import React, { useState } from 'react';
+import {useLocation} from 'react-router-dom';
+import { FaBars } from 'react-icons/fa';
+import { GiMouse } from "react-icons/gi";
+import { Sidebar } from '../';
 import { 
   Nav, 
   NavbarContainer, 
@@ -20,12 +22,15 @@ const Navbar = () => {
       setisOpen(!isOpen);
     }
 
+    const location = useLocation();
+    if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass") return null;
+
     return (
       <>
         <Sidebar isOpen={isOpen} toggle={toggle}/>
         <Nav>
           <NavbarContainer>
-            <NavLogo to="/">GameConnect</NavLogo>
+            <NavLogo to="/"><GiMouse />GameConnect</NavLogo>
             <MobileIcon onClick={toggle}>
                 <FaBars />
             </MobileIcon>
@@ -38,6 +43,9 @@ const Navbar = () => {
               </NavItem>
               <NavItem>
                 <NavLinks to="/about">About</NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks to="/profile">Profile</NavLinks>
               </NavItem>
               <NavItem>
                 <NavLinks to="/support">Support</NavLinks>

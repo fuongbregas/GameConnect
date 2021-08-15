@@ -21,8 +21,8 @@ const Sidebar = ({isOpen, toggle}) => {
               <SidebarLink to="/">Home</SidebarLink>
               <SidebarLink to="/community">Community</SidebarLink>
               <SidebarLink to="/about">About</SidebarLink>
+              <SidebarLink to="/profile">Profile</SidebarLink>
               <SidebarLink to="/support">Support</SidebarLink>
-              <SidebarLink to="/signup">Sign Up</SidebarLink>
             </SidebarMenu>
             <SideBtnWrap>
               <SidebarRoute to="/signin">Sign In</SidebarRoute>
