@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import { Navbar, Footer } from './components';
+import { Navbar } from './components';
 import { 
   Home,
   Community,
@@ -44,7 +44,7 @@ function App() {
           <Route component={NotFound} />
         </Switch>
 
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </div>
   );
