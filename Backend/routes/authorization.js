@@ -49,13 +49,13 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne ({email: req.body.email}); // find the user in MongoDB with the given email
         console.log("Login request: " + JSON.stringify(req.body));
-        !user && res.status(404).json("user not found"); // no email found
+        !user && res.status(404).json("No email found"); // no email found
         
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("Wrong password"); // no email found
+        !validPassword && res.status(400).json("Wrong password"); // wrong password found
 
         if (user.is_banned == true){
-            res.status(405).json("User is banned");
+            res.status(418).json("User is banned");
         }
         else {
             console.log("Login user: " + user);

@@ -13,9 +13,10 @@ export const loginCall = async (userCredential, dispatch) => {
         );
         console.log(response.data);
     }
-    catch (err) {
+    catch (error) {
+        
         dispatch(
-            LoginFailure(err)          
+            LoginFailure(error.response.status)          
         );
     }
 };
