@@ -4,13 +4,13 @@ import './Login.css';
 import {loginCall} from '../../APICalls';
 import {AuthContext} from '../../context/AuthContext';
 import {CircularProgress} from '@material-ui/core';
-//import { useHistory } from 'react-router';
+import {ResetState} from '../../context/AuthActions'
 
 const Login = () => {
     const email = useRef();
     const password = useRef();
     const {user, isFetching, error, dispatch} = useContext(AuthContext);
-    
+    const [err, setErr] = useState('');
     
     const loginClick = (e) => {
       e.preventDefault();
@@ -19,9 +19,12 @@ const Login = () => {
         {email: email.current.value, 
          password: password.current.value}, 
          dispatch);  
+
+      
+      setErr(error);
+      dispatch(ResetState());
     };
-    console.log(error)
-    console.log(user);
+    
     
     return (
         <>
@@ -40,9 +43,9 @@ const Login = () => {
                     {isFetching? <CircularProgress size = "20px"/> : "Continue"} 
                   </button>
                   <div>
-                    { error === 418 ? <p className = "failedlogin"> The account is terminated </p> 
-                    : error === 400 ? <p className = "failedlogin"> Error logging in, please try again.</p>
-                    : error === 404 ? <p className = "failedlogin"> Error logging in, please try again.</p>
+                    { err === 418 ? <p className = "failedlogin"> The account is terminated </p> 
+                    : err === 400 ? <p className = "failedlogin"> Error logging in, please try again.</p>
+                    : err === 404 ? <p className = "failedlogin"> Error logging in, please try again.</p>
                     : null}
                   </div>                  
                   <span className="text"><Link to='/forgot' className="nav-links">Forgot Password</Link></span>

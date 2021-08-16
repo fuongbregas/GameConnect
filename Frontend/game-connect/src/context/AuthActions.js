@@ -1,3 +1,7 @@
+export const ResetState = () => ({
+    type: "INITIAL",
+});
+
 export const LoginStart = () => ({
     type: "LOGIN_START",
 });
