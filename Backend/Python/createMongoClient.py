@@ -5,12 +5,9 @@ try:
 except ImportError:
     raise ImportError('PyMongo is not installed')
 
-def createMongoClient():
-    connection = MongoClient('52.14.35.109',
-                            username='root',
-                            password='CMPE295BFALL2021',
-                            authSource='gameConnect',
-                            authMechanism='SCRAM-SHA-1') # connect to MongoClient('52.14.35.109',
-                            
+uri = "mongodb://root:CMPE295BFALL2021@52.14.35.109:27017/?authSource=admin"
 
-    return connection
+def createMongoClient():
+    connection = MongoClient(uri)  # connect to AWS 52.14.35.109
+
+    return connection 
