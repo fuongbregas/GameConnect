@@ -52,7 +52,7 @@ router.post('/login', async (req, res) => {
         !user && res.status(404).json("No email found"); // no email found
         
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("Wrong password"); // wrong password found
+        !validPassword && res.status(401).json("Wrong password"); // wrong password found
 
         if (user.is_banned == true){
             res.status(418).json("User is banned");
