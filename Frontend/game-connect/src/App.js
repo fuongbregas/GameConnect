@@ -3,10 +3,11 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 import { Navbar, Footer } from './components';
 import { 
   Home,
+  Community,
   About,
+  Profile,
   Support,
   ResetPass,
-  Community,
   Signin,
   Signup,
   NotFound
@@ -28,6 +29,7 @@ function App() {
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
           <Route exact path='/community'><Community/></Route>
+          <Route exact path='/profile'><Profile/></Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
 

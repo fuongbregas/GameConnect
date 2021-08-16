@@ -4,6 +4,8 @@ export { default as Community } from './Community';
 
 export { default as About } from './About';
 
+export { default as Profile } from './Profile';
+
 export { default as Support } from './Support';
 
 export { default as ResetPass } from './ResetPass';
