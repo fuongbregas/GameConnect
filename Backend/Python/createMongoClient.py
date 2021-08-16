@@ -6,5 +6,11 @@ except ImportError:
     raise ImportError('PyMongo is not installed')
 
 def createMongoClient():
-    connection = MongoClient('localhost', 27017) # connect to mongoDB
+    connection = MongoClient('52.14.35.109',
+                            username='root',
+                            password='CMPE295BFALL2021',
+                            authSource='gameConnect',
+                            authMechanism='SCRAM-SHA-1') # connect to MongoClient('52.14.35.109',
+                            
+
     return connection
