@@ -1,7 +1,7 @@
 # This file is used in run.py
 
-from pymongo import MongoClient
-connection = MongoClient('localhost', 27017) # connect to mongo_db
+import createMongoClient
+connection = createMongoClient.createMongoClient()
 
 def offset_value_check():
     gameConnect_database = connection['gameConnect']

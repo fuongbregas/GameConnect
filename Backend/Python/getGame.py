@@ -7,7 +7,7 @@ from MongoDB_Object import MongoDB
 import createCommunities
 
 # Important fields of game data from IGDB
-filter = 'id,aggregated_rating,category,cover,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
+filter = 'id,aggregated_rating,cover.url,category,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
 
 url ='https://api.igdb.com/v4/games/'
 client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
@@ -16,12 +16,21 @@ client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
 def time_converter(epoch_time):
     return datetime.utcfromtimestamp(epoch_time).isoformat()
 
-# Function helps adding missing fields as NULL,  except time
+# Get cover image in 1080p resolution
+def get_HQ_cover(cover_url):
+    new_cover_url = cover_url.replace('//image','image').replace('t_thumb','t_1080p')
+    return new_cover_url
+
+# Function helps adding missing fields as NULL
 def set_none(document):
     if 'aggregated_rating' not in document:
         document['aggregated_rating'] = None
     if 'category' not in document:
         document['category'] = None
+    # Get the URL of the cover from the JSON response
+    if 'cover' in document:
+        cover_url = document['cover']['url']
+        document['cover'] = get_HQ_cover(cover_url)
     if 'cover' not in document:
         document['cover'] = None
     # Timestamp is available in the document
@@ -50,7 +59,7 @@ def set_none(document):
     if 'summary' not in document:
         document['summary'] = None
     
-# Get all the game info from IGDB and store locally, current total PC games are 50866
+# Get all the game info from IGDB and store locally
 def getGames():
     # MongoDB object for game data
     game_data = MongoDB(database_name = 'gameConnect', collection_name = 'gameData')
@@ -62,7 +71,7 @@ def getGames():
     igdb_authorization = MongoDB(database_name = 'gameConnect', collection_name = 'igdbAuthorization')
     authorization_token = igdb_authorization.get_authorization_token() # token
     
-    number_of_calls = 100000 # We can set to a huge number
+    number_of_calls = 100000 # We can set to an infinite number
 
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):  
@@ -100,4 +109,4 @@ def getGames():
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
-        time.sleep(1.2) # Sleep 1.2 seconds every call
+        time.sleep(0.8) # Sleep 0.8 seconds every call

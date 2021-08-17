@@ -30,6 +30,14 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
+    blocked_list: {
+        type: Array,
+        required: true,
+    },
+    pending_friend_requests: {
+        type: Array,
+        required: true,
+    },
     post_history: {
         type: Array,
         required: true,
@@ -39,6 +47,10 @@ const UserSchema = new Schema({
         required: true,
     },
     communities: {
+        type: Array,
+        required: true,
+    },
+    communities_mod: {
         type: Array,
         required: true,
     },

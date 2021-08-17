@@ -12,9 +12,9 @@ import {
   FormInput,
   FormButton,
   Text,
-  TextLink,
-  Error
+  TextLink
 } from '../FormElements';
+import { Error } from './RegisterFormElements';
 
 const Register = () => {
     const username = useRef();
@@ -22,10 +22,10 @@ const Register = () => {
     const password = useRef();
     const history = useHistory();
     const [error, setError] = useState("");
-    
+
     const registerClick = async (e) => {
       e.preventDefault();
-      
+
       const user = {
         username: username.current.value,
         email: email.current.value,

@@ -17,7 +17,7 @@ const GameSchema = new Schema({
         required: true,
     },
     cover:{
-        type: Number,
+        type: String,
         required: true,
     },
     // Need ISO 8601 date here

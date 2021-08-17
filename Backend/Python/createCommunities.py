@@ -3,6 +3,7 @@ def create_community_dict(game_document):
     community_dict = {
         'id' : game_document['id'],
         'name' : game_document['name'],
+        'cover' : game_document['cover'],
         'mod_list': [],
         'post_list': [],
         'total_members': 0,

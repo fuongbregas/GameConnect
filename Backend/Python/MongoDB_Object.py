@@ -1,13 +1,10 @@
-try:
-    from pymongo import MongoClient
-except ImportError:
-    raise ImportError('PyMongo is not installed')
+import createMongoClient
 
 # MongoDB object used for inserting
 class MongoDB(object):
-    def __init__(self, host='localhost', port=27017, database_name=None, collection_name=None):
+    def __init__(self, database_name=None, collection_name=None):
         try:
-            self._connection = MongoClient(host=host, port=port, maxPoolSize=200)
+            self._connection = createMongoClient.createMongoClient()
         except Exception as error:
             raise Exception(error)
         self._database = None

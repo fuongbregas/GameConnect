@@ -113,19 +113,11 @@ export const TextLink = styled(Link)`
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
-
+  
   &:hover {
     background-color: #fff;
     border-radius: 4px;
     transition: all 0.2s ease-out;
     color: black;
   }
-`
-
-export const Error = styled.div`
-  background: red;
-  color: white;
-  text-align: center;
-  margin-top: 5px;
-  font-size: 20px;
 `
