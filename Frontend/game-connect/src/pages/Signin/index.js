@@ -1,10 +1,10 @@
 import React from 'react';
-import Login from '../components/Login/Login';
+import { LoginForm } from '../../components';
 
 export default function Signin() {
     return(
         <>
-          <Login />
+          <LoginForm />
         </>
     );
 }
