@@ -14,7 +14,6 @@ import {
   TextLink
 } from '../FormElements';
 import { Error } from './LoginFormElements';
-
 import {AuthContext} from '../../../context/AuthContext';
 import {CircularProgress} from '@material-ui/core';
 import {ResetState} from '../../../context/AuthActions';
@@ -52,12 +51,10 @@ const Login = () => {
                   <FormButton type="submit" disabled={isFetching}>
                     {isFetching? <CircularProgress size = "20px"/> : "Continue"} 
                   </FormButton>
-                  <div>
-                    { err === 418 ? <Error> The account is terminated </Error> 
-                    : err === 400 ? <Error> Error logging in, please try again.</Error>
-                    : err === 404 ? <Error> Error logging in, please try again.</Error>
-                    : null}
-                  </div>
+                  { err === 418 ? <Error> The account is terminated </Error> 
+                  : err === 400 ? <Error> Error logging in, please try again.</Error>
+                  : err === 404 ? <Error> Error logging in, please try again.</Error>
+                  : null}
                   <Text><TextLink to='/resetpass'>Forgot Password</TextLink></Text>
                   <Text><TextLink to='/signup'>Create New Account</TextLink></Text>
                 </Form>
