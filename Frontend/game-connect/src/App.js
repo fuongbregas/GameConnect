@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import { Navbar, Footer } from './components';
+import { Navbar, Footer, Signoff } from './components';
 import { 
   Home,
   Community,
@@ -41,6 +41,7 @@ function App() {
              {user ? <Redirect to = "/"/> : <Signup/>} 
           </Route>
 
+          <Route path="/signoff" exact ><Signoff/></Route>
           <Route component={NotFound} />
         </Switch>
 

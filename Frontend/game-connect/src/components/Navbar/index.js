@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {useLocation} from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { GiMouse } from "react-icons/gi";
 import { Sidebar } from '../';
+import { AuthContext } from '../../context/AuthContext';
 import { 
   Nav, 
   NavbarContainer, 
@@ -17,6 +18,7 @@ import {
 
 const Navbar = () => {
     const [isOpen, setisOpen] = useState(false);
+    const {user} = useContext(AuthContext);
 
     const toggle = () => {
       setisOpen(!isOpen);
@@ -52,7 +54,8 @@ const Navbar = () => {
               </NavItem>
             </NavMenu>
             <NavBtn>
-              <NavBtnLink to="/signin">Sign In</NavBtnLink>
+              {(user) ? <NavBtnLink to="/signoff">Sign Off</NavBtnLink> 
+              : <NavBtnLink to="/signin">Sign In</NavBtnLink>}
             </NavBtn>
           </NavbarContainer>
         </Nav>

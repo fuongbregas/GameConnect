@@ -16,7 +16,7 @@ import {
 import { Error } from './LoginFormElements';
 import {AuthContext} from '../../../context/AuthContext';
 import {CircularProgress} from '@material-ui/core';
-import {ResetState} from '../../../context/AuthActions';
+// import {ResetState} from '../../../context/AuthActions';
 
 const Login = () => {
     const email = useRef();
@@ -33,7 +33,7 @@ const Login = () => {
          dispatch);
          
       setErr(error);
-      dispatch(ResetState());
+      // dispatch(ResetState());
     };
 
     return (
