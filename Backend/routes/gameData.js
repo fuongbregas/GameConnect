@@ -42,7 +42,6 @@ router.get('/get_one_community', (req, res) =>{
             console.log(error, error.stack);
         }
         else{
-            console.log("Community Data:\n" + communityData);
             res.status(200).send({
                 communityData : communityData,
             });
