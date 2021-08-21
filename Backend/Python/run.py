@@ -38,7 +38,7 @@ def run():
     # Create/Update authorization collection in MongoDB
     gameConnect_database = connection['gameConnect'] # gameConnect database
     authorization_collection = gameConnect_database['igdbAuthorization']
-    authorization_collection.remove() # Drop the old collection
+    authorization_collection.remove() # Remove the old data from the collection
     save_token(authorization_collection, authorization_token)       
 
     # Run other python files
