@@ -1,3 +1,8 @@
+# For using .env
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 import requests
 import offsetValue
 import getGame
@@ -9,7 +14,7 @@ connection = createMongoClient.createMongoClient()
 # Create/Update authorization collection in MongoDB
 gameConnect_database = connection['gameConnect'] # gameConnect database
 
-url = 'https://id.twitch.tv/oauth2/token?client_id=bvtuqo4e9i0uoscphs9pxqdrb2q2zn&client_secret=xg7svd475js30p3zg27vltcho3co1u&grant_type=client_credentials'
+url = os.getenv('IGDB_URL')
 
 # Insert or update token of 'igdbAuthorization' MongoDB collection
 def save_token(authorization_collection, authorization_token):
