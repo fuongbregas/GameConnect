@@ -1,10 +1,10 @@
 import React from 'react';
-import { MessageForm } from '../../components';
+import { MessengerForm } from '../../components';
 
 export default function Message() {
     return(
         <>
-          <MessageForm/>
+          <MessengerForm/>
         </>
     );
 }

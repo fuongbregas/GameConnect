@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Conversation from '../../Conversation/index'
-import './MessageFormElements.css'
+import Message from '../../Message/index'
+import './MessengerFormElements.css'
 import {React, useEffect, useState, useRef,} from 'react';
 
-const Message = () => {
+const Messenger = () => {
 
     return (
         <>
@@ -11,13 +12,25 @@ const Message = () => {
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
-                        <Conversation/>
+                        <Conversation/><Conversation/><Conversation/>
                     </div>
                 </div>
 
                 <div className="chatBox">
                     <div className= "chatBoxWrapper">
-                        chat
+                        <div className="chatBoxTop">
+                            <Message own = {true}/>
+                            <Message/>
+                        </div>
+                        <div className="chatBoxBottom">
+                            <textarea className="chatInput" placeholder="Aa">
+
+                            </textarea>
+
+                            <button className="sendButton">
+                                Send
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -32,4 +45,4 @@ const Message = () => {
     );
 }
 
-export default Message;
+export default Messenger;

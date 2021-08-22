@@ -7,7 +7,7 @@
 }
 
 .conversation:hover {
-    background-color: #3acbf7;
+    background-color: #0084ff;
     border-radius: 14px;
 }
 
@@ -22,4 +22,5 @@
 .conversationName{
     color: white;
     font-size: 20px;
+    align-self: right;
 }

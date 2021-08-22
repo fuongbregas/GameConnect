@@ -8,4 +8,4 @@ export { default as LoginForm } from './Form/LoginForm';
 
 export { default as RegisterForm } from './Form/RegisterForm';
 
-export { default as MessageForm } from './Form/MessageForm';
+export { default as MessengerForm } from './Form/MessengerForm';
