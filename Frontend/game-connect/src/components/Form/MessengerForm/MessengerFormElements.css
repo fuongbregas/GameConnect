@@ -4,7 +4,7 @@
 }
   
 .chatMenu {
-    flex: 3.5;
+    flex: 2.5;
 }
 
 .chatMenuInput{
@@ -17,7 +17,16 @@
 }
   
 .chatBox {
-    flex: 5.5;
+    flex: 6.5;
+}
+
+.chatBoxTop{
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 15px;
+    overflow: hidden;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
 }
 
 .chatBoxBottom {
@@ -25,14 +34,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 .chatInput {
-
+    align-self: center;
+    background-color: #242526;
+    outline:none;
+    caret-color: white;
+    border-radius: 10px;
+    border-bottom: 1px solid grey;
+    width: 80%;
+    height: 90px;
+    padding: 10px;
+    resize: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
 }
 
 .sendButton {
-
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
 }
 
 .chatBoxWrapper {
@@ -40,13 +70,29 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    
 }
 
-.chatOnline {
-    flex: 3;
+.online {
+    flex: 2.5;
+}
+
+.onlineTop {
+    display: flex;
+    margin-top: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.onlineLabel {
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
 }
   
-.chatMenuWrapper, .chatBoxWrapper, .chatOnlineWrapper {
+.chatMenuWrapper, .chatBoxWrapper, .onlineWrapper {
     padding: 10px;
     height: 100%;
     background-color: #242526;
