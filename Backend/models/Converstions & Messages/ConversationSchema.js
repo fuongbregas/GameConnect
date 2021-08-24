@@ -6,6 +6,7 @@ const ConversationSchema = new Schema(
     // Users who participate in this conversation.
     users: {
         type: Array,
+        required: true,
     }
     
 }, {timestamps: true},);
