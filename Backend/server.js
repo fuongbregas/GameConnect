@@ -8,7 +8,9 @@ const CORS = require('cors');
 
 // routes
 const gameDataRoute = require('./routes/gameData');
-const authorization = require('./routes/authorization');
+const authorizationRoute = require('./routes/authorization');
+const messageRoute = require('./routes/Conversations & Messasges/messages');
+const conversationRoute = require('./routes/Conversations & Messasges/conversations');
 
 // Connect MongoDB
 connectMongoDB();
@@ -21,8 +23,10 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 // Initialize routes
-app.use('/backend/', gameDataRoute);
-app.use('/backend/', authorization);
+app.use('/backend/game', gameDataRoute);
+app.use('/backend/auth', authorizationRoute);
+app.use('/backend/conversations', conversationRoute);
+app.use('/backend/messages', messageRoute);
 
 app.listen(PORT, function(){
     console.log('Worked');

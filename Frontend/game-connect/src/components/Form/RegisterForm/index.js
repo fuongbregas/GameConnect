@@ -34,7 +34,7 @@ const Register = () => {
       console.log(user);
 
       try {
-        await axios.post("/backend/register", user);
+        await axios.post("/backend/auth/register", user);
         history.push('/Signin');
       }
       catch (err) {
