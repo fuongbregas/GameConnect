@@ -23,7 +23,7 @@ const Login = () => {
     const email = useRef();
     const password = useRef();
     const {user, isFetching, error, dispatch} = useContext(AuthContext);
-    const [err, setErr] = useState('');
+    const [error_checker, setError] = useState('');
 
     const loginClick = (e) => {
       e.preventDefault();
@@ -33,7 +33,7 @@ const Login = () => {
          password: password.current.value}, 
          dispatch);
          
-      setErr(error);
+      setError(error);
       dispatch(ResetState());
     };
 
@@ -53,9 +53,9 @@ const Login = () => {
                     {isFetching? <CircularProgress size = "20px"/> : "Continue"} 
                   </FormButton>
                   <div>
-                    { err === 418 ? <Error> The account is terminated </Error> 
-                    : err === 400 ? <Error> Error logging in, please try again.</Error>
-                    : err === 404 ? <Error> Error logging in, please try again.</Error>
+                    { error_checker === 418 ? <Error> The account is terminated </Error> 
+                    : error_checker === 400 ? <Error> Error logging in, please try again.</Error>
+                    : error_checker === 404 ? <Error> Error logging in, please try again.</Error>
                     : null}
                   </div>
                   <Text><TextLink to='/resetpass'>Forgot Password</TextLink></Text>

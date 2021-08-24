@@ -35,3 +35,5 @@ class MongoDB(object):
         returnToken = self._collection.find_one()
         # get token value from Python dict
         return 'Bearer ' + str(returnToken['igdb_token']) # The full authorization is 'Bearer token_key'
+
+    

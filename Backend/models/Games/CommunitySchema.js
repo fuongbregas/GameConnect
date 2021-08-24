@@ -27,4 +27,6 @@ const CommunitySchema = new Schema({
         type: Number,
         required: true,
     }
-}, {collection: 'communityData'});
+}, {collection: 'gameCommunities'});
+
+module.exports = Community = mongoose.model('gameCommunities', CommunitySchema);
