@@ -16,15 +16,11 @@ const CommentSchema = new Schema({
         type: String,
         required: true,
     },
-    // The date it is posted
-    date: {
-        type: Date,
-        required: true,
-    },
+    
     // The ID of the image if the comment has one
     image_id: {
         type: Number,
     }
-}, {collection: 'commentData'});
+}, {timestamps: true});
 
-module.exports = Comments = mongoose.model('commentData', CommentSchema);
+module.exports = Comments = mongoose.model('commentData', CommentSchema, 'commentData');

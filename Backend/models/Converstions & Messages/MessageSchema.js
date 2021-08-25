@@ -7,7 +7,7 @@ const MessageSchema = new Schema({
         type: Number,
         required: true,
     },
-    user_id: {
+    sender_id: {
         type: Number,
         required: true,
     },
@@ -21,11 +21,7 @@ const MessageSchema = new Schema({
         type: String,
         required: true,
     },
-    // The date the message was sent
-    date: {
-        type: Date,
-        required: true,
-    }
-}, {collection: 'messageData'});
+}, {timestamps: true}, 
+);
 
-module.exports = Messages = mongoose.model('messageData', MessageSchema);
+module.exports = Messages = mongoose.model('messageData', MessageSchema, 'messageData');

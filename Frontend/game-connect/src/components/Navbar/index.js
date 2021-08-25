@@ -16,7 +16,7 @@ import {
   NavBtnLink 
 } from './NavbarElements';
 
-const Navbar = ({visibility}) => {
+const Navbar = () => {
     const [isOpen, setisOpen] = useState(false);
     const {user} = useContext(AuthContext);
 
@@ -30,7 +30,7 @@ const Navbar = ({visibility}) => {
     return (
       <>
         <Sidebar isOpen={isOpen} toggle={toggle}/>
-        <Nav visibility={visibility}>
+        <Nav>
           <NavbarContainer>
             <NavLogo to="/"><GiMouse />GameConnect</NavLogo>
             <MobileIcon onClick={toggle}>

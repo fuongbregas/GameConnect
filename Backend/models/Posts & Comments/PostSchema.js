@@ -45,10 +45,7 @@ const PostSchema = new Schema({
         type: Number,
         required: true,
     },
-    date: {
-        type: Date,
-        required: true,
-    }
-}, {collection: 'postData'});
+    
+}, {timestamps: true});
 
-module.exports = Posts = mongoose.model('postData', PostSchema);
+module.exports = Posts = mongoose.model('postData', PostSchema, 'postData');

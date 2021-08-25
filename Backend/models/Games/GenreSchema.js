@@ -12,6 +12,6 @@ const GenreSchema = new Schema({
         type: String,
         required: true,
     },
-}, {collection: 'genreData'}); // Name of the collection
+}, {collection: 'gameGenres'}); // Name of the collection
 
-module.exports = Genres = mongoose.model('genreData', GenreSchema);
+module.exports = Genres = mongoose.model('gameGenres', GenreSchema);

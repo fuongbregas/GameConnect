@@ -6,4 +6,4 @@ export default function Profile() {
         <h1 className='profile'>Profile Page</h1>
       </>
     );
-}
+} 

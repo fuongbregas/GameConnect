@@ -10,44 +10,21 @@ import {
   ResetPass,
   Signin,
   Signup,
-  NotFound
+  NotFound,
+  Message
 } from './pages';
 
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
   console.log("User: " + user);
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [visibility, setVisibility] = useState({
-      showNavBar: true,
-      showFooter: false
-  });
-  const handleScroll = () => {
-      const position = window.pageYOffset;
-      setVisibility({
-          showNavBar: (position === 0),
-          showFooter: (document.body.getBoundingClientRect().bottom <= window.innerHeight)
-      });
-      setScrollPosition(position);
-      console.log(visibility);
-  };
-
-  useEffect(() => {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-
-      return () => {
-          window.removeEventListener('scroll', handleScroll);
-      };
-      // eslint-disable-next-line
-  }, [scrollPosition]);
-
   return (
     <div className="App">
       <Router>
-        <Navbar visibility={visibility.showNavBar} />
+        <Navbar />
 
         <Switch>
           <Route exact path='/'><Home /></Route>
@@ -62,14 +39,21 @@ function App() {
           </Route>
           
           <Route exact path='/signup'>
-             {user ? <Redirect to = "/"/> : <Signup/>} 
+            {user ? <Redirect to = "/"/> : <Signup/>} 
           </Route>
 
           <Route path="/signoff" exact ><Signoff/></Route>
-          <Route component={NotFound} />
+
+          <Footer />
+
+          <Route exact path='/message'>
+            {user ? <Message/> : <Redirect to = "/"/> }
+          </Route>
+
+          <Route component={NotFound}/>
         </Switch>
 
-        <Footer visibility={visibility.showFooter} />
+        <Footer /> 
       </Router>
     </div>
   );

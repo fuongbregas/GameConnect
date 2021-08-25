@@ -7,3 +7,5 @@ export { default as Footer } from './Footer';
 export { LoginForm, RegisterForm } from './Form';
 
 export { default as Signoff } from './Signoff';
+
+export { default as MessengerForm } from './Form/MessengerForm';

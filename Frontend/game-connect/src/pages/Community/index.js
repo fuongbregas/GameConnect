@@ -27,4 +27,4 @@ export default function Community() {
       <h1 className='community'>Community Page</h1>
     </>
   );
-}
+} 

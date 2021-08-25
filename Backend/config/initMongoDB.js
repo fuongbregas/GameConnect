@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/gameConnect"
+//const mongoURI = process.env.AWS_MONGO;
+const mongoURI = process.env.LOCAL_MONGO;
 
 const options = {
     userNewUrlParser: true,
@@ -13,9 +14,9 @@ const initDB = async () => {
         console.log("Successfully connected to MongoDB");
         console.log('Listening on 3001');
     }
-    catch(err){
+    catch(error){
         console.log("Failed to connect to MongoDB");
-        console.log(err);
+        console.log(error);
         process.exit(1);
     }
 };
