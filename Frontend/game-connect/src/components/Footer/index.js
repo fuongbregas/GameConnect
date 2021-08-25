@@ -23,12 +23,12 @@ import {
     SocialIconLink
   } from './FooterElements';
 
-const Footer = () => {
+const Footer = ({visibility}) => {
     const location = useLocation();
     if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass") return null;
 
     return (
-        <FooterContainer>
+        <FooterContainer visibility={visibility}>
             <FooterWrap>
                 <FooterLinksContainer>
                     <FooterLinksWrapper>

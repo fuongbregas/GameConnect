@@ -13,17 +13,41 @@ import {
   NotFound
 } from './pages';
 
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
   console.log("User: " + user);
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [visibility, setVisibility] = useState({
+      showNavBar: true,
+      showFooter: false
+  });
+  const handleScroll = () => {
+      const position = window.pageYOffset;
+      setVisibility({
+          showNavBar: (position === 0),
+          showFooter: (document.body.getBoundingClientRect().bottom <= window.innerHeight)
+      });
+      setScrollPosition(position);
+      console.log(visibility);
+  };
+
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+      // eslint-disable-next-line
+  }, [scrollPosition]);
+
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar visibility={visibility.showNavBar} />
 
         <Switch>
           <Route exact path='/'><Home /></Route>
@@ -45,7 +69,7 @@ function App() {
           <Route component={NotFound} />
         </Switch>
 
-        <Footer />
+        <Footer visibility={visibility.showFooter} />
       </Router>
     </div>
   );
