@@ -42,13 +42,14 @@ function App() {
             {user ? <Redirect to = "/"/> : <Signup/>} 
           </Route>
 
-          <Route path="/signoff" exact ><Signoff/></Route>
-
-          <Footer />
-
           <Route exact path='/message'>
             {user ? <Message/> : <Redirect to = "/"/> }
           </Route>
+
+          <Route path="/signoff" exact ><Signoff/></Route>
+
+
+          
 
           <Route component={NotFound}/>
         </Switch>

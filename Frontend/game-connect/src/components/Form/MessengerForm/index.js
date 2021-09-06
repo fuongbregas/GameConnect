@@ -3,9 +3,28 @@ import Conversation from '../../ChatComponents/Conversation/index'
 import Message from '../../ChatComponents/Message/index'
 import Online from '../../ChatComponents/Online/index'
 import './MessengerFormElements.css'
-import {React, useEffect, useState, useRef,} from 'react';
-
+import {React, useContext, useEffect, useState, useRef,} from 'react';
+import {AuthContext} from '../../../context/AuthContext';
 const Messenger = () => {
+    const [conversations, setConversations] = useState([]);
+    const {user} = useContext(AuthContext);
+
+    useEffect(() => {
+        const getConversations = async () => {
+            try{
+                const res = await axios.get("backend/conversations/" + user);
+                
+                setConversations(res.data);
+                console.log("Conversation");
+                console.log(conversations);
+            }
+            catch (error){
+                console.log(error);
+            }            
+        }
+        // Call the function
+        getConversations();
+    }, [user]);
 
     return (
         <>
@@ -13,7 +32,11 @@ const Messenger = () => {
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
-                        <Conversation/><Conversation/><Conversation/>
+                        
+                        {conversations.map((each_conversation, user) => {
+                            <Conversation conversation={each_conversation} currentUser={user}/>
+                        })}
+
                     </div>
                 </div>
 
