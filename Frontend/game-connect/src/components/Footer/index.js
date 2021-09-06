@@ -25,8 +25,8 @@ import {
 
 const Footer = () => {
     const location = useLocation();
-    if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass") return null;
-    if(location.pathname === "/message" || location.pathname === "/message" || location.pathname === "/resetpass") return null;
+    if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass"
+        || location.pathname === "/message") return null;
 
     return (
         <FooterContainer>
