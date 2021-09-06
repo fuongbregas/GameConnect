@@ -4,7 +4,7 @@ const Conversation = require('../../models/Converstions & Messages/ConversationS
 
 router.post('/', async (req, res) => {
     const newConversation = new Conversation({
-        users: [req.body.senderId, req.body.receiverId]
+        users: [req.body.senderID, req.body.receiverID]
     });
     
     try {
@@ -16,5 +16,16 @@ router.post('/', async (req, res) => {
 });
 
 // Get conversation from a user
+router.get('/:userID', async (req, res) => {
+    try {
+        const conversation = await Conversation.find({
+            users: { $in: [req.params.userID]},
+        });
+        res.status(200).json(conversation);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 module.exports = router;
