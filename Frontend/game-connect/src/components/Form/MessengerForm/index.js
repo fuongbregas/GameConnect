@@ -27,7 +27,7 @@ const Messenger = () => {
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
-                        {conversations.map((each_conversation, user) => (
+                        {conversations.map((each_conversation) => (
                             <Conversation conversation={each_conversation} currentUser={user} />
                         ))}
                     </div>
