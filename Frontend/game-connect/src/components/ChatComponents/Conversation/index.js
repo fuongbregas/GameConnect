@@ -4,6 +4,7 @@ import {useEffect, useState,} from 'react';
 
 const Conversation = ({conversation, currentUser}) => {
     const [user, setUser] = useState(null);
+    const [username, setUserName] = useState(null);
     console.log("Current user " + currentUser);
     useEffect(() => {
         const friend_username = conversation.users.find((member) => member !== currentUser);
@@ -11,9 +12,8 @@ const Conversation = ({conversation, currentUser}) => {
         const getUser = async () => {
             try {
                 const res = await axios('backend/users?username=' + friend_username);
-                console.log("Worked");
-                console.log(res);
                 setUser(res.data);
+                setUserName(res.data.username);
             }
             catch (error) {
                 console.log(error);
@@ -30,7 +30,7 @@ const Conversation = ({conversation, currentUser}) => {
                 src='https://www.jellykey.com/wp-content/uploads/jellykey-retro-tv-35-1536x1536.jpg'
                 alt=''
            />
-           <span className="conversationName">{user.username}</span>
+           <span className="conversationName">{username}</span>
        </div>
     );
 }

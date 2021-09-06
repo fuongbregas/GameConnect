@@ -8,35 +8,28 @@ import {AuthContext} from '../../../context/AuthContext';
 const Messenger = () => {
     const [conversations, setConversations] = useState([]);
     const {user} = useContext(AuthContext);
-
+    
     useEffect(() => {
         const getConversations = async () => {
-            try{
-                const res = await axios.get("backend/conversations/" + user);
-                
-                setConversations(res.data);
-                console.log("Conversation");
-                console.log(conversations);
-            }
-            catch (error){
-                console.log(error);
-            }            
-        }
-        // Call the function
+          try {
+            const res = await axios.get("backend/conversations/" + user);
+            setConversations(res.data);
+          } catch (error) {
+            console.log(error);
+          }
+        };
         getConversations();
     }, [user]);
-
+    
     return (
         <>
             <div className="messenger">
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
-                        
-                        {conversations.map((each_conversation, user) => {
-                            <Conversation conversation={each_conversation} currentUser={user}/>
-                        })}
-
+                        {conversations.map((each_conversation, user) => (
+                            <Conversation conversation={each_conversation} currentUser={user} />
+                        ))}
                     </div>
                 </div>
 
