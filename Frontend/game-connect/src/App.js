@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import { Navbar, Footer } from './components';
+import { Navbar, Footer, Signoff } from './components';
 import { 
   Home,
   Community,
@@ -10,7 +10,8 @@ import {
   ResetPass,
   Signin,
   Signup,
-  NotFound
+  NotFound,
+  Message
 } from './pages';
 
 import { useContext } from "react";
@@ -38,13 +39,21 @@ function App() {
           </Route>
           
           <Route exact path='/signup'>
-             {user ? <Redirect to = "/"/> : <Signup/>} 
+            {user ? <Redirect to = "/"/> : <Signup/>} 
           </Route>
 
-          <Route component={NotFound} />
+          <Route path="/signoff" exact ><Signoff/></Route>
+
+          <Footer />
+
+          <Route exact path='/message'>
+            {user ? <Message/> : <Redirect to = "/"/> }
+          </Route>
+
+          <Route component={NotFound}/>
         </Switch>
 
-        <Footer />
+        <Footer /> 
       </Router>
     </div>
   );

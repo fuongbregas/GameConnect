@@ -1,4 +1,5 @@
 import React from 'react';
+import './Home.css';
 
 function displayGameData() {
   axios.get('/backend/game_data').then((res) =>{
@@ -16,8 +17,30 @@ function displayGameData() {
 
 export default function Home() {
     return(
-        <>
-          <h1 className='home'>Home Page</h1>
-        </>
+        <div className="home">
+          <h1>First</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Home Page</h1>
+          <h1>Last</h1>
+        </div>
     );
 }
