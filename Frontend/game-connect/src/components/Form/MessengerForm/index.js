@@ -9,8 +9,14 @@ const Messenger = () => {
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+    // Username
     const {user} = useContext(AuthContext);
+
+    // Autoscroll when new message added
+    const scrollRef = useRef();
     
+    // Changes if there is new conversation
     useEffect(() => {
         const getConversations = async () => {
           try {
@@ -23,6 +29,7 @@ const Messenger = () => {
         getConversations();
     }, [user]);
 
+    // Changes if there is new message
     useEffect(() => {
         const getMessages = async () => {
             try {
@@ -37,7 +44,33 @@ const Messenger = () => {
         getMessages();
     }, [currentChat]);
 
-    
+    // Submit new messages
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const message = {
+            sender_username: user,
+            message_content: newMessage,
+            is_deleted: false,
+            conversation_id: currentChat._id,
+        };
+
+        try {
+            const res = await axios.post('backend/messages/', message);
+            setMessages([...messages, res.data]);
+            setNewMessage('');
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Scroll down to bottom of message screen
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }, [messages]);
+
     return (
         <>
             <div className="messenger">
@@ -59,17 +92,21 @@ const Messenger = () => {
                             <>
                                 <div className="chatBoxTop">
                                     {messages.map(each_message => (
-                                        <Message message = {each_message} own = {each_message.sender_username === user}/>
+                                        <div ref = {scrollRef}>                                            
+                                            <Message message = {each_message} own = {each_message.sender_username === user}/>
+                                        </div>
                                     ))}
                                     
                                 
                                 </div>
                                 <div className="chatBoxBottom">
-                                    <textarea className="chatInput" placeholder="Aa">
-
+                                    <textarea className="chatInput" placeholder="Aa"
+                                              onChange = {(event) => setNewMessage(event.target.value)}
+                                              value = {newMessage}>
+                                    
                                     </textarea>
 
-                                    <button className="sendButton">
+                                    <button className="sendButton" onClick={handleSubmit}>
                                         Send
                                     </button>
                                 </div> 
