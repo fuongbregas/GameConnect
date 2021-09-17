@@ -11,6 +11,7 @@ const Messenger = () => {
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [arrivalMessage, setArrivalMessage] = useState(null);
     const socket = useRef();
 
     // Username
@@ -22,15 +23,31 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         socket.current = io('ws://localhost:6969');
+        // Get message from socket
+        socket.current.on('getMessage', data => {
+            setArrivalMessage({
+                sender: data.sender,
+                message_content : data.message_content,
+                createdAt: Date.now(),
+            });
+        });
     }, []);
 
-    // Add user to Socket
+    
     useEffect(() => {
+        // Add user to Socket
         socket.current.emit('addUser', user);
-        socket.current.on('getUsers', (users) => {
+        // Get all users from socket server
+        socket.current.on('getUsers', users => {
             console.log(users);
         });
     }, [user]);
+
+    // if there is new message
+    useEffect(() => {
+        arrivalMessage && currentChat?.users.includes(arrivalMessage.sender) &&
+        setMessages((previousMessage) => [...previousMessage, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
 
     // Changes if there is new conversation
     useEffect(() => {
@@ -61,7 +78,7 @@ const Messenger = () => {
     }, [currentChat]);
 
     // Submit new messages
-    const handleSubmit = async (event) => {
+    const sendMessageSubmit = async (event) => {
         event.preventDefault();
         const message = {
             sender_username: user,
@@ -69,6 +86,15 @@ const Messenger = () => {
             is_deleted: false,
             conversation_id: currentChat._id,
         };
+
+        // Find the username who is not 'user' in the current conversation
+        const receiver = currentChat.users.find(member => member !== user);
+        console.log("Receiver: " + receiver);
+        socket.current.emit('sendMessage', {
+            sender: user,
+            receiver,
+            message_content : newMessage,
+        });
 
         try {
             const res = await axios.post('backend/messages/', message);
@@ -122,7 +148,7 @@ const Messenger = () => {
                                     
                                     </textarea>
 
-                                    <button className="sendButton" onClick={handleSubmit}>
+                                    <button className="sendButton" onClick={sendMessageSubmit}>
                                         Send
                                     </button>
                                 </div> 
