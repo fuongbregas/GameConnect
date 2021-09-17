@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {io} from 'socket.io-client';
 import Conversation from '../../ChatComponents/Conversation/index'
 import Message from '../../ChatComponents/Message/index'
 import Online from '../../ChatComponents/Online/index'
@@ -10,12 +11,27 @@ const Messenger = () => {
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const socket = useRef();
+
     // Username
     const {user} = useContext(AuthContext);
 
     // Autoscroll when new message added
     const scrollRef = useRef();
     
+    // Run socket connection once
+    useEffect(() => {
+        socket.current = io('ws://localhost:6969');
+    }, []);
+
+    // Add user to Socket
+    useEffect(() => {
+        socket.current.emit('addUser', user);
+        socket.current.on('getUsers', (users) => {
+            console.log(users);
+        });
+    }, [user]);
+
     // Changes if there is new conversation
     useEffect(() => {
         const getConversations = async () => {
