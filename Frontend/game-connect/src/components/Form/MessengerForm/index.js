@@ -120,7 +120,7 @@ const Messenger = () => {
                     <div className= "chatMenuWrapper">
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
                         {conversations.map((each_conversation) => (
-                            <div onClick={() => setCurrentChat(each_conversation)}>
+                            <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
                                 <Conversation conversation={each_conversation} currentUser={user} />
                             </div>
                         ))}
@@ -134,8 +134,8 @@ const Messenger = () => {
                             <>
                                 <div className="chatBoxTop">
                                     {messages.map(each_message => (
-                                        <div ref = {scrollRef}>                                            
-                                            <Message message = {each_message} own = {each_message.sender_username === user}/>
+                                        <div key = {each_message._id} ref = {scrollRef}>                                            
+                                            <Message  message = {each_message} own = {each_message.sender_username === user}/>
                                         </div>
                                     ))}
                                     

@@ -65,9 +65,7 @@ const UserSchema = new Schema({
     is_banned: {
         type: Boolean,
         required: true,
-    },
-    
-    // Profile Image URL
+    }
 
 }, {timestamps: true},); // Name of the collection
 

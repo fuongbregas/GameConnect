@@ -4,7 +4,7 @@ const io = require('socket.io')(6969,{
     },
 });
 
-// User array
+// User array contains userName & socketID for each element
 let users = [];
 
 // Only add user who are not in the 'users' array
