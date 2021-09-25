@@ -24,7 +24,7 @@ router.get('/:conversation_id', async (req, res) => {
         const message = await Message.find({
             conversation_id : req.params.conversation_id,
         }).lean();
-        const deleted_message = 'This message has been delete.';
+        const deleted_message = 'This message has been deleted.';
         for(var i = 0; i < message.length; i++) {
             if(message[i].is_deleted === true){
                 message[i].message_content = deleted_message;

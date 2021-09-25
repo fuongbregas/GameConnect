@@ -3,15 +3,20 @@ import {io} from 'socket.io-client';
 import Conversation from '../../ChatComponents/Conversation/index'
 import Message from '../../ChatComponents/Message/index'
 import Online from '../../ChatComponents/Online/index'
+import NewConversation from '../../ChatComponents/New Conversation/index';
 import './MessengerFormElements.css'
 import {React, useContext, useEffect, useState, useRef,} from 'react';
 import {AuthContext} from '../../../context/AuthContext';
 const Messenger = () => {
+
+    // All the states of different components
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [showConversationBox, setConversationBox] = useState(false);
+    
     const socket = useRef();
 
     // Username
@@ -113,12 +118,23 @@ const Messenger = () => {
         });
     }, [messages]);
 
+
+    // Show the Create Conversation overlay
+    const openNewConversation = () => {
+        setCurrentChat(null);
+    }
+
     return (
         <>
             <div className="messenger">
+            
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
-                        <input placeholder="Search Messenger" className="chatMenuInput"/>
+                        <div className = 'buttonWrapper'>
+                            <button className = 'createConversationButton' onClick= {openNewConversation}>Create convo</button>
+                        </div>
+                        
+                        <input placeholder="Search Messenger" className="chatMenuInput"/>                        
                         {conversations.map((each_conversation) => (
                             <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
                                 <Conversation conversation={each_conversation} currentUser={user} />
@@ -128,7 +144,9 @@ const Messenger = () => {
                 </div>
 
                 <div className="chatBox">
+                    
                     <div className= "chatBoxWrapper">
+                        
                         {
                             currentChat ?
                             <>
@@ -152,7 +170,8 @@ const Messenger = () => {
                                         Send
                                     </button>
                                 </div> 
-                            </> : <span className='noConversationText'>Start a conversation.</span> }
+                            </> : <NewConversation/>
+                        }
                     </div>
                 </div>
 
