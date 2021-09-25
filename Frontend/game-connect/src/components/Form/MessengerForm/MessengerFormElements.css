@@ -115,5 +115,19 @@ input{
 }
 
 .createConversationButton {
-    align-items: flex-end;
+    cursor: pointer;
+    color: white;
+    width: 42px;
+    height: 42px;
+    padding: 5px;
+    border-radius: 50%;
+    border-width: thick;
+}
+
+.createConversationButton:hover {
+    color: #0084ff;
+    background-color: #2e2f30;
+    border-radius: 50%;
+    transition: 0.3s;
+    border-width: thick;
 }

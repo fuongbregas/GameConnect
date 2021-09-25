@@ -6,6 +6,7 @@ import Online from '../../ChatComponents/Online/index'
 import NewConversation from '../../ChatComponents/New Conversation/index';
 import './MessengerFormElements.css'
 import {React, useContext, useEffect, useState, useRef,} from 'react';
+import {MdCreate} from 'react-icons/md'
 import {AuthContext} from '../../../context/AuthContext';
 const Messenger = () => {
 
@@ -131,7 +132,7 @@ const Messenger = () => {
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <div className = 'buttonWrapper'>
-                            <button className = 'createConversationButton' onClick= {openNewConversation}>Create convo</button>
+                            <MdCreate className = 'createConversationButton' onClick= {openNewConversation}></MdCreate>                            
                         </div>
                         
                         <input placeholder="Search Messenger" className="chatMenuInput"/>                        

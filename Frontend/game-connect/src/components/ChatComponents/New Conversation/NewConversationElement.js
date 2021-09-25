@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {MdClose} from 'react-icons/md'
 
 export const Background = styled.div`
     width: 100%;
@@ -14,9 +13,10 @@ export const NewConversationWrapper = styled.div`
     width: 800px;
     height: 500px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-    background: #fff;
+    
     color: #000;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
@@ -33,14 +33,48 @@ export const NoConversationText = styled.span`
     text-align: center;
     cursor: default;
 `
+export const SearchUserInput = styled.textarea`
+    align-self: center;
+    background-color: #242526;
+    outline:none;
+    caret-color: white;
+    border-radius: 10px;
+    border-bottom: 1px solid grey;
+    width: 80%;
+    height: 47px;
+    padding: 10px;
+    resize: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 25px;
+    overflow: hidden;
+`
 
-export const CloseButton = styled(MdClose)`
+export const NewConversationInput = styled.textarea`
+    align-self: center;
+    background-color: #242526;
+    outline:none;
+    caret-color: white;
+    border-radius: 10px;
+    border-bottom: 1px solid grey;
+    width: 80%;
+    height: 90px;
+    padding: 10px;
+    resize: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 25px;
+`
+export const SendButton = styled.button`
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
     cursor: pointer;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    z-index: 7;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
 `
