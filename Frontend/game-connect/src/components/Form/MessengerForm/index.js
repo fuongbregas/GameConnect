@@ -171,7 +171,9 @@ const Messenger = () => {
                                         Send
                                     </button>
                                 </div> 
-                            </> : <NewConversation/>
+                            </> : <NewConversation ref = {currentChat}>
+                                        
+                                </NewConversation>
                         }
                     </div>
                 </div>

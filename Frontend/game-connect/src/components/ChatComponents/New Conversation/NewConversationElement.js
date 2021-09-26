@@ -9,7 +9,7 @@ export const Background = styled.div`
     align-items: center;
 `
 
-export const NewConversationWrapper = styled.div`
+export const NewConversationWrapper = styled.form`
     width: 800px;
     height: 500px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
