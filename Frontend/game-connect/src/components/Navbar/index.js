@@ -52,9 +52,11 @@ const Navbar = () => {
               <NavItem>
                 <NavLinks to="/support">Support</NavLinks>
               </NavItem>
+              {(user) ? 
               <NavItem>
                 <NavLinks to="/message">Message</NavLinks>
-              </NavItem>
+              </NavItem> : null}
+              
             </NavMenu>
             <NavBtn>
               {(user) ? <NavBtnLink to="/signoff">Sign Off</NavBtnLink> 
