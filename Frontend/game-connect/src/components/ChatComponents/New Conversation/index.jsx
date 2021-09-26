@@ -9,7 +9,7 @@ import {Background,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
-const NewConversation = ({currentChat}) => {
+const NewConversation = ({setCurrentChat}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
@@ -59,7 +59,7 @@ const NewConversation = ({currentChat}) => {
                 };
 
                 const res2 = await axios.post('backend/messages/', message);
-                currentChat = conversation_data;               
+                setCurrentChat(conversation_data);               
             }
         }
         catch (error){
