@@ -47,7 +47,6 @@ export const SearchUserInput = styled.input`
     color: white;
     font-size: 20px;
     font-weight: 100;
-    margin-bottom: 25px;
     overflow: hidden;
     border-style: solid;
     border-width: 1px;
@@ -67,6 +66,7 @@ export const NewConversationInput = styled.textarea`
     color: white;
     font-size: 20px;
     font-weight: 100;
+    margin-top: 25px;
     margin-bottom: 25px;
 `
 export const SendButton = styled.button`
@@ -82,11 +82,20 @@ export const SendButton = styled.button`
 `
 
 export const SuggestionBox = styled.div`
-    font-size: 20px;
-    color : white;
-    margin-top: -20px;
-    margin-bottom: 25px;
-    padding-left: 12px;
-    align-self: left;
+    display: flex;
     width: 80%;
+    max-height: 130px;
+    overflow: auto;
+    color : white;
+    justify-content: left;
+    font-size: 20px;
+    padding-left: 10px;
+    cursor: pointer;
+    margin-top: 7px;
+
+    &:hover {
+        background-color: #0084ff;
+        transition: 0.3s ease-in-out;
+  }
 `
+

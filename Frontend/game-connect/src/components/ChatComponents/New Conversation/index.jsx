@@ -49,22 +49,11 @@ const NewConversation = ({setCurrentChat}) => {
         console.log('suggestions', suggestions);
         setUsernameInput(usernameInput);
     }
-    /*
-    const TextChange = async (event) => {
-        var receiver_text = receiver.current.value;
-
-        if (receiver_text.length > 0) {
-            var url = 'backend/users//autosearch?key=' + receiver_text;
-            try {
-                const res = await axios.get(url);
-                setSuggestions(res.data);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
+    
+    const onSuggestHandler = (usernameInput) => {
+        setUsernameInput(usernameInput);
+        setSuggestions([]);
     }
-    */
     
 
     // When submit button is clicked
@@ -131,12 +120,17 @@ const NewConversation = ({setCurrentChat}) => {
                         
                         <SearchUserInput placeholder='Enter username' 
                                          onChange = {event => onChangeHandler(event.target.value)}
+                                         onBlur = {() => {
+                                             setTimeout(() => {
+                                                setSuggestions([]);
+                                             }, 100);
+                                         }}
                                          value = {usernameInput}
                                          type = 'text'
                                          required 
                                          ref={receiver}/>
                         {suggestions && suggestions.map((each_suggestion, index) => 
-                            <SuggestionBox key = {index}>
+                            <SuggestionBox key = {index} onClick = {() => onSuggestHandler(each_suggestion.username)}>
                                 {each_suggestion.username}
                             </SuggestionBox>
                         )}
