@@ -1,11 +1,12 @@
 import axios from 'axios';
-import {React, useContext, useRef, useState} from 'react';
+import {React, useContext, useRef, useState, useEffect} from 'react';
 import {Background, 
     NewConversationWrapper, 
     NoConversationText,
     SearchUserInput,
     NewConversationInput,
     SendButton,
+    SuggestionBox,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
@@ -13,14 +14,69 @@ const NewConversation = ({setCurrentChat}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
-    const [error_checker, setError] = useState('');
+    //const [error_checker, setError] = useState('');
+    const [users, setUsers] = useState([]);
+    const [usernameInput, setUsernameInput] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    useEffect(() => {
+        var receiver_text = receiver.current.value;
+        var url = 'backend/users//autosearch?key=' + receiver_text;
 
+        const loadUsers = async () => {
+            try {
+                const res = await axios.get(url);
+                console.log("User data: " + res.data);
+                setUsers(res.data);
+            }   
+            catch (error) {
+                console.log(error);
+            }
+        }
+
+        loadUsers();
+    }, []);
+
+    const onChangeHandler = (usernameInput) => {
+        let matches = [];
+        if (usernameInput.length > 0) {
+            matches = users.filter (user => {
+                const regex = new RegExp(`${usernameInput}`, 'gi');
+                return user.username.match(regex);
+            });
+        }
+        //console.log('matches', matches);
+        setSuggestions(matches);
+        console.log('suggestions', suggestions);
+        setUsernameInput(usernameInput);
+    }
+    /*
+    const TextChange = async (event) => {
+        var receiver_text = receiver.current.value;
+
+        if (receiver_text.length > 0) {
+            var url = 'backend/users//autosearch?key=' + receiver_text;
+            try {
+                const res = await axios.get(url);
+                setSuggestions(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+    }
+    */
+    
+
+    // When submit button is clicked
     const createConversationSubmit = async (event) => {
         event.preventDefault();
         const sender = user;
         
         try {
-            
+            /*  Check if there is a conversation between two users
+                If there is a conversation, add message to the conversation without creating a new one.
+                If there is no conversation, create a new one and add the message.
+            */
             const res1 = await axios.get('backend/conversations/get_one_conversation/' + sender + '/' + receiver.current.value);
             console.log(res1);
             if (res1.data == null) {
@@ -72,7 +128,18 @@ const NewConversation = ({setCurrentChat}) => {
             <NoConversationText>Start a conversation.</NoConversationText> 
                 <Background >
                     <NewConversationWrapper onSubmit={createConversationSubmit}>
-                        <SearchUserInput placeholder='Enter username' required ref={receiver}/>
+                        
+                        <SearchUserInput placeholder='Enter username' 
+                                         onChange = {event => onChangeHandler(event.target.value)}
+                                         value = {usernameInput}
+                                         type = 'text'
+                                         required 
+                                         ref={receiver}/>
+                        {suggestions && suggestions.map((each_suggestion, index) => 
+                            <SuggestionBox key = {index}>
+                                {each_suggestion.username}
+                            </SuggestionBox>
+                        )}
                         <NewConversationInput placeholder='Aa' required ref={messageText}/>
                         <SendButton type='submit'>Send</SendButton>
                     </NewConversationWrapper>

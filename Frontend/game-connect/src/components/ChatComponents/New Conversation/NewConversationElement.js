@@ -33,7 +33,7 @@ export const NoConversationText = styled.span`
     text-align: center;
     cursor: default;
 `
-export const SearchUserInput = styled.textarea`
+export const SearchUserInput = styled.input`
     align-self: center;
     background-color: #242526;
     outline:none;
@@ -49,6 +49,8 @@ export const SearchUserInput = styled.textarea`
     font-weight: 100;
     margin-bottom: 25px;
     overflow: hidden;
+    border-style: solid;
+    border-width: 1px;
 `
 
 export const NewConversationInput = styled.textarea`
@@ -77,4 +79,14 @@ export const SendButton = styled.button`
     color: white;
     font-size: 20px;
     font-weight: 100;
+`
+
+export const SuggestionBox = styled.div`
+    font-size: 20px;
+    color : white;
+    margin-top: -20px;
+    margin-bottom: 25px;
+    padding-left: 12px;
+    align-self: left;
+    width: 80%;
 `
