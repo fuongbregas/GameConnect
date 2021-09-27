@@ -7,6 +7,7 @@ import {Background,
     NewConversationInput,
     SendButton,
     SuggestionBox,
+    Error,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
@@ -14,13 +15,15 @@ const NewConversation = ({setCurrentChat}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
-    //const [error_checker, setError] = useState('');
+    const [error_checker, setError] = useState('');
     const [users, setUsers] = useState([]);
     const [usernameInput, setUsernameInput] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+
+    // Get user when there is an input
     useEffect(() => {
         var receiver_text = receiver.current.value;
-        var url = 'backend/users//autosearch?key=' + receiver_text;
+        var url = 'backend/users/autosearch?key=' + receiver_text;
 
         const loadUsers = async () => {
             try {
@@ -46,7 +49,7 @@ const NewConversation = ({setCurrentChat}) => {
         }
         //console.log('matches', matches);
         setSuggestions(matches);
-        console.log('suggestions', suggestions);
+        //console.log('suggestions', suggestions);
         setUsernameInput(usernameInput);
     }
     
@@ -66,48 +69,57 @@ const NewConversation = ({setCurrentChat}) => {
                 If there is a conversation, add message to the conversation without creating a new one.
                 If there is no conversation, create a new one and add the message.
             */
-            const res1 = await axios.get('backend/conversations/get_one_conversation/' + sender + '/' + receiver.current.value);
-            console.log(res1);
-            if (res1.data == null) {
-                // No conversation, create one
-                const new_conversation = {
-                    sender_username : sender, 
-                    receiver_username: receiver.current.value,
-                }
-                // Create new conversation
-                const res2 = await axios.post('backend/conversations/', new_conversation );
-                
-                if(res2.status == 200) {
-                    // Create new message
-                    const conversation_data = res2.data;
+            const res0 = await axios.get('backend/users?username=' + receiver.current.value);
+            if(res0.status == 200) {
+                const res1 = await axios.get('backend/conversations/get_one_conversation/' + sender + '/' + receiver.current.value);
+            
+                if (res1.data == null) {
+                    // No conversation, create one
+                    const new_conversation = {
+                        sender_username : sender, 
+                        receiver_username: receiver.current.value,
+                    }
+                    // Create new conversation
+                    const res2 = await axios.post('backend/conversations/', new_conversation );
+                    
+                    if(res2.status == 200) {
+                        // Create new message
+                        const conversation_data = res2.data;
+                        const message = {
+                            sender_username: user,
+                            message_content: messageText.current.value,
+                            is_deleted: false,
+                            conversation_id: conversation_data._id,
+                        };
+        
+                        const res3 = await axios.post('backend/messages/', message);
+                    }
+                    else {
+                        console.log(res2);
+                    }
+                }   
+                else {
+                    // Conversation exists, add nessage
+                    const conversation_data = res1.data;
                     const message = {
                         sender_username: user,
                         message_content: messageText.current.value,
                         is_deleted: false,
                         conversation_id: conversation_data._id,
                     };
-    
-                    const res3 = await axios.post('backend/messages/', message);
-                }
-                else {
-                    console.log(res2);
-                }
-            }   
-            else {
-                // Conversation exists, add nessage
-                const conversation_data = res1.data;
-                const message = {
-                    sender_username: user,
-                    message_content: messageText.current.value,
-                    is_deleted: false,
-                    conversation_id: conversation_data._id,
-                };
 
-                const res2 = await axios.post('backend/messages/', message);
-                setCurrentChat(conversation_data);               
+                    const res2 = await axios.post('backend/messages/', message);
+                    setCurrentChat(conversation_data);               
+                }
             }
+            else {
+                setError(res0.status);
+            }
+
+            
         }
         catch (error){
+            setError(error);
             console.log(error);
         }
     }
@@ -134,6 +146,10 @@ const NewConversation = ({setCurrentChat}) => {
                                 {each_suggestion.username}
                             </SuggestionBox>
                         )}
+                        {
+                            error_checker ? <Error> The user does not exist </Error>
+                            : null
+                        }
                         <NewConversationInput placeholder='Aa' required ref={messageText}/>
                         <SendButton type='submit'>Send</SendButton>
                     </NewConversationWrapper>

@@ -98,4 +98,9 @@ export const SuggestionBox = styled.div`
         transition: 0.3s ease-in-out;
   }
 `
-
+export const Error = styled.p`
+  color: #ff3333;
+  text-align: center;
+  margin-top: 24px;
+  font-size: 20px;
+` 

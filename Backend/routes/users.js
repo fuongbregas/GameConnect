@@ -31,6 +31,9 @@ router.get('/', async (req, res) => {
         const user = await User.findOne({username: username});
         // Exclude sensitive fields, inclusive fields are in other
         const {password, updatedAt, ...other} = user._doc;
+        if (user == null) {
+            res.status(404).send('The user does not exist');
+        }
         res.status(200).json(other);
     }
 
