@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
         // Exclude sensitive fields, inclusive fields are in other
         const {password, updatedAt, ...other} = user._doc;
         if (user == null) {
-            res.status(404).send('The user does not exist');
+            res.status(404).json('The user does not exist');
         }
         res.status(200).json(other);
     }

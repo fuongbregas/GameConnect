@@ -32,18 +32,18 @@ router.get('/:username', async (req, res) => {
 // Get a conversation between two users
 router.get('/get_one_conversation/:sender/:receiver', async (req, res,) => {
     try {
-        //console.log('Sender: ' + req.params.sender);
-        //console.log('Receiver: ' + req.params.receiver);
+        console.log('Sender: ' + req.params.sender);
+        console.log('Receiver: ' + req.params.receiver);
+        const array_of_users = [req.params.sender, req.params.receiver];
         const conversation = await Conversation.findOne({
-            users : {
-                $all: [req.params.sender, req.params.receiver]
-            },
+            users : array_of_users,
         });
         
         res.status(200).json(conversation);
     }
     catch (error) {
-        res.status(404).send('No coversation with this user');
+        res.status(500).json(error);
+        
     }
 });
 

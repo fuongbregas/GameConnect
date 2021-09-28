@@ -72,7 +72,7 @@ const NewConversation = ({setCurrentChat}) => {
             const res0 = await axios.get('backend/users?username=' + receiver.current.value);
             if(res0.status == 200) {
                 const res1 = await axios.get('backend/conversations/get_one_conversation/' + sender + '/' + receiver.current.value);
-            
+                
                 if (res1.data == null) {
                     // No conversation, create one
                     const new_conversation = {
@@ -93,6 +93,7 @@ const NewConversation = ({setCurrentChat}) => {
                         };
         
                         const res3 = await axios.post('backend/messages/', message);
+                        setCurrentChat(conversation_data);  
                     }
                     else {
                         console.log(res2);

@@ -1,11 +1,14 @@
 import axios from 'axios';
 import './ConversationElements.css';
 import avatar from './avatar.png'
-import {useEffect, useState,} from 'react';
+import {useEffect, useState, useContext} from 'react';
+//import {AuthContext} from '../../../context/AuthContext';
 
 const Conversation = ({conversation, currentUser}) => {
     const [user, setUser] = useState(null);
     const [username, setUserName] = useState(null);
+    //const {main_user} = useContext(AuthContext);
+    
     useEffect(() => {
         const friend_username = conversation.users.find((member) => member !== currentUser);
         
@@ -30,7 +33,10 @@ const Conversation = ({conversation, currentUser}) => {
                 src={avatar}
                 alt=''
            />
-           <span className="conversationName">{username}</span>
+           <span className="conversationName">
+               {username}
+            </span>
+           
        </div>
     );
 }
