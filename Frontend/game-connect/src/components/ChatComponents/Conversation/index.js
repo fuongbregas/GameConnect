@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './ConversationElements.css';
 import avatar from './avatar.png'
-import {useEffect, useState, useContext} from 'react';
+import {useEffect, useState, /*useContext*/} from 'react';
 //import {AuthContext} from '../../../context/AuthContext';
 
 const Conversation = ({conversation, currentUser}) => {

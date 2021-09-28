@@ -16,7 +16,6 @@ const Messenger = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [showConversationBox, setConversationBox] = useState(false);
     
     const socket = useRef();
 
@@ -171,7 +170,7 @@ const Messenger = () => {
                                         Send
                                     </button>
                                 </div> 
-                            </> : <NewConversation setCurrentChat = {setCurrentChat}/>
+                            </> : <NewConversation setCurrentChat = {setCurrentChat} setConversations = {setConversations}/>
                                         
                         }
                     </div>

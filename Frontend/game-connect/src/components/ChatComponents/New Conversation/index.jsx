@@ -11,7 +11,7 @@ import {Background,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
-const NewConversation = ({setCurrentChat}) => {
+const NewConversation = ({setCurrentChat, setConversations}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
@@ -70,7 +70,7 @@ const NewConversation = ({setCurrentChat}) => {
                 If there is no conversation, create a new one and add the message.
             */
             const res0 = await axios.get('backend/users?username=' + receiver.current.value);
-            if(res0.status == 200) {
+            if(res0.status === 200) {
                 const res1 = await axios.get('backend/conversations/get_one_conversation/' + sender + '/' + receiver.current.value);
                 
                 if (res1.data == null) {
@@ -82,7 +82,7 @@ const NewConversation = ({setCurrentChat}) => {
                     // Create new conversation
                     const res2 = await axios.post('backend/conversations/', new_conversation );
                     
-                    if(res2.status == 200) {
+                    if(res2.status === 200) {
                         // Create new message
                         const conversation_data = res2.data;
                         const message = {
@@ -91,9 +91,13 @@ const NewConversation = ({setCurrentChat}) => {
                             is_deleted: false,
                             conversation_id: conversation_data._id,
                         };
-        
-                        const res3 = await axios.post('backend/messages/', message);
-                        setCurrentChat(conversation_data);  
+                        
+                        // Add new message to the recently created conversation
+                        await axios.post('backend/messages/', message);
+                        setCurrentChat(conversation_data);
+                        const res4 = await axios.get("backend/conversations/" + user);
+                        // Set the new conversation to the side bar
+                        setConversations(res4.data);  
                     }
                     else {
                         console.log(res2);
@@ -108,8 +112,8 @@ const NewConversation = ({setCurrentChat}) => {
                         is_deleted: false,
                         conversation_id: conversation_data._id,
                     };
-
-                    const res2 = await axios.post('backend/messages/', message);
+                    // Add new message to the existed conversation
+                    await axios.post('backend/messages/', message);
                     setCurrentChat(conversation_data);               
                 }
             }
