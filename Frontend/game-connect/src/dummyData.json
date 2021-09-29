@@ -12,14 +12,14 @@
             {
                 "id": 1,
                 "body": "Hi userA! Welcome to the threadA community. Please read the rules.",
-                "likes": 0,
+                "likes": 1,
                 "user_id": 1,
                 "post_id": 1,
                 "username": "userA"
             },
             {
                 "id": 2,
-                "body": "Greetings userA!",
+                "body": "Greetings userA! My name is userC. Nice to meet you.",
                 "likes": 0,
                 "user_id": 3,
                 "post_id": 1,

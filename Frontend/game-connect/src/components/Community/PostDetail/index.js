@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Comment } from '../';
+import { CommentList } from '../';
 import './PostDetailElements.css';
 import axios from 'axios';
 import PostData from '../../../dummyData.json';
@@ -15,6 +15,7 @@ export default function PostDetail() {
         username: "",
         comments: []
     });
+    const [vote, setVote] = useState(0);
     const initial = true;
 
     // TODO: fetch single post data
@@ -42,6 +43,26 @@ export default function PostDetail() {
         // eslint-disable-next-line 
     }, [initial]);
 
+    // TODO: Add post request to update community data
+    const updateLikes = (e, action) => {
+        //if(user === null) history.push(`/signin`);
+        switch(action) {
+            case 1:
+                if(vote === 0) {
+                    setPostData({...postData, likes: postData.likes + 1});
+                    setVote(1);
+                } 
+                break;
+            case 2:
+                if(vote === 1) {
+                    setPostData({...postData, likes: postData.likes - 1});
+                    setVote(0);
+                } 
+                break;
+            default: break;
+        }
+    }
+
     return (
       <>
         <div className="postPage-container">
@@ -49,10 +70,10 @@ export default function PostDetail() {
             <div className="post-details">
               <div className="like-container PostPage">
                   <div className="upvote-container">
-                      <div className="upvote" >
+                      <div className="upvote" onClick={e => { updateLikes(e,1) }}>
                           <i className="fa fa-angle-up"></i>
                       </div>
-                      <div className="downvote" >
+                      <div className="downvote" onClick={e => { updateLikes(e,2) }}>
                           <i className="fa fa-angle-down"></i>
                       </div>
 
@@ -71,11 +92,11 @@ export default function PostDetail() {
                     </span>
                 </div>
                 <div className="post-info">
-                    Likes: {postData.likes}    Comments: {postData.comments.length}
+                    Likes: {postData.likes} Comments: {postData.comments.length}
                 </div>
               </div>
             </div>
-            <Comment />
+            <CommentList />
           </div>
         </div>
       </>

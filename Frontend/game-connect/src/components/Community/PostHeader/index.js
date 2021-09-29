@@ -4,7 +4,6 @@ import { AuthContext } from "../../../context/AuthContext";
 
 export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
     const { user } = useContext(AuthContext);
-    const [counter, setCounter] = useState(0);
     const [vote, setVote] = useState(0);
 
     const history = useHistory();
@@ -34,7 +33,6 @@ export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
                 break;
             default: break;
         }
-        setCounter(counter + 1);
     }
 
     const styleColor = {
