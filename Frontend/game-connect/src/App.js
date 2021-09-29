@@ -10,6 +10,8 @@ import {
   ResetPass,
   Signin,
   Signup,
+  Post,
+  SubCommunity,
   NotFound,
   Message
 } from './pages';
@@ -44,11 +46,13 @@ function App() {
 
           <Route path="/signoff" exact ><Signoff/></Route>
 
-          <Footer />
-
           <Route exact path='/message'>
             {user ? <Message/> : <Redirect to = "/"/> }
           </Route>
+
+          <Route exact path='/post/:id'><Post/></Route>
+
+          <Route exact path='/sub/:id'><SubCommunity/></Route>
 
           <Route component={NotFound}/>
         </Switch>

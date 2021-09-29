@@ -4,3 +4,23 @@
   padding: 0;
   font-family: 'PT Sans', sans-serif;
 }
+
+/* POSTS */
+
+.fa-angle-up, .fa-angle-down{
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.post{
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid rgb(206,212,218);
+  border-radius: 5px;
+  box-shadow: 0 19px 18px rgba(0.3,0.3,0.3,0.03), 0 15px 12px rgba(0.1,0.1,0.1,0.1);
+  display:flex;
+}
+.post-info{
+  font-size: 1rem;
+}

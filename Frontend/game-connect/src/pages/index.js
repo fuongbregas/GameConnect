@@ -14,6 +14,10 @@ export { default as Signin } from './Signin';
 
 export { default as Signup } from './Signup';
 
+export { default as Post } from './Post';
+
+export { default as SubCommunity } from './SubCommunity';
+
 export { default as NotFound } from './NotFound';
 
 export { default as Message} from './Message';
