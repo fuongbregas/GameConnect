@@ -146,8 +146,8 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                                          type = 'text'
                                          required 
                                          ref={receiver}/>
-                        {suggestions && suggestions.map((each_suggestion, index) => 
-                            <SuggestionBox key = {index} onClick = {() => onSuggestHandler(each_suggestion.username)}>
+                        {suggestions && suggestions.map((each_suggestion) => 
+                            <SuggestionBox key = {each_suggestion._id} onClick = {() => onSuggestHandler(each_suggestion.username)}>
                                 {each_suggestion.username}
                             </SuggestionBox>
                         )}
