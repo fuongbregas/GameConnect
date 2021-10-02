@@ -1,15 +1,52 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 import { Comment } from '../';
 import './CommentElements.css';
 import axios from 'axios';
 import PostData from '../../../dummyData.json';
 
-export default function CommentList() {
+export default function CommentList({post_id, addComment, updateComment}) {
     const { user } = useContext(AuthContext);
     const [commentData, setCommentData] = useState([]);
+
+    // TODO: Get id of current user
+    // PLACEHOLDER: user_id
+    const [reply, setReply] = useState({ body: '', user_id: 1, post_id: post_id })
     const initial = true;
+
+    const changeHandler = (e) => {
+      setReply({ ...reply, [e.target.name]: e.target.value })
+    }
+
+    // TODO: Add new comment to post; get username
+    // PLACEHOLDER: username
+    const submitHandler = (e) => {
+      e.preventDefault()
+      if (!reply.body) {
+          alert("Comment cannot be blank");
+          return
+      }
+      let index = commentData[commentData.length - 1].id;
+      const data = {
+        id: index+1,
+        body: reply.body,
+        likes: 0,
+        user_id: reply.user_id,
+        post_id: reply.post_id,
+        username: "userA"
+      };
+      console.log(data);
+      setCommentData([...commentData, data]);
+      console.log(commentData);
+      addComment(data);
+    }
+
+    // TODO: Delete comment
+    const deleteComment = (comment_id) => {
+        const items = commentData;
+        setCommentData(items.filter(item => item.id !== comment_id));
+        updateComment(comment_id);
+    }
 
     // TODO: fetch comment data
     useEffect(() => {
@@ -48,7 +85,7 @@ export default function CommentList() {
           }
         }
         setCommentData(copy);
-        console.log(commentData);
+        //console.log(commentData);
     }
 
     // TODO: Add post request to update comment data
@@ -62,29 +99,31 @@ export default function CommentList() {
           }
         }
         setCommentData(copy);
-        console.log(commentData);
+        //console.log(commentData);
     }
 
     return(
         <>
-          <form className="reply-container">
+          <form className="reply-container" onSubmit={submitHandler}>
             <p>Submit a comment</p>
             <input
                 id="body"
                 type="textarea"
                 name="body"
+                value={reply.body}
+                onChange={changeHandler}
             />
 
-            {user !== null ? <button>submit</button> : <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div>}
-            {/* <button>submit</button> 
-            <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div> */}
+            {/* {user !== null ? <button>submit</button> : <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div>} */}
+            <button>submit</button> 
+            {/* <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div> */}
           </form>
           
           <div className="comments-container">
               <div>
                 {
                     commentData.map(comment => {
-                        return <Comment key={comment.id} comment={comment} upVoteHandler={upVoteHandler} downVoteHandler={downVoteHandler} />
+                        return <Comment key={comment.id} comment={comment} upVoteHandler={upVoteHandler} downVoteHandler={downVoteHandler} deleteComment={deleteComment} />
                     })
                 }
               </div>

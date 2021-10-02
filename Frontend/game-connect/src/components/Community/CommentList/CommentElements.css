@@ -1,6 +1,6 @@
 .reply-container{
    box-shadow: 3px 4px 0px 0px #FF3F18;
-   background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+   /* background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%); */
    background-color:white;
    border-radius:5px;
    border:1px solid #fa765c;
@@ -19,7 +19,7 @@
  .reply-container input{
    margin: 20px 10px;
    padding: 3px;
-   background-color: white;
+   background-color: lightgray;
  }
  
  .reply-container p{
@@ -57,7 +57,7 @@
  
  .comments{
    display:flex;
-   font-size: 2rem;
+   font-size: 1.2rem;
    border: 1px solid rgb(206,212,218);
    box-shadow: 0 19px 18px rgba(0.3,0.3,0.3,0.03), 0 15px 12px rgba(0.1,0.1,0.1,0.1);
    padding: 15px;

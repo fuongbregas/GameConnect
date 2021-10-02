@@ -2,10 +2,13 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
-export default function Comment({comment, upVoteHandler, downVoteHandler}) {
-    const user = useContext(AuthContext);
+export default function Comment({comment, upVoteHandler, downVoteHandler, deleteComment}) {
+    //const user = useContext(AuthContext);
+    const user = "userA"; //PLACEHOLDER
     const [vote, setVote] = useState(0);
+    const history = useHistory();
 
+    // TODO: Update likes in comments
     const updateLikes = (e, action) => {
         //if(user === null) history.push(`/signin`);
         switch(action) {
@@ -25,6 +28,12 @@ export default function Comment({comment, upVoteHandler, downVoteHandler}) {
         }
     }
 
+    // TODO: Delete comment
+    const deleteHandler = (e, comment_id) => {
+        e.preventDefault();
+        deleteComment(comment_id);
+    }
+
     return(
         <>
             <div className="comments" key={comment.id}>
@@ -40,7 +49,13 @@ export default function Comment({comment, upVoteHandler, downVoteHandler}) {
                 <div>
                     <div>{comment.body}</div>
                     <div className="post-info">Likes: {comment.likes}</div>
-                    <div className="post-info">By: {comment.username}</div>
+                    <div className="post-info">By: {comment.username}
+                        {comment.username == user ?
+                            <span onClick={(e) => deleteHandler(e, comment.id)} style={{ color: "#007BFD", cursor: "pointer" }}>
+                                &nbsp;&nbsp;delete
+                                </span> : null
+                        }
+                    </div>
                 </div>
             </div> 
         </>

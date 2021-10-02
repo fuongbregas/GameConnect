@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from "../../../context/AuthContext";
 import { Link } from 'react-router-dom';
 import { CommentList } from '../';
 import './PostDetailElements.css';
@@ -6,6 +8,7 @@ import axios from 'axios';
 import PostData from '../../../dummyData.json';
 
 export default function PostDetail() {
+    const { user } = useContext(AuthContext);
     const [postData, setPostData] = useState({
         id: 0,
         title: "",
@@ -17,6 +20,7 @@ export default function PostDetail() {
     });
     const [vote, setVote] = useState(0);
     const initial = true;
+    const history = useHistory();
 
     // TODO: fetch single post data
     useEffect(() => {
@@ -61,6 +65,20 @@ export default function PostDetail() {
                 break;
             default: break;
         }
+        console.log(postData.comments);
+    }
+
+    // TODO: Add comment to post
+    const addComment = (data) => {
+        setPostData({...postData, comments: postData.comments.concat(data)});
+        console.log(postData);
+    }
+
+    // TODO: Delete comment
+    const updateComment = (comment_id) => {
+        const items = postData.comments;
+        setPostData({...postData, comments: items.filter(item => item.id !== comment_id)});
+        console.log(postData);
     }
 
     return (
@@ -96,7 +114,7 @@ export default function PostDetail() {
                 </div>
               </div>
             </div>
-            <CommentList />
+            <CommentList post_id={postData.id} addComment={addComment} updateComment={updateComment}/>
           </div>
         </div>
       </>
