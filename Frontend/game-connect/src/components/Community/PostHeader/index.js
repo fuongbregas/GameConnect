@@ -2,8 +2,11 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
-export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
+export default function PostHeader({post, upVoteHandler, downVoteHandler, deletePost}) {
     const { user } = useContext(AuthContext);
+    // TEST: comment previous line, uncomment next line
+    //const user = "userA";
+
     const [vote, setVote] = useState(0);
 
     const history = useHistory();
@@ -17,7 +20,8 @@ export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
     }
 
     const updateLikes = (e, action) => {
-        //if(user === null) history.push(`/signin`);
+        // TEST: comment next line
+        if(user === null) history.push(`/signin`);
         switch(action) {
             case 1:
                 if(vote === 0) {
@@ -33,6 +37,12 @@ export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
                 break;
             default: break;
         }
+    }
+
+    // TODO: Delete post
+    const deleteHandler = (e, post_id) => {
+        e.preventDefault();
+        deletePost(post_id);
     }
 
     const styleColor = {
@@ -58,7 +68,13 @@ export default function PostHeader({post, upVoteHandler, downVoteHandler}) {
                     Posted By:
                 <span> {post.username}</span> on sub: <span onClick={() => subLinkHandler(post.subGameConnect)} style={styleColor}>/sub/{post.subGameConnect}</span>
                 </div>
-                <div className="post-info">Likes: {post.likes}</div>
+                <div className="post-info">Likes: {post.likes}
+                    {post.username === user ?
+                        <span onClick={(e) => deleteHandler(e,post.id)} style={{ color: "#007BFD", cursor: "pointer" }}>
+                            &nbsp;&nbsp;delete
+                            </span> : null
+                    }
+                </div>
             </div>
           </div>
         </>

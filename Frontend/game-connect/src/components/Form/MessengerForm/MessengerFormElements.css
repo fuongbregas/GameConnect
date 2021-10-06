@@ -98,11 +98,11 @@
     background-color: #242526;
 }
 
-input{
+.chatMenuInput {
+    background-color: #242526;
     outline:none;
     caret-color: white;
     font-size: 20px;
-    background-color: #242526;
 }
 
 

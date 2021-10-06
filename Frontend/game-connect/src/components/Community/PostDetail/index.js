@@ -49,7 +49,8 @@ export default function PostDetail() {
 
     // TODO: Add post request to update community data
     const updateLikes = (e, action) => {
-        //if(user === null) history.push(`/signin`);
+        // TEST: comment next line
+        if(user === null) history.push(`/signin`);
         switch(action) {
             case 1:
                 if(vote === 0) {

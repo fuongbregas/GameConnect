@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 import { Comment } from '../';
 import './CommentElements.css';
@@ -7,32 +8,33 @@ import PostData from '../../../dummyData.json';
 
 export default function CommentList({post_id, addComment, updateComment}) {
     const { user } = useContext(AuthContext);
+    // TEST: comment previous line, uncomment next line
+    //const user = "userA";
     const [commentData, setCommentData] = useState([]);
 
-    // TODO: Get id of current user
-    // PLACEHOLDER: user_id
-    const [reply, setReply] = useState({ body: '', user_id: 1, post_id: post_id })
+    const [reply, setReply] = useState({ body: '' })
     const initial = true;
 
     const changeHandler = (e) => {
       setReply({ ...reply, [e.target.name]: e.target.value })
     }
 
-    // TODO: Add new comment to post; get username
-    // PLACEHOLDER: username
+    // TODO: Add new comment to post; get username and user id
+    // PLACEHOLDER: username, user id
     const submitHandler = (e) => {
       e.preventDefault()
       if (!reply.body) {
           alert("Comment cannot be blank");
           return
       }
-      let index = commentData[commentData.length - 1].id;
+      console.log(commentData);
+      let index = (commentData.length !== 0) ? commentData[commentData.length - 1].id : 0;
       const data = {
         id: index+1,
         body: reply.body,
         likes: 0,
-        user_id: reply.user_id,
-        post_id: reply.post_id,
+        user_id: 1,
+        post_id: post_id,
         username: "userA"
       };
       console.log(data);
@@ -114,9 +116,7 @@ export default function CommentList({post_id, addComment, updateComment}) {
                 onChange={changeHandler}
             />
 
-            {/* {user !== null ? <button>submit</button> : <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div>} */}
-            <button>submit</button> 
-            {/* <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div> */}
+            {user !== null ? <button>submit</button> : <div className='warning'>You must be <Link to='/signin'>logged in</Link> to comment!</div>}
           </form>
           
           <div className="comments-container">

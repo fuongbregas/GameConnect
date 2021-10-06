@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PostHeader } from '../';
+import { PostHeader, Search } from '../';
 import './PostListElements.css';
 import axios from 'axios';
 import PostData from '../../../dummyData.json';
@@ -40,7 +40,7 @@ export default function PostList() {
     console.log(threadData);
   }
 
-    // TODO: Add post request to update community data
+  // TODO: Add post request to update community data
   const downVoteHandler = (e, post_id, post_likes) => {
     e.preventDefault();
     let copy = threadData;
@@ -54,12 +54,41 @@ export default function PostList() {
     console.log(threadData);
   }
 
+  // TODO: Delete post
+  const deletePost = (post_id) => {
+    const items = threadData;
+    setThreadData(items.filter(item => item.id !== post_id));
+    console.log(threadData);
+  }
+
+  // TODO: Create post
+  // PLACEHOLDER
+  const createPost = () => {
+    let index = (threadData.length !== 0) ? threadData[threadData.length - 1].id : 0;
+    const data = {
+      id: index+1,
+      title: "Greetings",
+      body: "Body test",
+      likes: 0,
+      user_id: 1,
+      subGameConnect_id: 1,
+      subGameConnect: "threadA",
+      username: "userA",
+    };
+    setThreadData(threadData.concat(data));
+    console.log(threadData);
+  }
+
   return (
     <>
+      <div className="search">
+        <button className="post-button">Create Post</button>
+        <Search />
+      </div>
       < div className="main-container" >
             <div className="posts-container">
               {threadData.map(post => {
-                return <PostHeader key={post.id} post={post} upVoteHandler={upVoteHandler} downVoteHandler={downVoteHandler} />
+                return <PostHeader key={post.id} post={post} upVoteHandler={upVoteHandler} downVoteHandler={downVoteHandler} deletePost={deletePost}/>
               })}
             </div>
       </div>

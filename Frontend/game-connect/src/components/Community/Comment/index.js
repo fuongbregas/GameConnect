@@ -3,14 +3,16 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function Comment({comment, upVoteHandler, downVoteHandler, deleteComment}) {
-    //const user = useContext(AuthContext);
-    const user = "userA"; //PLACEHOLDER
+    const {user} = useContext(AuthContext);
+    // TEST: comment previous line, uncomment next line
+    //const user = "userA";
     const [vote, setVote] = useState(0);
     const history = useHistory();
 
     // TODO: Update likes in comments
     const updateLikes = (e, action) => {
-        //if(user === null) history.push(`/signin`);
+        // TEST: comment next line
+        if(user === null) history.push(`/signin`);
         switch(action) {
             case 1:
                 if(vote === 0) {

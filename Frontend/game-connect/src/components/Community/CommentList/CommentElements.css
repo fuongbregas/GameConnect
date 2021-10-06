@@ -1,6 +1,5 @@
 .reply-container{
    box-shadow: 3px 4px 0px 0px #FF3F18;
-   /* background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%); */
    background-color:white;
    border-radius:5px;
    border:1px solid #fa765c;
@@ -19,7 +18,8 @@
  .reply-container input{
    margin: 20px 10px;
    padding: 3px;
-   background-color: lightgray;
+   outline:none;
+   font-size: 15px;
  }
  
  .reply-container p{
@@ -67,5 +67,5 @@
  
  .warning{
    color: red;
-   font-size: 1.5rem;
+   font-size: 1.2rem;
  }

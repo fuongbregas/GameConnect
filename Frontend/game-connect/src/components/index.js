@@ -8,4 +8,4 @@ export { LoginForm, RegisterForm, MessengerForm } from './Form';
 
 export { default as Signoff } from './Signoff';
 
-export { PostHeader, PostDetail, PostList, CommentList, Comment } from './Community';
+export { PostHeader, PostDetail, PostList, CommentList, Comment, Search } from './Community';
