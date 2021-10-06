@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
     // The ID of the conversation that the message belongs to
     conversation_id: {
-        type: Number,
+        type: String,
         required: true,
     },
-    sender_id: {
-        type: Number,
+    sender_username: {
+        type: String,
         required: true,
     },
     // If the message is deleted, hide it from the frontend

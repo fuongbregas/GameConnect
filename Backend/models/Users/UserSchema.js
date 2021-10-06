@@ -22,10 +22,6 @@ const UserSchema = new Schema({
     profile_picture: {
         type: String,
     },
-    join_date: {
-        type: String,
-        required: true,
-    },
     friend_list: {
         type: Array,
         required: true,
@@ -69,10 +65,8 @@ const UserSchema = new Schema({
     is_banned: {
         type: Boolean,
         required: true,
-    },
-    
-    // Profile Image URL
+    }
 
-}, {collection: 'userData'}); // Name of the collection
+}, {timestamps: true},); // Name of the collection
 
-module.exports = Users = mongoose.model('userData', UserSchema);
+module.exports = Users = mongoose.model('userData', UserSchema, 'userData');

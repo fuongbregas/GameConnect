@@ -1,6 +1,7 @@
-import './MessageElements.css'
+import './MessageElements.css';
+import {format} from 'timeago.js';
 
-const Message = ({own}) => {
+const Message = ({message, own}) => {
 
 
     return (
@@ -11,11 +12,13 @@ const Message = ({own}) => {
                     src = 'https://www.jellykey.com/wp-content/uploads/jellykey-retro-tv-35-1536x1536.jpg'
                     alt = ''
                 />
-                <p className = 'messageText'>Yo, boi</p>
+                <p className = 'messageText'>
+                    {message.message_content}
+                </p>
             </div>
 
             <div className = 'messageBottom'>
-                1 second ago
+                {format(message.createdAt)}
             </div>
         </div>
         
