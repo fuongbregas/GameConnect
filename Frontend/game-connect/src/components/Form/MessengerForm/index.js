@@ -16,6 +16,7 @@ const Messenger = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     
     const socket = useRef();
 
@@ -44,7 +45,7 @@ const Messenger = () => {
         socket.current.emit('addUser', user);
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            console.log(users);
+            setOnlineUsers(users);
         });
     }, [user]);
 
@@ -181,9 +182,8 @@ const Messenger = () => {
                         <div className="onlineTop">
                             <span className="onlineLabel">Online Friends</span>
                         </div>
-                        <Online/>
-                        <Online/>
-                        <Online/>
+                        <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                        
                     </div>
                 </div>
             </div>
