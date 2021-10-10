@@ -17,6 +17,7 @@ const Messenger = () => {
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [friendList, setFriendList] = useState([]);
     
     const socket = useRef();
 
@@ -43,11 +44,16 @@ const Messenger = () => {
     useEffect(() => {
         // Add user to Socket
         socket.current.emit('addUser', user);
+        // Get friends from the backend
+        
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            setOnlineUsers(users);
+            setOnlineUsers(
+                friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
+            );
         });
-    }, [user]);
+    }, [user, friendList]);
+    //console.log('Online message', onlineUsers);
 
     // if there is new message
     useEffect(() => {
@@ -95,7 +101,7 @@ const Messenger = () => {
 
         // Find the username who is not 'user' in the current conversation
         const receiver = currentChat.users.find(member => member !== user);
-        console.log("Receiver: " + receiver);
+        
         socket.current.emit('sendMessage', {
             sender: user,
             receiver,
@@ -124,6 +130,21 @@ const Messenger = () => {
     const openNewConversation = () => {
         setCurrentChat(null);
     }
+
+    // Get friend list from backend   
+    useEffect(() => {
+        const getFriendLists = async (user) => {
+            try {
+                const res = await axios.get("backend/users/friends/" + user);
+                setFriendList(res.data);
+            }   
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getFriendLists(user);
+    }, [user, friendList]);
 
     return (
         <>

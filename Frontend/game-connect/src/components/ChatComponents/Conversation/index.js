@@ -34,7 +34,7 @@ const Conversation = ({conversation, currentUser}) => {
                 alt=''
            />
            <span className="conversationName">
-               {username != null ?  username : currentUser }
+               {username}
             </span>
            
        </div>

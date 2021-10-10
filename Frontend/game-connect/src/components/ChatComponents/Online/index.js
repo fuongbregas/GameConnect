@@ -3,9 +3,9 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
-    const [friends, setFriends] = useState([]);
+    //const [friends, setFriends] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
-
+    /*
     useEffect(() => {
         const getFriends = async () => {
             const res = await axios.get('/backend/users/friends/' + currentUser);
@@ -14,12 +14,12 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
         }
         getFriends();
     }, [currentUser]);
-    
+    */
 
     useEffect(() => {
-        setOnlineFriends(friends.filter((each_friend) => onlineUsers.includes(each_friend.username)));
-    }, [onlineUsers, friends]);
-    console.log(onlineUsers);
+        setOnlineFriends(onlineUsers);
+    }, [onlineUsers]);
+    //console.log('onlineFriends', onlineFriends);
 
     return(
         <div className="online">
@@ -27,7 +27,7 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
                 <div key = {each_online_friend._id} className="onlineFriend">
                     <div className="onlineImageContainer">
                         <img className="onlineImage"
-                            src = 'https://www.jellykey.com/wp-content/uploads/jellykey-retro-tv-35-1536x1536.jpg' 
+                            src = {each_online_friend.profile_picture} 
                             alt = ''/>
                         <div className = "onlineIndicator"/>
                     </div>
