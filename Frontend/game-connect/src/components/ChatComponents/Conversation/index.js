@@ -10,7 +10,7 @@ const Conversation = ({conversation, currentUser}) => {
     //const {main_user} = useContext(AuthContext);
     
     useEffect(() => {
-        const friend_username = conversation.users.find((member) => member !== currentUser);
+        const friend_username = conversation.users[1];
         
         const getUser = async () => {
             try {
