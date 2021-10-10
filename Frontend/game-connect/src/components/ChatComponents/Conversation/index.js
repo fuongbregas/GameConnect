@@ -5,17 +5,21 @@ import {useEffect, useState, /*useContext*/} from 'react';
 //import {AuthContext} from '../../../context/AuthContext';
 
 const Conversation = ({conversation, currentUser}) => {
-    const [user, setUser] = useState(null);
+    const [profilePicture, setProfilePicture] = useState('');
     const [username, setUserName] = useState(null);
     //const {main_user} = useContext(AuthContext);
     
     useEffect(() => {
-        const friend_username = conversation.users[1];
+        var friend_username = conversation.users.find((member) => member !== currentUser);
+        // If the type is undefined, set to the current user
+        if (typeof friend_username === 'undefined'){
+            friend_username = currentUser;
+        }
         
         const getUser = async () => {
             try {
                 const res = await axios.get('backend/users?username=' + friend_username);
-                setUser(res.data);
+                setProfilePicture(res.data.profile_picture);
                 setUserName(res.data.username);
             }
             catch (error) {
@@ -25,12 +29,12 @@ const Conversation = ({conversation, currentUser}) => {
         // Call the function
         getUser();
     }, [conversation, currentUser]);
-
+    
     return (
        <div className="conversation">
            <img
                 className="conversationImage"
-                src={avatar}
+                src={profilePicture !== '' ? profilePicture : avatar}
                 alt=''
            />
            <span className="conversationName">

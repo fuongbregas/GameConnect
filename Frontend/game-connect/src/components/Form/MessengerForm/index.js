@@ -18,14 +18,21 @@ const Messenger = () => {
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [friendList, setFriendList] = useState([]);
-    
-    const socket = useRef();
-
     // Username
     const {user} = useContext(AuthContext);
 
+    // Socket reference
+    const socket = useRef();
+
     // Autoscroll when new message added
     const scrollRef = useRef();
+
+    // Scroll down to bottom of message screen
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }, [messages]);
     
     // Run socket connection once
     useEffect(() => {
@@ -39,7 +46,6 @@ const Messenger = () => {
             });
         });
     }, []);
-
     
     useEffect(() => {
         // Add user to Socket
@@ -53,7 +59,6 @@ const Messenger = () => {
             );
         });
     }, [user, friendList]);
-    //console.log('Online message', onlineUsers);
 
     // if there is new message
     useEffect(() => {
@@ -74,7 +79,7 @@ const Messenger = () => {
         getConversations();
     }, [user]);
 
-    // Changes if there is new message
+    // Changes if there is new messages
     useEffect(() => {
         const getMessages = async () => {
             try {
@@ -88,6 +93,21 @@ const Messenger = () => {
 
         getMessages();
     }, [currentChat]);
+
+    // Get friend list from backend   
+    useEffect(() => {
+        const getFriendList = async (user) => {
+            try {
+                const res = await axios.get("backend/users/friends/" + user);
+                setFriendList(res.data);
+            }   
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getFriendList(user);
+    }, [user]);
 
     // Submit new messages
     const sendMessageSubmit = async (event) => {
@@ -118,33 +138,10 @@ const Messenger = () => {
         }
     }
 
-    // Scroll down to bottom of message screen
-    useEffect(() => {
-        scrollRef.current?.scrollIntoView({
-            behavior: 'smooth',
-        });
-    }, [messages]);
-
-
     // Show the Create Conversation overlay
     const openNewConversation = () => {
         setCurrentChat(null);
     }
-
-    // Get friend list from backend   
-    useEffect(() => {
-        const getFriendLists = async (user) => {
-            try {
-                const res = await axios.get("backend/users/friends/" + user);
-                setFriendList(res.data);
-            }   
-            catch (error) {
-                console.error(error);
-            }
-        }
-
-        getFriendLists(user);
-    }, [user]);
 
     return (
         <>

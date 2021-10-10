@@ -1,5 +1,6 @@
 import './MessageElements.css';
 import {format} from 'timeago.js';
+import {avatar} from './avatar.png'
 
 const Message = ({message, own}) => {
 
