@@ -144,7 +144,7 @@ const Messenger = () => {
         }
 
         getFriendLists(user);
-    }, [user, friendList]);
+    }, [user]);
 
     return (
         <>

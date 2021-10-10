@@ -1,25 +1,17 @@
 import './OnlineElements.css';
 import {useState, useEffect} from 'react';
-import axios from 'axios';
+import avatar from './avatar.png'
 
 const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
-    //const [friends, setFriends] = useState([]);
+    
     const [onlineFriends, setOnlineFriends] = useState([]);
-    /*
-    useEffect(() => {
-        const getFriends = async () => {
-            const res = await axios.get('/backend/users/friends/' + currentUser);
-            setFriends(res.data);
-            
-        }
-        getFriends();
-    }, [currentUser]);
-    */
-
+    
     useEffect(() => {
         setOnlineFriends(onlineUsers);
     }, [onlineUsers]);
     //console.log('onlineFriends', onlineFriends);
+
+    
 
     return(
         <div className="online">
@@ -27,7 +19,7 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
                 <div key = {each_online_friend._id} className="onlineFriend">
                     <div className="onlineImageContainer">
                         <img className="onlineImage"
-                            src = {each_online_friend.profile_picture} 
+                            src = {each_online_friend.profile_picture != '' ? each_online_friend.profile_picture : avatar} 
                             alt = ''/>
                         <div className = "onlineIndicator"/>
                     </div>
