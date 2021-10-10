@@ -172,7 +172,11 @@ const Messenger = () => {
                                 <div className="chatBoxTop">
                                     {messages.map(each_message => (
                                         <div key = {each_message._id} ref = {scrollRef}>                                            
-                                            <Message  message = {each_message} own = {each_message.sender_username === user}/>
+                                            <Message
+                                                message = {each_message}
+                                                sender = {each_message.sender_username}
+                                                own = {each_message.sender_username === user}
+                                            />
                                         </div>
                                     ))}
                                     

@@ -28,7 +28,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
         const loadUsers = async () => {
             try {
                 const res = await axios.get(url);
-                console.log("User data: " + res.data);
+                //console.log("User data: " + res.data);
                 setUsers(res.data);
             }   
             catch (error) {
