@@ -14,6 +14,8 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
 
     const setConversation = async (user) => {
         try {
+            console.log("User", user);
+            console.log("current", currentUser);
             const res = await axios.get('backend/conversations/get_one_conversation/' + currentUser + '/' + user);
             setCurrentChat(res.data);
         }
