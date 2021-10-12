@@ -12,6 +12,8 @@ import {
   Signup,
   Post,
   SubCommunity,
+  CreatePost,
+  CreateSub,
   NotFound,
   Message
 } from './pages';
@@ -21,6 +23,8 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
+  // TEST: uncomment previous line, comment next line
+  //const user = "userA";
   console.log("User: " + user);
 
   return (
@@ -53,6 +57,10 @@ function App() {
           <Route exact path='/post/:id'><Post/></Route>
 
           <Route exact path='/sub/:id'><SubCommunity/></Route>
+
+          <Route exact path='/postform'><CreatePost/></Route>
+
+          <Route exact path='/subform'><CreateSub/></Route>
 
           <Route component={NotFound}/>
         </Switch>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { PostHeader, Search } from '../';
 import './PostListElements.css';
 import axios from 'axios';
@@ -7,6 +8,7 @@ import PostData from '../../../dummyData.json';
 export default function PostList() {
   const [threadData, setThreadData] = useState([]);
   const initial = true;
+  const history = useHistory();
 
   // TODO: fetch community data
   useEffect(() => {
@@ -79,10 +81,23 @@ export default function PostList() {
     console.log(threadData);
   }
 
+  const postHandler = (e) => {
+    e.preventDefault();
+    history.push('/postform');
+}
+
+  const subHandler = (e) => {
+      e.preventDefault();
+      history.push('/subform');
+  }
+
   return (
     <>
       <div className="search">
-        <button className="post-button">Create Post</button>
+        <div className="buttons">
+          <button className="post-button com-button" onClick={postHandler}>Create Post</button>
+          <button className="sub-button com-button" onClick={subHandler}>Create Sub</button>
+        </div>
         <Search />
       </div>
       < div className="main-container" >

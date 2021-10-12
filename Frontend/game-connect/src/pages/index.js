@@ -21,3 +21,7 @@ export { default as SubCommunity } from './SubCommunity';
 export { default as NotFound } from './NotFound';
 
 export { default as Message} from './Message';
+
+export { default as CreatePost} from './CreatePost';
+
+export { default as CreateSub} from './CreateSub';

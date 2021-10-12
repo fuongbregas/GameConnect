@@ -52,7 +52,7 @@ export default function Comment({comment, upVoteHandler, downVoteHandler, delete
                     <div>{comment.body}</div>
                     <div className="post-info">Likes: {comment.likes}</div>
                     <div className="post-info">By: {comment.username}
-                        {comment.username == user ?
+                        {comment.username === user ?
                             <span onClick={(e) => deleteHandler(e, comment.id)} style={{ color: "#007BFD", cursor: "pointer" }}>
                                 &nbsp;&nbsp;delete
                                 </span> : null
