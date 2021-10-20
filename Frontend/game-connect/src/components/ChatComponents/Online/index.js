@@ -1,6 +1,5 @@
 import './OnlineElements.css';
 import {useState, useEffect} from 'react';
-import avatar from './avatar.png'
 import axios from 'axios';
 
 const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
@@ -30,7 +29,7 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
                 <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
                     <div className="onlineImageContainer">
                         <img className="onlineImage"
-                            src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : avatar} 
+                            src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : '/avatar.png'} 
                             alt = ''/>
                         <div className = "onlineIndicator"/>
                     </div>

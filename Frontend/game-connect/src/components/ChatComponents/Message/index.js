@@ -1,6 +1,5 @@
 import './MessageElements.css';
 import {format} from 'timeago.js';
-import avatar from './avatar.png'
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -26,7 +25,7 @@ const Message = ({message, own, sender}) => {
         <div className = {own ? 'message own' : 'message'}>
             <div className = 'messageTop'>
                 <img className = 'messageImage'
-                    src = {profilePicture !== '' ? profilePicture : avatar}
+                    src = {profilePicture !== '' ? profilePicture : '/avatar.png'}
                     alt = ''
                 />
                 <p className = 'messageText'>
