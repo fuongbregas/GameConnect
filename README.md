@@ -9,7 +9,7 @@
 - pip install pymongo
 
 ### 3. How to run the project locally with Terminal:
-- Run MongoDB.
+- Run MongoDB with *sudo service mongod start*.
 - Go to the Backend/Python folder, run *python3 run.py* to load all the game data from Twitch IGDB.
 - Go to the Frontend/game-connect folder, run *npm install*.
 - Go to the Socket folder, run *npm install*.
