@@ -21,6 +21,29 @@ router.get('/autosearch', async (req, res) => {
     }
 });
 
+// Get friends
+router.get('/friends/:username', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await User.findOne({username: username});
+        const friends = await Promise.all(
+            user.friend_list.map ((friend_username) => {
+                return User.findOne({username: friend_username});
+            })
+        );
+
+        var friend_list = [];
+        friends.map ((each_friend) => {
+            const {_id, username, profile_picture} = each_friend;
+            friend_list.push({_id, username, profile_picture});
+        });
+
+        res.status(200).json(friend_list);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 // Get a user
 router.get('/', async (req, res) => {

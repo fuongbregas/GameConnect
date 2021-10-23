@@ -25,6 +25,7 @@ const Sidebar = ({isOpen, toggle}) => {
               <SidebarLink to="/about">About</SidebarLink>
               <SidebarLink to="/profile">Profile</SidebarLink>
               <SidebarLink to="/support">Support</SidebarLink>
+              {user ? <SidebarLink to="/message">Message</SidebarLink> : null}
             </SidebarMenu>
             <SideBtnWrap>
               {(user) ? <SidebarRoute to="/signoff">Sign Off</SidebarRoute> 
