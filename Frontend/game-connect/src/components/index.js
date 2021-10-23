@@ -4,6 +4,6 @@ export { default as Sidebar } from './Sidebar';
 
 export { default as Footer } from './Footer';
 
-export { LoginForm, RegisterForm, MessengerForm } from './Form';
+export { LoginForm, RegisterForm, MessengerForm, HomeForm } from './Form';
 
 export { default as Signoff } from './Signoff';
