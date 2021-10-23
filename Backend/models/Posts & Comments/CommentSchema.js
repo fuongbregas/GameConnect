@@ -4,8 +4,13 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
     
     // ID of the user who made the comment
+    post_id : {
+        type: String,
+        required: true,
+    },
+
     user_id: {
-        type: Number,
+        type: String,
         required: true,
     },
     karma: {
