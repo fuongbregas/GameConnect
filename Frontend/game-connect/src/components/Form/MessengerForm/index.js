@@ -16,14 +16,23 @@ const Messenger = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    
-    const socket = useRef();
-
+    const [onlineUsers, setOnlineUsers] = useState([]);
+    const [friendList, setFriendList] = useState([]);
     // Username
     const {user} = useContext(AuthContext);
 
+    // Socket reference
+    const socket = useRef();
+
     // Autoscroll when new message added
     const scrollRef = useRef();
+
+    // Scroll down to bottom of message screen
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }, [messages]);
     
     // Run socket connection once
     useEffect(() => {
@@ -37,16 +46,19 @@ const Messenger = () => {
             });
         });
     }, []);
-
     
     useEffect(() => {
         // Add user to Socket
         socket.current.emit('addUser', user);
+        // Get friends from the backend
+        
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            console.log(users);
+            setOnlineUsers(
+                friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
+            );
         });
-    }, [user]);
+    }, [user, friendList]);
 
     // if there is new message
     useEffect(() => {
@@ -67,7 +79,7 @@ const Messenger = () => {
         getConversations();
     }, [user]);
 
-    // Changes if there is new message
+    // Changes if there is new messages
     useEffect(() => {
         const getMessages = async () => {
             try {
@@ -82,6 +94,21 @@ const Messenger = () => {
         getMessages();
     }, [currentChat]);
 
+    // Get friend list from backend   
+    useEffect(() => {
+        const getFriendList = async (user) => {
+            try {
+                const res = await axios.get("backend/users/friends/" + user);
+                setFriendList(res.data);
+            }   
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getFriendList(user);
+    }, [user]);
+
     // Submit new messages
     const sendMessageSubmit = async (event) => {
         event.preventDefault();
@@ -94,7 +121,7 @@ const Messenger = () => {
 
         // Find the username who is not 'user' in the current conversation
         const receiver = currentChat.users.find(member => member !== user);
-        console.log("Receiver: " + receiver);
+        
         socket.current.emit('sendMessage', {
             sender: user,
             receiver,
@@ -110,14 +137,6 @@ const Messenger = () => {
             console.log(error);
         }
     }
-
-    // Scroll down to bottom of message screen
-    useEffect(() => {
-        scrollRef.current?.scrollIntoView({
-            behavior: 'smooth',
-        });
-    }, [messages]);
-
 
     // Show the Create Conversation overlay
     const openNewConversation = () => {
@@ -153,7 +172,11 @@ const Messenger = () => {
                                 <div className="chatBoxTop">
                                     {messages.map(each_message => (
                                         <div key = {each_message._id} ref = {scrollRef}>                                            
-                                            <Message  message = {each_message} own = {each_message.sender_username === user}/>
+                                            <Message
+                                                message = {each_message}
+                                                sender = {each_message.sender_username}
+                                                own = {each_message.sender_username === user}
+                                            />
                                         </div>
                                     ))}
                                     
@@ -181,9 +204,8 @@ const Messenger = () => {
                         <div className="onlineTop">
                             <span className="onlineLabel">Online Friends</span>
                         </div>
-                        <Online/>
-                        <Online/>
-                        <Online/>
+                        <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                        
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ import {CircularProgress} from '@material-ui/core';
 const Login = () => {
     const email = useRef();
     const password = useRef();
-    const {user, isFetching, error, dispatch} = useContext(AuthContext);
+    const {/*user,*/ isFetching, error, dispatch} = useContext(AuthContext);
     const [error_checker, setError] = useState('');
 
     const loginClick = (e) => {

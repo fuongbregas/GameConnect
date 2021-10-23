@@ -72,9 +72,10 @@ def getGames():
     authorization_token = igdb_authorization.get_authorization_token() # token
     
     number_of_calls = 100000 # We can set to an infinite number
-
+    counter = 0
     # There are 50866 PC games on IGDB at the moment
-    for x in range(number_of_calls):  
+    for x in range(number_of_calls):
+        
         offset_value = igdb_config.get_offset_value() # get the current offset from local DB
         old_offset = offset_value # temporary save the offset
         
@@ -109,4 +110,6 @@ def getGames():
         # If not, then the response is less than 500, we reached the end, break the loop
         else:
             break        
-        time.sleep(0.8) # Sleep 0.8 seconds every call
+        
+        
+            
