@@ -8,10 +8,7 @@ const PostSchema = new Schema({
         type: Number,
         required: true,
     },
-    comment_id: {
-        type: Array,
-        required: true,
-    },
+    
     karma: {
         type: Number,
         required: true,
@@ -36,13 +33,13 @@ const PostSchema = new Schema({
         type: String,
         required: true,
     },
-    // List of images added to the post
+    // URL of image
     image_list: {
-        type: Array,
+        type: String,
     },
     // ID of the user who created the post
     user_id: {
-        type: Number,
+        type: String,
         required: true,
     },
     

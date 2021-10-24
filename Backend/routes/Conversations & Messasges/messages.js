@@ -40,4 +40,29 @@ router.get('/:conversation_id', async (req, res) => {
     }
 });
 
+// Get few number of messages from a conversation ID
+router.get('/pagination_message/:conversation_id/:offset', async (req, res) => {
+    try {
+        var conversation_id = req.params.conversation_id;
+        var offset = req.params.offset;
+        const message = await Message.find({
+            conversation_id : conversation_id,
+        }).skip(offset).limit(10).lean();
+        console.log(message);
+
+        const deleted_message = 'This message has been deleted.';
+        for(var i = 0; i < message.length; i++) {
+            if(message[i].is_deleted === true){
+                message[i].message_content = deleted_message;
+            }
+        }
+        
+        
+        res.status(200).send(message);
+    }
+    catch (error) {
+        
+    }
+});
+
 module.exports = router;

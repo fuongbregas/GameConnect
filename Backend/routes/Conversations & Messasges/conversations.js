@@ -36,7 +36,7 @@ router.get('/get_one_conversation/:sender/:receiver', async (req, res,) => {
         console.log('Receiver: ' + req.params.receiver);
         const array_of_users = [req.params.sender, req.params.receiver];
         const conversation = await Conversation.findOne({
-            users : array_of_users,
+            users : {$all: array_of_users},
         });
         
         res.status(200).json(conversation);

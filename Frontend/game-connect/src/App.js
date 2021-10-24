@@ -23,9 +23,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-  // TEST: uncomment previous line, comment next line
-  //const user = "userA";
-  console.log("User: " + user);
+  //console.log("User: " + user);
 
   return (
     <div className="App">

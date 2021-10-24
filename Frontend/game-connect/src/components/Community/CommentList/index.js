@@ -35,7 +35,7 @@ export default function CommentList({post_id, addComment, updateComment}) {
         likes: 0,
         user_id: 1,
         post_id: post_id,
-        username: "userA"
+        username: user
       };
       console.log(data);
       setCommentData([...commentData, data]);
