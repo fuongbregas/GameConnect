@@ -7,3 +7,5 @@ export { default as Footer } from './Footer';
 export { LoginForm, RegisterForm, MessengerForm, ProfileForm,  HomeForm} from './Form';
 
 export { default as Signoff } from './Signoff';
+
+export { default as ProfileImageChanger} from './ProfileImageChanger';

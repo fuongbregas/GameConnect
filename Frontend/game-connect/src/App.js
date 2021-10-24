@@ -11,7 +11,8 @@ import {
   Signin,
   Signup,
   NotFound,
-  Message
+  Message,
+  ProfileImage
 } from './pages';
 
 import { useContext } from "react";
@@ -48,7 +49,7 @@ function App() {
 
           <Route path="/signoff" exact ><Signoff/></Route>
 
-
+          <Route path = '/profile_image'><ProfileImage/></Route>
           
 
           <Route component={NotFound}/>

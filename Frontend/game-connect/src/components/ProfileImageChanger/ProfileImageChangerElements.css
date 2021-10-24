@@ -1,0 +1,7 @@
+.profileImageChangerContaienr{
+    display: flex;
+    flex-direction: column;
+    min-height: 65vh;
+    justify-content: center;
+    align-items: center;
+}

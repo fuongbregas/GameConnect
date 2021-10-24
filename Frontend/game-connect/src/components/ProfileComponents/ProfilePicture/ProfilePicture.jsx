@@ -1,5 +1,6 @@
 import {React, useState, useContext, useEffect} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './ProfilePicture.css';
 import {AuthContext} from '../../../context/AuthContext';
 const ProfilePicture = () => {
@@ -23,7 +24,10 @@ const ProfilePicture = () => {
     
     return (
         <div className = 'profile_picture_container'>
-            <img className = 'profile_picture' src = {profilePicture !== '' ? profilePicture : './avatar.png'} alt = ''/>
+            <Link to = '/profile_image'>
+                <img className = 'profile_picture' src = {profilePicture !== '' ? profilePicture : './avatar.png'} alt = ''/>
+            </Link>
+            
             <h2>{user}</h2>
         </div>
     );
