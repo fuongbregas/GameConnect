@@ -37,7 +37,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
         }
 
         loadUsers();
-    }, []);
+    }, [receiver]);
 
     const onChangeHandler = (usernameInput) => {
         let matches = [];

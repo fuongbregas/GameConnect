@@ -58,7 +58,7 @@ const Messenger = () => {
                 friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
             );
         });
-    }, [user, friendList, setOnlineUsers]);
+    }, [user, friendList]);
 
     // if there is new message
     useEffect(() => {
@@ -209,7 +209,12 @@ const Messenger = () => {
                         <div className="onlineTop">
                             <span className="onlineLabel">Online Friends</span>
                         </div>
-                        <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                        {
+                            onlineUsers.length !== 0 ?
+                                <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                                : null
+                        }
+                        
                         
                     </div>
                 </div>
