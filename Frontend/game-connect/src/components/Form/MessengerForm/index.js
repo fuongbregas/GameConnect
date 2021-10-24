@@ -50,8 +50,7 @@ const Messenger = () => {
     useEffect(() => {
         // Add user to Socket
         socket.current.emit('addUser', user);
-        // Get friends from the backend
-        
+                
         // Get all users from socket server
         socket.current.on('getUsers', users => {
             setOnlineUsers(
@@ -59,6 +58,7 @@ const Messenger = () => {
             );
         });
     }, [user, friendList]);
+    
 
     // if there is new message
     useEffect(() => {
@@ -96,17 +96,29 @@ const Messenger = () => {
 
     // Get friend list from backend   
     useEffect(() => {
+        const source = axios.CancelToken.source();
+
         const getFriendList = async (user) => {
             try {
-                const res = await axios.get("backend/users/friends/" + user);
+                const res = await axios.get("backend/users/friends/" + user, {
+                    cancelToken: source.token,
+                });
                 setFriendList(res.data);
             }   
             catch (error) {
-                console.error(error);
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
             }
         }
 
         getFriendList(user);
+
+        return () => {
+            source.cancel();
+        }
     }, [user]);
 
     // Submit new messages
