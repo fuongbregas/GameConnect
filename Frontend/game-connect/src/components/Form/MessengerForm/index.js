@@ -58,7 +58,7 @@ const Messenger = () => {
                 friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
             );
         });
-    }, [user, friendList]);
+    }, [user, friendList, setOnlineUsers]);
 
     // if there is new message
     useEffect(() => {
@@ -153,12 +153,17 @@ const Messenger = () => {
                             <MdCreate className = 'createConversationButton' onClick= {openNewConversation}></MdCreate>                            
                         </div>
                         
-                        <input placeholder="Search Messenger" className="chatMenuInput"/>                        
-                        {conversations.map((each_conversation) => (
-                            <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
-                                <Conversation conversation={each_conversation} currentUser={user} />
-                            </div>
-                        ))}
+                        <input placeholder="Search Messenger" className="chatMenuInput"/>
+                                                
+                        {
+                            conversations.length !== 0 ? 
+                                conversations.map((each_conversation) => (
+                                    <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
+                                        <Conversation conversation={each_conversation} currentUser={user} />
+                                    </div>
+                                ))
+                                : null
+                        }
                     </div>
                 </div>
 

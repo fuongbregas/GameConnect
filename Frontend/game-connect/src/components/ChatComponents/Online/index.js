@@ -25,17 +25,21 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
 
     return(
         <div className="online">
-            {onlineFriends.map (each_online_friend => (
-                <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
-                    <div className="onlineImageContainer">
-                        <img className="onlineImage"
-                            src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : '/avatar.png'} 
-                            alt = ''/>
-                        <div className = "onlineIndicator"/>
-                    </div>
-                    <span className="onlineUsername">{each_online_friend.username}</span>
-                 </div>
-            ))}
+            {
+                onlineUsers.length !== 0 ?
+                    onlineFriends.map (each_online_friend => (
+                        <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
+                            <div className="onlineImageContainer">
+                                <img className="onlineImage"
+                                    src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : '/avatar.png'} 
+                                    alt = ''/>
+                                <div className = "onlineIndicator"/>
+                            </div>
+                            <span className="onlineUsername">{each_online_friend.username}</span>
+                        </div>
+                    ))
+                : null
+            }
         </div>
     );
 }
