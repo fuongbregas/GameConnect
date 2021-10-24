@@ -22,21 +22,32 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
 
     // Get user when there is an input
     useEffect(() => {
+        const source = axios.CancelToken.source();
         var receiver_text = receiver.current.value;
         var url = 'backend/users/autosearch?key=' + receiver_text;
 
         const loadUsers = async () => {
             try {
-                const res = await axios.get(url);
+                const res = await axios.get(url, {
+                    cancelToken: source.token,
+                });
                 //console.log("User data: " + res.data);
                 setUsers(res.data);
             }   
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
             }
         }
 
         loadUsers();
+
+        return () => {
+            source.cancel();
+        }
     }, [receiver]);
 
     const onChangeHandler = (usernameInput) => {

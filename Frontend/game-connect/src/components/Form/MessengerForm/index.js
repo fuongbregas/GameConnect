@@ -68,30 +68,51 @@ const Messenger = () => {
 
     // Changes if there is new conversation
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getConversations = async () => {
-          try {
-            const res = await axios.get("backend/conversations/" + user);
-            setConversations(res.data);
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const res = await axios.get("backend/conversations/" + user, {
+                    cancelToken: source.token,
+                });
+                setConversations(res.data);
+            } 
+            catch (error) {
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }
         };
         getConversations();
+        return () => {
+            source.cancel();
+        }
     }, [user]);
 
     // Changes if there is new messages
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getMessages = async () => {
             try {
-                const res = await axios.get('backend/messages/' + currentChat?._id);
+                const res = await axios.get('backend/messages/' + currentChat?._id, {
+                    cancelToken: source.token,
+                });
                 setMessages(res.data);
             }
             catch (error) {
-                console.log(error);
-            }            
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }           
         }
 
         getMessages();
+        return () => {
+            source.cancel();
+        }
     }, [currentChat]);
 
     // Get friend list from backend   
