@@ -13,7 +13,7 @@ router.get('/autosearch', async (req, res) => {
         const users = await User.find(query, {'username' : 1},)
                                 .sort({date: -1})
                                 .limit(10);
-        console.log(users);
+        
         res.status(200).json(users);
     }
     catch (error) {
@@ -49,7 +49,6 @@ router.get('/friends/:username', async (req, res) => {
 router.get('/', async (req, res) => {
     // const user_id = req.query.user_id;
     const username = req.query.username;
-    console.log("username " + username);
     try {
         const user = await User.findOne({username: username});
         // Exclude sensitive fields, inclusive fields are in other
@@ -64,5 +63,18 @@ router.get('/', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
+// Update profile picture 
+router.put('/new_profile_picture', async (req, res) => {
+    const username = {username : req.body.username};
+    const newPicture = {profile_picture : req.body.profile_picture};
+    try {
+        const user = await User.findOneAndUpdate(username, newPicture);
+        res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 module.exports = router;

@@ -89,8 +89,6 @@ router.get('/get_saved_games/:user', async (req, res) => {
 
         var game = await Games.find({id: {$in: savedGames}});
 
-        console.log(game);
-        console.log('username', username);
         res.status(200).json(game);
     }
     catch(error){
