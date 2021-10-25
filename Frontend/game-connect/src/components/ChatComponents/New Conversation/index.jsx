@@ -148,11 +148,6 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                         
                         <SearchUserInput placeholder='Enter username' 
                                          onChange = {event => onChangeHandler(event.target.value)}
-                                         onBlur = {() => {
-                                             setTimeout(() => {
-                                                setSuggestions([]);
-                                             }, 100);
-                                         }}
                                          value = {usernameInput}
                                          type = 'text'
                                          required 

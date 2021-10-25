@@ -59,6 +59,32 @@ const Messenger = () => {
         });
     }, [user, friendList]);
     
+    // Get friend list from backend   
+    useEffect(() => {
+        const source = axios.CancelToken.source();
+
+        const getFriendList = async (user) => {
+            try {
+                const res = await axios.get("backend/users/friends/" + user, {
+                    cancelToken: source.token,
+                });
+                setFriendList(res.data);
+            }   
+            catch (error) {
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }
+        }
+
+        getFriendList(user);
+
+        return () => {
+            source.cancel();
+        }
+    }, [user]);
 
     // if there is new message
     useEffect(() => {
@@ -88,7 +114,7 @@ const Messenger = () => {
         return () => {
             source.cancel();
         }
-    }, [user]);
+    }, []);
 
     // Changes if there is new messages
     useEffect(() => {
@@ -114,33 +140,6 @@ const Messenger = () => {
             source.cancel();
         }
     }, [currentChat]);
-
-    // Get friend list from backend   
-    useEffect(() => {
-        const source = axios.CancelToken.source();
-
-        const getFriendList = async (user) => {
-            try {
-                const res = await axios.get("backend/users/friends/" + user, {
-                    cancelToken: source.token,
-                });
-                setFriendList(res.data);
-            }   
-            catch (error) {
-                if (axios.isCancel(error)){
-
-                } else {
-                    console.log(error);
-                }
-            }
-        }
-
-        getFriendList(user);
-
-        return () => {
-            source.cancel();
-        }
-    }, [user]);
 
     // Submit new messages
     const sendMessageSubmit = async (event) => {
