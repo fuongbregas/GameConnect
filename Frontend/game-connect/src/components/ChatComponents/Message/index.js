@@ -38,6 +38,7 @@ const Message = ({message, own, sender}) => {
                 <img className = 'messageImage'
                     src = {profilePicture !== '' ? profilePicture : '/avatar.png'}
                     alt = ''
+                    referrerPolicy="no-referrer"
                 />
                 <p className = 'messageText'>
                     {message.message_content}

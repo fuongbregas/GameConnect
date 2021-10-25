@@ -56,8 +56,11 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
                         <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
                             <div className="onlineImageContainer">
                                 <img className="onlineImage"
-                                    src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : '/avatar.png'} 
-                                    alt = ''/>
+                                    src = {each_online_friend.profile_picture !== '' ? 
+                                           each_online_friend.profile_picture 
+                                           : '/avatar.png'} 
+                                    alt = ''
+                                    referrerPolicy="no-referrer"/>
                                 <div className = "onlineIndicator"/>
                             </div>
                             <span className="onlineUsername">{each_online_friend.username}</span>

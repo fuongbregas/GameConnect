@@ -31,7 +31,9 @@ function App() {
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
           <Route exact path='/community'><Community/></Route>
-          <Route exact path='/profile'><Profile/></Route>
+          <Route exact path='/profile'>
+            {user ? <Profile/> : <Redirect to = "/"/>} 
+          </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
 
@@ -49,7 +51,9 @@ function App() {
 
           <Route path="/signoff" exact ><Signoff/></Route>
 
-          <Route path = '/profile_image'><ProfileImage/></Route>
+          <Route path = '/profile_image'>
+            {user ?  <ProfileImage/> : <Redirect to = "/"/>} 
+          </Route>
           
 
           <Route component={NotFound}/>

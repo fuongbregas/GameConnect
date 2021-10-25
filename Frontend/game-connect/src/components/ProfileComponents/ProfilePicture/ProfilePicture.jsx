@@ -6,9 +6,9 @@ import {AuthContext} from '../../../context/AuthContext';
 const ProfilePicture = () => {
     // Username
     const {user} = useContext(AuthContext);
-
     const [profilePicture, setProfilePicture] = useState('');
     useEffect(() => {
+        
         const getProfilePicture = async () => {
             try {
                 const res = await axios.get('backend/users?username=' + user);
@@ -25,7 +25,10 @@ const ProfilePicture = () => {
     return (
         <div className = 'profile_picture_container'>
             <Link to = '/profile_image'>
-                <img className = 'profile_picture' src = {profilePicture !== '' ? profilePicture : './avatar.png'} alt = ''/>
+                <img    className = 'profile_picture' 
+                        src = {profilePicture !== '' ? profilePicture : './avatar.png'} 
+                        alt = '' 
+                        referrerPolicy="no-referrer"/>
             </Link>
             
             <h2>{user}</h2>

@@ -1,4 +1,5 @@
 import {React, useState, useContext} from 'react';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import './ProfileImageChangerElements.css';
 import ImageUploader from 'react-images-upload';
@@ -7,11 +8,15 @@ const ProfileImageChanger = () => {
     // Username
     const {user} = useContext(AuthContext);
     const [pictureUrl, setPictureUrl] = useState("");
+    const history = useHistory();
     var FormData = require('form-data');
+    
     const onDrop = (picture) => {    
         // use the FileReader to decode de picture file that comes
         let reader = new FileReader();
-        let url = reader.readAsDataURL(picture[0]);
+        if (picture.length > 0) {
+            reader.readAsDataURL(picture[0]);
+        }
         reader.onloadend = (event) => {
           setPictureUrl(reader.result.split(',')[1]);
           
@@ -20,9 +25,9 @@ const ProfileImageChanger = () => {
 
     const handleClick = async (event) => {
         event.preventDefault();
-        console.log(process.env.Imgur_ClientID);
-        const clientID = "Client-ID " + "692d383f47dc3d5";
-        //console.log(pictureUrl);
+        const client_id = process.env.Imgur_ClientID;
+        const clientID = "Client-ID " + client_id;
+        console.log(clientID);
         
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Client-ID 692d383f47dc3d5");
@@ -46,9 +51,9 @@ const ProfileImageChanger = () => {
                     username : user,
                     profile_picture : link,
                 }
-                const res = axios.put('/backend/users/new_profile_picture', data);
-                console.log(res);
-            });
+                axios.put('/backend/users/new_profile_picture', data);
+                
+            }).then(history.push('/profile'));
             
         }
 
@@ -61,7 +66,7 @@ const ProfileImageChanger = () => {
         <div className = 'profileImageChangerContaienr'>
             <ImageUploader singleImage={true} maxFileSize={5242880} imgExtension={['.jpg','.png']} label="Max file size: 5mb, accepted: JPG and PNG" withPreview={true} onChange={onDrop}/>
             <button onClick={handleClick}>Upload</button>
-            <img src={pictureUrl} alt=''></img>
+            
         </div>
     );
 }

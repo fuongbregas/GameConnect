@@ -45,6 +45,7 @@ const Conversation = ({conversation, currentUser}) => {
                 className="conversationImage"
                 src={profilePicture !== '' ? profilePicture : '/avatar.png'}
                 alt=''
+                referrerPolicy="no-referrer"
            />
            <span className="conversationName">
                {username}
