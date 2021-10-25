@@ -17,7 +17,7 @@ const Messenger = () => {
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
-    const [friendList, setFriendList] = useState([]);
+    
     // Username
     const {user} = useContext(AuthContext);
 
@@ -53,38 +53,13 @@ const Messenger = () => {
                 
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            setOnlineUsers(
-                friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
-            );
+            setOnlineUsers(users);
+                //friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
+            
         });
-    }, [user, friendList]);
-    
-    // Get friend list from backend   
-    useEffect(() => {
-        const source = axios.CancelToken.source();
-
-        const getFriendList = async (user) => {
-            try {
-                const res = await axios.get("backend/users/friends/" + user, {
-                    cancelToken: source.token,
-                });
-                setFriendList(res.data);
-            }   
-            catch (error) {
-                if (axios.isCancel(error)){
-
-                } else {
-                    console.log(error);
-                }
-            }
-        }
-
-        getFriendList(user);
-
-        return () => {
-            source.cancel();
-        }
     }, [user]);
+    
+    
 
     // if there is new message
     useEffect(() => {
