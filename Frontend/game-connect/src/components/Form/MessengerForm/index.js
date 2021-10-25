@@ -48,18 +48,22 @@ const Messenger = () => {
     }, []);
     
     useEffect(() => {
+        let mounted = true;
         // Add user to Socket
         socket.current.emit('addUser', user);
                 
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            setOnlineUsers(users);
-                //friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
-            
+            if (mounted) {
+                setOnlineUsers(users);
+            }
         });
+
+        return function cleanup(){
+            mounted = false;
+        };
+        
     }, [user]);
-    
-    
 
     // if there is new message
     useEffect(() => {
