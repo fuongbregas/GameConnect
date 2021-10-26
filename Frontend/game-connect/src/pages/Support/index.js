@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { SupportForm } from '../../components';
 export default function Support() {
     return(
         <>
-          <h1 className='support'>Support Page</h1>
+           <SupportForm />
         </>
     );
 }
