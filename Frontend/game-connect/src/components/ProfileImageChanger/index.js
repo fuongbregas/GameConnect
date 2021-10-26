@@ -1,5 +1,5 @@
 import {React, useState, useContext} from 'react';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 import './ProfileImageChangerElements.css';
 import ImageUploader from 'react-images-upload';
@@ -8,7 +8,8 @@ const ProfileImageChanger = () => {
     // Username
     const {user} = useContext(AuthContext);
     const [pictureUrl, setPictureUrl] = useState("");
-    const history = useHistory();
+    const [redirect, setRedirect] = useState(false);
+    
     var FormData = require('form-data');
     
     const onDrop = (picture) => {    
@@ -16,11 +17,15 @@ const ProfileImageChanger = () => {
         let reader = new FileReader();
         if (picture.length > 0) {
             reader.readAsDataURL(picture[0]);
+            reader.onloadend = (event) => {
+                setPictureUrl(reader.result.split(',')[1]);
+                
+            };
         }
-        reader.onloadend = (event) => {
-          setPictureUrl(reader.result.split(',')[1]);
-          
-        };
+        else {
+            setPictureUrl("");
+        }
+        
     };
 
     const handleClick = async (event) => {
@@ -43,7 +48,7 @@ const ProfileImageChanger = () => {
         };
 
         try {
-            const res = await fetch("https://api.imgur.com/3/image", requestOptions)
+            await fetch("https://api.imgur.com/3/image", requestOptions)
             .then(response => response.json())
             .then(result => {
                 const link = result['data']['link'];
@@ -51,9 +56,9 @@ const ProfileImageChanger = () => {
                     username : user,
                     profile_picture : link,
                 }
-                axios.put('/backend/users/new_profile_picture', data);
+                const res = axios.put('/backend/users/new_profile_picture', data);
                 
-            }).then(history.push('/profile'));
+            }).then(setRedirect(true));
             
         }
 
@@ -64,8 +69,15 @@ const ProfileImageChanger = () => {
     
     return (
         <div className = 'profileImageChangerContaienr'>
+            {
+                redirect === true ? <Redirect to = "/profile"/>
+                : null
+            }
             <ImageUploader singleImage={true} maxFileSize={5242880} imgExtension={['.jpg','.png']} label="Max file size: 5mb, accepted: JPG and PNG" withPreview={true} onChange={onDrop}/>
-            <button onClick={handleClick}>Upload</button>
+            <button onClick={handleClick} 
+                    disabled = {
+                        pictureUrl === "" ? true : false
+                    }>Upload</button>
             
         </div>
     );

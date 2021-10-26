@@ -16,6 +16,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
+    "install_socket": "cd ../Socket && npm install",
+    "install_client": "cd ../Frontend/game-connect && npm install",
+    "install_server": "npm install",
+    "install_all": "concurrently \"npm run install_server\" \"npm run install_client\" \"npm run install_socket\"",
     "server": "npx nodemon server.js",
     "client": "cd ../Frontend/game-connect && npm start",
     "socket": "cd ../Socket && npm start",

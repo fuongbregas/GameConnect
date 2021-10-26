@@ -13,6 +13,8 @@ const ProfilePicture = () => {
             try {
                 const res = await axios.get('backend/users?username=' + user);
                 setProfilePicture(res.data.profile_picture);
+                console.log('A');
+                //window.location.reload();
             }
             catch (error) {
                 console.error(error);
@@ -20,8 +22,11 @@ const ProfilePicture = () => {
         }
 
         getProfilePicture();
+        
     }, [user]);
-    
+
+    console.log('URL', profilePicture);
+
     return (
         <div className = 'profile_picture_container'>
             <Link to = '/profile_image'>
