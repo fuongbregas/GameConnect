@@ -1,8 +1,8 @@
 .profileContainer {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
     align-items: center;
     min-height: 70vh;
     max-height: 150vh;
+    background-color: #242526;
 }

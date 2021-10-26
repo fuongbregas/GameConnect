@@ -9,6 +9,8 @@ const ProfileImageChanger = () => {
     const {user} = useContext(AuthContext);
     const [pictureUrl, setPictureUrl] = useState("");
     const [redirect, setRedirect] = useState(false);
+    const client_id = process.env.REACT_APP_Imgur_ClientID;
+    const clientID = "Client-ID " + client_id;
     
     var FormData = require('form-data');
     
@@ -30,12 +32,10 @@ const ProfileImageChanger = () => {
 
     const handleClick = async (event) => {
         event.preventDefault();
-        const client_id = process.env.Imgur_ClientID;
-        const clientID = "Client-ID " + client_id;
-        console.log(clientID);
+        
         
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Client-ID 692d383f47dc3d5");
+        myHeaders.append("Authorization", clientID);
 
         var formdata = new FormData();
         formdata.append("image", pictureUrl);
@@ -74,7 +74,8 @@ const ProfileImageChanger = () => {
                 : null
             }
             <ImageUploader singleImage={true} maxFileSize={5242880} imgExtension={['.jpg','.png']} label="Max file size: 5mb, accepted: JPG and PNG" withPreview={true} onChange={onDrop}/>
-            <button onClick={handleClick} 
+            <button className = 'uploadButton'
+                    onClick={handleClick} 
                     disabled = {
                         pictureUrl === "" ? true : false
                     }>Upload</button>

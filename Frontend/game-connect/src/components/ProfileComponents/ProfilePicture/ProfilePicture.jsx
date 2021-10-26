@@ -36,7 +36,7 @@ const ProfilePicture = () => {
                         referrerPolicy="no-referrer"/>
             </Link>
             
-            <h2>{user}</h2>
+            <h2 className = 'userName'>{user}</h2>
         </div>
     );
 }
