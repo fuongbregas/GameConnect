@@ -5,12 +5,14 @@ from datetime import datetime
 import time
 from MongoDB_Object import MongoDB
 import createCommunities
+from dotenv import load_dotenv
+load_dotenv()
 
 # Important fields of game data from IGDB
 filter = 'id,aggregated_rating,cover.url,category,first_release_date,game_modes,genres,keywords,multiplayer_modes,name,rating,similar_games,summary'
 
 url ='https://api.igdb.com/v4/games/'
-client_id = 'bvtuqo4e9i0uoscphs9pxqdrb2q2zn'
+client_id = os.getenv('IGDB_CLIENT_ID')
 
 # Convert seconds to_epoch_time_converter, ISO 8061
 def time_converter(epoch_time):
