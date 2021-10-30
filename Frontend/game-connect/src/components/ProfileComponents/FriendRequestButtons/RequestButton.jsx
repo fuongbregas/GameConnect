@@ -23,17 +23,20 @@ const RequestButton = ({username}) => {
 
     useEffect (() => {
         checkFriendStatus();
-        
     }, [username])
-
+    
     return (
         <div className= 'request_button_container'>
             {
                 user !== username ? 
                     <>
-                        <AddFriend/>
-                        <CancelRequest/>
-                        <DeleteFriend/>
+                        {
+                            /* Check friendStatus */
+                            friendStatus === "Friend" ? <DeleteFriend/>
+                            : friendStatus === "Nothing" ? <AddFriend/>
+                            : friendStatus === "Pending" ? <CancelRequest/>
+                            : null /* if friendStatus is not fully loaded */
+                        }                        
                     </>
                     
                 : null

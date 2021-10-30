@@ -79,7 +79,23 @@ router.put('/new_profile_picture', async (req, res) => {
 
 // Get friend status between two users
 router.get('/friends/:user/:username', async (req, res) => {
-    
+    const logged_in_user = req.params.user;
+    const viewed_user = req.params.username;
+    try {
+        const user = await User.findOne ({username: viewed_user});
+        if (user.friend_list.includes(logged_in_user)){
+            res.status(200).json("Friend");
+        }
+        else if (user.pending_friend_requests.includes(logged_in_user)) {
+            res.status(200).json("Pending");
+        }
+        else {
+            res.status(200).json("Nothing");
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
 })
 
 module.exports = router;
