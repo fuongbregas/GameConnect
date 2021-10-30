@@ -1,9 +1,11 @@
 import './ProfileTabs.css';
 //import 'react-tabs/style/react-tabs.css';
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import {AuthContext} from '../../../context/AuthContext';
+const ProfileTabs = ({username}) => {
+    const {user} = useContext(AuthContext);
 
-const ProfileTabs = () => {
     const [tabIndex, setTabIndex] = useState(0);
     return (
         <div>
@@ -12,7 +14,9 @@ const ProfileTabs = () => {
                     <Tab>Posts</Tab>
                     <Tab>Comments</Tab>
                     <Tab>Saved Games</Tab>
-
+                    {
+                        user === username ? <Tab>Friends</Tab> : null
+                    }
                 </TabList>
 
                 {/* Posts go here*/}
@@ -23,6 +27,9 @@ const ProfileTabs = () => {
 
                 {/* Saved Games go here */}
                 <TabPanel>Game</TabPanel>
+
+                {/* Friend list goes here */}
+                <TabPanel>Friends</TabPanel>
             </Tabs>
         </div>
         

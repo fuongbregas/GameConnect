@@ -29,6 +29,7 @@ const RequestButton = ({username}) => {
     return (
         <div className= 'request_button_container'>
             {
+                /* Hide all the buttons if looking at self profile */
                 user !== username ? 
                     <>
                         {
@@ -36,6 +37,7 @@ const RequestButton = ({username}) => {
                             friendStatus === "Friend" ? <DeleteFriend username = {username} setFriendStatus = {setFriendStatus}/>
                             : friendStatus === "Nothing" ? <AddFriend username = {username} setFriendStatus = {setFriendStatus}/>
                             : friendStatus === "Pending" ? <CancelRequest username = {username} setFriendStatus = {setFriendStatus}/>
+                            /* If the logged in user see the friend request from the viewed user */
                             : friendStatus === "Acceptable" ?
                                 <> 
                                     <AcceptRequest username = {username} setFriendStatus = {setFriendStatus}/>
