@@ -1,9 +1,9 @@
 import {React, useContext} from 'react';
-import './CancelRequest.css';
+import './AcceptRequest.css';
 import axios from 'axios';
 import {AuthContext} from '../../../../context/AuthContext';
 
-const CancelRequest = ({username, setFriendStatus}) => {
+const AcceptRequest = ({username, setFriendStatus}) => {
     const {user} = useContext(AuthContext);
     const handleClick = async (event) => {
         event.preventDefault();
@@ -12,8 +12,8 @@ const CancelRequest = ({username, setFriendStatus}) => {
             username: username,
         };
         try {
-            const res = await axios.put('/backend/users/friends/remove_pending', data);
-            setFriendStatus(res.data);
+            const res = await axios.put('/backend/users/friends/acceptable', data);
+            setFriendStatus(res.data);            
         }
         catch (error) {
             console.error(error);
@@ -21,8 +21,8 @@ const CancelRequest = ({username, setFriendStatus}) => {
     }
 
     return (
-        <button className = 'cancel_friend' onClick={handleClick}>Remove Friend Request</button>
+        <button className="accept_friend" onClick={handleClick}>Accept Friend Request</button>
     );
 }
 
-export default CancelRequest;
+export default AcceptRequest;

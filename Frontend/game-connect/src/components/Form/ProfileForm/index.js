@@ -4,13 +4,12 @@ import ProfileTabs from '../../ProfileComponents/ProfileTabs/ProfileTabs';
 import RequestButton from '../../ProfileComponents/FriendRequestButtons/RequestButton';
 import { useParams } from 'react-router';
 const Profile = () => {
-    const {username} = useParams();
-    
+    const {username} = useParams();    
     return (
         <div className="profileContainer">
             <ProfilePicture username = {username}/>
             <RequestButton username = {username}/>
-            <ProfileTabs/>
+            <ProfileTabs username = {username}/>
         </div>
     );
 }

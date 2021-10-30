@@ -82,12 +82,18 @@ router.get('/friends/:user/:username', async (req, res) => {
     const logged_in_user = req.params.user;
     const viewed_user = req.params.username;
     try {
-        const user = await User.findOne ({username: viewed_user});
-        if (user.friend_list.includes(logged_in_user)){
+        const user1 = await User.findOne({username: viewed_user});
+        const user2 = await User.findOne({username: logged_in_user});
+        if (user1.friend_list.includes(logged_in_user)){
             res.status(200).json("Friend");
         }
-        else if (user.pending_friend_requests.includes(logged_in_user)) {
+        // If the logged in user sent a friend request to the viewed user
+        else if (user1.pending_friend_requests.includes(logged_in_user)) {
             res.status(200).json("Pending");
+        }
+        // If the logged in user had a pending request from the viewed user
+        else if (user2.pending_friend_requests.includes(viewed_user)) {
+            res.status(200).json("Acceptable");
         }
         else {
             res.status(200).json("Nothing");
@@ -105,7 +111,7 @@ router.put('/friends/add_pending', async (req, res) => {
     try {
         // Add a user to each pending list
         await User.findOneAndUpdate({username : viewed_user}, {$push: {pending_friend_requests: logged_in_user}});
-        await User.findOneAndUpdate({username : logged_in_user}, {$push: {pending_friend_requests: viewed_user}});
+        
         res.status(200).json("Pending");
     }
     catch (error) {
@@ -129,7 +135,25 @@ router.put('/friends/remove_pending', async (req, res) => {
 });
 
 // Add a user to friend list
+router.put('/friends/acceptable', async (req, res) => {
+    const logged_in_user = req.body.user;    
+    const viewed_user = req.body.username;
 
+    try {
+        // Remove both users from both pending lists
+        await User.findOneAndUpdate({username : viewed_user}, {$pull: {pending_friend_requests: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$pull: {pending_friend_requests: viewed_user}});
+        
+        // Add both users to both friend lists
+        await User.findOneAndUpdate({username : viewed_user}, {$push: {friend_list: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$push: {friend_list: viewed_user}});
+        
+        res.status(200).json("Friend");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 // Remove a user from friend list
 router.put('/friends/unfriend', async (req, res) => {
@@ -145,7 +169,5 @@ router.put('/friends/unfriend', async (req, res) => {
         res.status(500).json(error);
     }
 });
-
-
 
 module.exports = router;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddFriend from './AddFriend/AddFriend';
 import CancelRequest from './CancelRequest/CancelRequest';
 import DeleteFriend from './DeleteFriend/DeleteFriend';
+import AcceptRequest from './AcceptRequest/AcceptRequest';
 import {AuthContext} from '../../../context/AuthContext';
 
 const RequestButton = ({username}) => {
@@ -35,6 +36,11 @@ const RequestButton = ({username}) => {
                             friendStatus === "Friend" ? <DeleteFriend username = {username} setFriendStatus = {setFriendStatus}/>
                             : friendStatus === "Nothing" ? <AddFriend username = {username} setFriendStatus = {setFriendStatus}/>
                             : friendStatus === "Pending" ? <CancelRequest username = {username} setFriendStatus = {setFriendStatus}/>
+                            : friendStatus === "Acceptable" ?
+                                <> 
+                                    <AcceptRequest username = {username} setFriendStatus = {setFriendStatus}/>
+                                    <CancelRequest username = {username} setFriendStatus = {setFriendStatus}/>
+                                </>
                             : null /* if friendStatus is not fully loaded */
                         }                        
                     </>
