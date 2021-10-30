@@ -101,10 +101,11 @@ router.get('/friends/:user/:username', async (req, res) => {
 // Add a user to pending list
 router.put('/friends/add_pending', async (req, res) => {
     const logged_in_user = req.body.user;    
-    const viewed_user = {username : req.body.username};
-    
+    const viewed_user = req.body.username;
     try {
-        const user = await User.findOneAndUpdate(viewed_user, {$push: {pending_friend_requests: logged_in_user}});
+        // Add a user to each pending list
+        await User.findOneAndUpdate({username : viewed_user}, {$push: {pending_friend_requests: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$push: {pending_friend_requests: viewed_user}});
         res.status(200).json("Pending");
     }
     catch (error) {
@@ -115,9 +116,11 @@ router.put('/friends/add_pending', async (req, res) => {
 // Remove a user from pending list
 router.put('/friends/remove_pending', async (req, res) => {
     const logged_in_user = req.body.user;    
-    const viewed_user = {username : req.body.username};
+    const viewed_user = req.body.username;
     try {
-        const user = await User.findOneAndUpdate(viewed_user, {$pull: {pending_friend_requests: logged_in_user}});
+        // Remove a user from each pending list
+        await User.findOneAndUpdate({username : viewed_user}, {$pull: {pending_friend_requests: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$pull: {pending_friend_requests: viewed_user}});
         res.status(200).json("Nothing");
     }
     catch (error) {
