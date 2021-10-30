@@ -75,7 +75,7 @@ router.put('/new_profile_picture', async (req, res) => {
     catch (error) {
         res.status(500).json(error);
     }
-})
+});
 
 // Get friend status between two users
 router.get('/friends/:user/:username', async (req, res) => {
@@ -96,6 +96,39 @@ router.get('/friends/:user/:username', async (req, res) => {
     catch (error) {
         res.status(500).json(error);
     }
-})
+});
+
+// Add a user to pending list
+router.put('/friends/add_pending', async (req, res) => {
+    const logged_in_user = req.body.user;    
+    const viewed_user = {username : req.body.username};
+    
+    try {
+        const user = await User.findOneAndUpdate(viewed_user, {$push: {pending_friend_requests: logged_in_user}});
+        res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Remove a user from pending list
+router.put('/friends/remove_pending', async (req, res) => {
+    const logged_in_user = req.body.user;    
+    const viewed_user = {username : req.body.username};
+    try {
+        const user = await User.findOneAndUpdate(viewed_user, {$pull: {pending_friend_requests: logged_in_user}});
+        res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Add a user to friend list
+
+// Remove a user from friend list
+
+
 
 module.exports = router;

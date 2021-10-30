@@ -5,7 +5,7 @@ import RequestButton from '../../ProfileComponents/FriendRequestButtons/RequestB
 import { useParams } from 'react-router';
 const Profile = () => {
     const {username} = useParams();
-    console.log('Username', username);
+    
     return (
         <div className="profileContainer">
             <ProfilePicture username = {username}/>

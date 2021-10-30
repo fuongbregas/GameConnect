@@ -32,9 +32,9 @@ const RequestButton = ({username}) => {
                     <>
                         {
                             /* Check friendStatus */
-                            friendStatus === "Friend" ? <DeleteFriend/>
-                            : friendStatus === "Nothing" ? <AddFriend/>
-                            : friendStatus === "Pending" ? <CancelRequest/>
+                            friendStatus === "Friend" ? <DeleteFriend username = {username} setFriendStatus = {setFriendStatus}/>
+                            : friendStatus === "Nothing" ? <AddFriend username = {username} setFriendStatus = {setFriendStatus}/>
+                            : friendStatus === "Pending" ? <CancelRequest username = {username} setFriendStatus = {setFriendStatus}/>
                             : null /* if friendStatus is not fully loaded */
                         }                        
                     </>
