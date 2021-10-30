@@ -13,7 +13,7 @@ const CancelRequest = ({username, setFriendStatus}) => {
         };
         try {
             const res = await axios.put('/backend/users/friends/remove_pending', data);
-            setFriendStatus("Nothing");
+            setFriendStatus(res.data);
         }
         catch (error) {
             console.error(error);

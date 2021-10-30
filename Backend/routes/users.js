@@ -105,7 +105,7 @@ router.put('/friends/add_pending', async (req, res) => {
     
     try {
         const user = await User.findOneAndUpdate(viewed_user, {$push: {pending_friend_requests: logged_in_user}});
-        res.status(200).json(user);
+        res.status(200).json("Pending");
     }
     catch (error) {
         res.status(500).json(error);
@@ -118,7 +118,7 @@ router.put('/friends/remove_pending', async (req, res) => {
     const viewed_user = {username : req.body.username};
     try {
         const user = await User.findOneAndUpdate(viewed_user, {$pull: {pending_friend_requests: logged_in_user}});
-        res.status(200).json(user);
+        res.status(200).json("Nothing");
     }
     catch (error) {
         res.status(500).json(error);
@@ -127,7 +127,21 @@ router.put('/friends/remove_pending', async (req, res) => {
 
 // Add a user to friend list
 
+
 // Remove a user from friend list
+router.put('/friends/unfriend', async (req, res) => {
+    const logged_in_user = req.body.user;    
+    const viewed_user = req.body.username;
+    try {
+        // Delete friends from each list
+        await User.findOneAndUpdate({username : viewed_user}, {$pull: {friend_list: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$pull: {friend_list: viewed_user}});
+        res.status(200).json("Nothing");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 
 

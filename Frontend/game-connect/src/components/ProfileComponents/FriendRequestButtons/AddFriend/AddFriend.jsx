@@ -13,7 +13,7 @@ const AddFriend = ({username, setFriendStatus}) => {
         };
         try {
             const res = await axios.put('/backend/users/friends/add_pending', data);
-            setFriendStatus("Pending");
+            setFriendStatus(res.data);
             
         }
         catch (error) {
