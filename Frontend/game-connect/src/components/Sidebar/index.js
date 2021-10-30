@@ -23,7 +23,7 @@ const Sidebar = ({isOpen, toggle}) => {
               <SidebarLink to="/">Home</SidebarLink>
               <SidebarLink to="/community">Community</SidebarLink>
               <SidebarLink to="/about">About</SidebarLink>
-              {user ? <SidebarLink to="/profile">Profile</SidebarLink> : null}
+              {user ? <SidebarLink to={`/profile/${user}`}>Profile</SidebarLink> : null}
               <SidebarLink to="/support">Support</SidebarLink>
               {user ? <SidebarLink to="/message">Message</SidebarLink> : null}
             </SidebarMenu>

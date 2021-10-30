@@ -56,7 +56,7 @@ const ProfileImageChanger = () => {
                     username : user,
                     profile_picture : link,
                 }
-                const res = axios.put('/backend/users/new_profile_picture', data);
+                axios.put('/backend/users/new_profile_picture', data);
                 
             }).then(setRedirect(true));
             
@@ -70,7 +70,7 @@ const ProfileImageChanger = () => {
     return (
         <div className = 'profileImageChangerContaienr'>
             {
-                redirect === true ? <Redirect to = "/profile"/>
+                redirect === true ? <Redirect to = {`/profile/${user}`}/>
                 : null
             }
             <ImageUploader singleImage={true} maxFileSize={5242880} imgExtension={['.jpg','.png']} label="Max file size: 5mb, accepted: JPG and PNG" withPreview={true} onChange={onDrop}/>

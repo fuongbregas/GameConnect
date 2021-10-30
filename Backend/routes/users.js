@@ -77,4 +77,9 @@ router.put('/new_profile_picture', async (req, res) => {
     }
 })
 
+// Get friend status between two users
+router.get('/friends/:user/:username', async (req, res) => {
+    
+})
+
 module.exports = router;

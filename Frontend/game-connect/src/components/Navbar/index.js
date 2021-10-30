@@ -49,7 +49,7 @@ const Navbar = () => {
               {
                 (user) ? 
                   <NavItem>
-                    <NavLinks to="/profile">Profile</NavLinks>
+                    <NavLinks to={`/profile/${user}`}>Profile</NavLinks>
                   </NavItem>
                 : null
               }

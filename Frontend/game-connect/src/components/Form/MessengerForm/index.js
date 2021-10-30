@@ -163,9 +163,9 @@ const Messenger = () => {
                         <div className = 'buttonWrapper'>
                             <MdCreate className = 'createConversationButton' onClick= {openNewConversation}></MdCreate>                            
                         </div>
-                        
+                        {/*
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
-                                                
+                        */}                        
                         {
                             conversations.length !== 0 ? 
                                 conversations.map((each_conversation) => (
