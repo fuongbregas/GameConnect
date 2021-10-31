@@ -1,12 +1,32 @@
 import './ProfileTabs.css';
 //import 'react-tabs/style/react-tabs.css';
-import {React, useState, useContext} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {AuthContext} from '../../../context/AuthContext';
 const ProfileTabs = ({username}) => {
     const {user} = useContext(AuthContext);
-
     const [tabIndex, setTabIndex] = useState(0);
+    const [friendLists, setFriendLists] = useState([]);
+
+    const getFriendList = async (currentPage) => {
+        const data = {
+            username : user,
+            pagination: 8,
+            pageNumber: currentPage,
+        }
+        try {
+            const res = await axios.post('/backend/friends/friends_page', data);
+            setFriendLists(res.data);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect (() => {
+        getFriendList()
+    }, []);
+
     return (
         <div>
             <Tabs selected={tabIndex} onSelect = {index => setTabIndex(index)}>

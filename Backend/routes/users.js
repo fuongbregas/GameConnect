@@ -170,4 +170,36 @@ router.put('/friends/unfriend', async (req, res) => {
     }
 });
 
+// Friend pagination
+router.post('/friends/friends_page', async (req, res) => {
+    const username =  req.body.username;
+    const pagination = req.body.pagination ? parseInt(req.body.pagination) : 10;
+    //PageNumber From which Page to Start 
+    const pageNumber = req.body.page ? parseInt(req.body.page) : 1;
+
+    try {
+        const users = await User.find({username : username})
+                                //skip takes argument to skip number of entries 
+                                .sort({"id" : 1})
+                                .skip((pageNumber - 1) * pagination)
+                                //limit is number of Records we want to display
+                                .limit(pagination);
+        res.status(200).json(users);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Count friends
+router.get('/friends/total/:username', async (req, res) => {
+    const usernam = req.params.username;
+    try {
+
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
+
 module.exports = router;
