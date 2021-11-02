@@ -98,5 +98,38 @@ router.get('/get_saved_games/:user', async (req, res) => {
     }
 });
 
+// Get searched game data from its name
+router.get('/get_searched_game/:game', async (req, res) => {
+    try {
+        const gameName = req.params.game;
+        const game = await Games.findOne({
+            gameName : req.body.name,
+        });
+
+        res.status(200).json(game);
+    }
+    catch (error) {
+        console.log(error, error.stack);
+        res.status(500).json(error);
+    }
+});
+
+// Return array of games when searching with keywords
+router.get('/autosearch/:gameName', async (req, res) => {
+    try {
+        let q = req.params.gameName;
+        console.log('Params: ' + q);
+        let query = {
+            "$or": [{"name": {"$regex": q, "$options": "i"}}]
+        };
+        const games = await Games.find(query, {'name' : 1, 'id': 1},)
+                                .limit(30);
+        console.log(games);
+        res.status(200).json(games);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
 
 module.exports = router;

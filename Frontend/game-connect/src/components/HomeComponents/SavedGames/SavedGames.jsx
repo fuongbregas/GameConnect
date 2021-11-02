@@ -1,6 +1,7 @@
 import { React, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../../context/AuthContext';
+import './SavedGames.css';
 
 
 const SavedGames =  () => {
@@ -14,7 +15,7 @@ const SavedGames =  () => {
           setSavedGames(res.data);
         }
         displayGameData();
-    });
+    },[]);
 
     return(
         <div className='SavedGames'>
