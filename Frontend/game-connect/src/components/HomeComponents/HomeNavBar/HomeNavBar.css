@@ -1,0 +1,66 @@
+.HomeNavBar{
+    position: relative;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 400px;
+    padding: 25px;
+    border: 5px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+.SearchInput{
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 25px;
+    width: 50%;
+    padding: 2px 23px 2px 30px;
+    outline: 0;
+    background-color: #f5f5f5;
+}
+
+.SearchIcon {
+    position: relative;
+    top: -2px;
+    right: 55px;
+    width: 55px;
+    height: 25px;
+}
+
+.NavbarRecommendationLink{
+    list-style-type: none;
+    color: #000;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    right: 330px;
+}
+
+.NavbarRecommendationLink:hover{
+    color: #0084ff;
+}
+
+.NavbarRandomizeLink{
+    list-style-type: none;
+    color: #000;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    right: -190px;
+}
+
+.NavbarRandomizeLink:hover{
+    color: #0084ff;
+}
+
+.NavbarNewReleasesLink{
+    list-style-type: none;
+    color: #000;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    right: 50px;
+}
+
+.NavbarNewReleasesLink:hover{
+    color: #0084ff;
+}
