@@ -1,0 +1,12 @@
+.coverContainer {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.coverImage {
+    object-fit: contain;
+    width: 70%;
+    height: 550px;
+}

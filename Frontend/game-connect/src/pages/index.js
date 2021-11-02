@@ -17,3 +17,7 @@ export { default as Signup } from './Signup';
 export { default as NotFound } from './NotFound';
 
 export { default as Message} from './Message';
+
+export { default as ProfileImage} from './ProfileImage';
+
+export { default as Game} from './Game';

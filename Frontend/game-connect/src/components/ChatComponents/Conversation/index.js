@@ -15,18 +15,28 @@ const Conversation = ({conversation, currentUser}) => {
             friend_username = currentUser;
         }
         
+        const source = axios.CancelToken.source();
         const getUser = async () => {
             try {
-                const res = await axios.get('backend/users?username=' + friend_username);
+                const res = await axios.get('backend/users?username=' + friend_username, {
+                    cancelToken: source.token,
+                });
                 setProfilePicture(res.data.profile_picture);
                 setUserName(res.data.username);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
             }
         }
         // Call the function
         getUser();
+        return () => {
+            source.cancel();
+        }
     }, [conversation, currentUser]);
     
     return (
@@ -35,6 +45,7 @@ const Conversation = ({conversation, currentUser}) => {
                 className="conversationImage"
                 src={profilePicture !== '' ? profilePicture : '/avatar.png'}
                 alt=''
+                referrerPolicy="no-referrer"
            />
            <span className="conversationName">
                {username}

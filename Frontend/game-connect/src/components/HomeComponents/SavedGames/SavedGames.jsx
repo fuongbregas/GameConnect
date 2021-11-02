@@ -15,7 +15,7 @@ const SavedGames =  () => {
           setSavedGames(res.data);
         }
         displayGameData();
-    },[]);
+    }, []);
 
     return(
         <div className='SavedGames'>

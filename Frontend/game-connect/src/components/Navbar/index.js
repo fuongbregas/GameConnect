@@ -46,16 +46,22 @@ const Navbar = () => {
               <NavItem>
                 <NavLinks to="/about">About</NavLinks>
               </NavItem>
-              <NavItem>
-                <NavLinks to="/profile">Profile</NavLinks>
-              </NavItem>
+              {
+                (user) ? 
+                  <NavItem>
+                    <NavLinks to={`/profile/${user}`}>Profile</NavLinks>
+                  </NavItem>
+                : null
+              }
               <NavItem>
                 <NavLinks to="/support">Support</NavLinks>
               </NavItem>
-              {(user) ? 
-              <NavItem>
-                <NavLinks to="/message">Message</NavLinks>
-              </NavItem> : null}
+              {
+                (user) ? 
+                  <NavItem>
+                    <NavLinks to="/message">Message</NavLinks>
+                  </NavItem> : null
+              }
               
             </NavMenu>
             <NavBtn>

@@ -17,7 +17,7 @@ const Messenger = () => {
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
-    const [friendList, setFriendList] = useState([]);
+    
     // Username
     const {user} = useContext(AuthContext);
 
@@ -48,17 +48,22 @@ const Messenger = () => {
     }, []);
     
     useEffect(() => {
+        let mounted = true;
         // Add user to Socket
         socket.current.emit('addUser', user);
-        // Get friends from the backend
-        
+                
         // Get all users from socket server
         socket.current.on('getUsers', users => {
-            setOnlineUsers(
-                friendList.filter((each_friend) => users.some((each_socket_user) => each_socket_user.userName === each_friend.username))
-            );
+            if (mounted) {
+                setOnlineUsers(users);
+            }
         });
-    }, [user, friendList]);
+
+        return function cleanup(){
+            mounted = false;
+        };
+        
+    }, [user]);
 
     // if there is new message
     useEffect(() => {
@@ -68,46 +73,52 @@ const Messenger = () => {
 
     // Changes if there is new conversation
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getConversations = async () => {
-          try {
-            const res = await axios.get("backend/conversations/" + user);
-            setConversations(res.data);
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const res = await axios.get("backend/conversations/" + user, {
+                    cancelToken: source.token,
+                });
+                setConversations(res.data);
+            } 
+            catch (error) {
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }
         };
         getConversations();
-    }, [user]);
+        return () => {
+            source.cancel();
+        }
+    }, []);
 
     // Changes if there is new messages
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getMessages = async () => {
             try {
-                const res = await axios.get('backend/messages/' + currentChat?._id);
+                const res = await axios.get('backend/messages/' + currentChat?._id, {
+                    cancelToken: source.token,
+                });
                 setMessages(res.data);
             }
             catch (error) {
-                console.log(error);
-            }            
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }           
         }
 
         getMessages();
-    }, [currentChat]);
-
-    // Get friend list from backend   
-    useEffect(() => {
-        const getFriendList = async (user) => {
-            try {
-                const res = await axios.get("backend/users/friends/" + user);
-                setFriendList(res.data);
-            }   
-            catch (error) {
-                console.error(error);
-            }
+        return () => {
+            source.cancel();
         }
-
-        getFriendList(user);
-    }, [user]);
+    }, [currentChat]);
 
     // Submit new messages
     const sendMessageSubmit = async (event) => {
@@ -152,13 +163,18 @@ const Messenger = () => {
                         <div className = 'buttonWrapper'>
                             <MdCreate className = 'createConversationButton' onClick= {openNewConversation}></MdCreate>                            
                         </div>
-                        
-                        <input placeholder="Search Messenger" className="chatMenuInput"/>                        
-                        {conversations.map((each_conversation) => (
-                            <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
-                                <Conversation conversation={each_conversation} currentUser={user} />
-                            </div>
-                        ))}
+                        {/*
+                        <input placeholder="Search Messenger" className="chatMenuInput"/>
+                        */}                        
+                        {
+                            conversations.length !== 0 ? 
+                                conversations.map((each_conversation) => (
+                                    <div key={each_conversation._id} onClick={() => setCurrentChat(each_conversation)}>
+                                        <Conversation conversation={each_conversation} currentUser={user} />
+                                    </div>
+                                ))
+                                : null
+                        }
                     </div>
                 </div>
 
@@ -204,7 +220,12 @@ const Messenger = () => {
                         <div className="onlineTop">
                             <span className="onlineLabel">Online Friends</span>
                         </div>
-                        <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                        {
+                            onlineUsers.length !== 0 ?
+                                <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
+                                : null
+                        }
+                        
                         
                     </div>
                 </div>
