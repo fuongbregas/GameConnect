@@ -30,7 +30,7 @@ const RequestButton = ({username}) => {
         <div className= 'request_button_container'>
             {
                 /* Hide all the buttons if looking at self profile */
-                user !== username ? 
+                user !== username ?                 
                     <>
                         {
                             /* Check friendStatus */

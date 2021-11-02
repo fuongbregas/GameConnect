@@ -6,6 +6,9 @@
   "scripts": {
     "start": "npx nodemon index.js"
   },
+  "devDependencies": {
+    "ansi-regex": ">=5.0.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

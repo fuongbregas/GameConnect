@@ -9,3 +9,5 @@ export { LoginForm, RegisterForm, MessengerForm, ProfileForm,  HomeForm} from '.
 export { default as Signoff } from './Signoff';
 
 export { default as ProfileImageChanger} from './ProfileImageChanger';
+
+export {default as GameContainer} from './GameComponents';

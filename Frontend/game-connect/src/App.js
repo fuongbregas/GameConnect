@@ -12,7 +12,8 @@ import {
   Signup,
   NotFound,
   Message,
-  ProfileImage
+  ProfileImage,
+  Game,
 } from './pages';
 
 import { useContext } from "react";
@@ -55,6 +56,7 @@ function App() {
             {user ?  <ProfileImage/> : <Redirect to = "/"/>} 
           </Route>
           
+          <Route path='/game/:gameID'><Game/></Route>
 
           <Route component={NotFound}/>
         </Switch>

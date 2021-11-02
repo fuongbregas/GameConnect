@@ -178,13 +178,14 @@ router.post('/friends/friends_page', async (req, res) => {
     const pageNumber = req.body.page ? parseInt(req.body.page) : 1;
 
     try {
-        const users = await User.find({username : username})
-                                //skip takes argument to skip number of entries 
-                                .sort({"id" : 1})
-                                .skip((pageNumber - 1) * pagination)
-                                //limit is number of Records we want to display
-                                .limit(pagination);
-        res.status(200).json(users);
+        const user = await User.findOne({username: username});
+        const friends = await Promise.all(
+            user.friend_list.map ((friend_username) => {
+                return User.findOne({username: friend_username});
+            })).skip((pageNumber - 1) * pagination)
+                //limit is number of Records we want to display
+                .limit(pagination);
+        res.status(200).json(friends);
     }
     catch (error) {
         res.status(500).json(error);
@@ -192,13 +193,17 @@ router.post('/friends/friends_page', async (req, res) => {
 });
 
 // Count friends
-router.get('/friends/total/:username', async (req, res) => {
-    const usernam = req.params.username;
+router.get('/total_friends/:username', async (req, res) => {
+    
+        
     try {
-
+        const username = req.params.username;
+        const user = await User.findOne({username: username}).lean();
+        
+        res.status(200).json(user.friend_list.length);
     }
     catch (error) {
-        console.error(error);
+        res.status(500).json(error);
     }
 });
 

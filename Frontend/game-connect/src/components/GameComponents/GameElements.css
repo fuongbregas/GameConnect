@@ -1,0 +1,17 @@
+.container {
+    display : flex;
+    flex-direction: row;
+    background-color: #242526;
+    min-height: 66vh
+}
+
+.cover {
+    flex: 4;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    flex: 5;
+}

@@ -18,16 +18,15 @@ router.get('/game_data', async (req, res) => {
     }
 });
 
-// Get a game data from its name
-router.get('/get_one_game', async (req, res) => {
+// Get a game data from its ID
+router.get('/get_one_game/:gameID', async (req, res) => {
+    const gameID = req.params.gameID;
     try {
         const game = await Games.findOne({
-            'name' : req.body.name,
+            'name' : gameID,
         });
 
-        res.status(200).send({
-            gameData : game,
-        });
+        res.status(200).json(game);
     }
     catch (error) {
         console.log(error, error.stack);
@@ -35,16 +34,14 @@ router.get('/get_one_game', async (req, res) => {
 });
 
 // Get a game image from its game ID
-router.get('/get_one_game_image', async (req, res) => {
+router.get('/get_one_game_image/:gameID', async (req, res) => {
+    const gameID = req.params.gameID;
     try{
         const game = await Games.findOne({
-            'id': req.body.id,
+            'id': gameID,
         });
 
-        console.log(game);
-        res.status(200).send({
-            imageURL : game.cover,
-        });
+        res.status(200).json(game.cover);
     }
     catch (error) {
         console.log(error, error.stack);

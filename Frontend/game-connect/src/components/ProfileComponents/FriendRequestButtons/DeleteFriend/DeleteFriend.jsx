@@ -5,6 +5,7 @@ import {AuthContext} from '../../../../context/AuthContext';
 
 const DeleteFriend = ({username, setFriendStatus}) => {
     const {user} = useContext(AuthContext);
+    
     const handleClick = async (event) => {
         event.preventDefault();
         const data = {
