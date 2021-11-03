@@ -18,16 +18,15 @@ router.get('/game_data', async (req, res) => {
     }
 });
 
-// Get a game data from its name
-router.get('/get_one_game', async (req, res) => {
+// Get a game data from its ID
+router.get('/get_one_game/:gameID', async (req, res) => {
+    const gameID = req.params.gameID;
     try {
         const game = await Games.findOne({
-            'name' : req.body.name,
+            'name' : gameID,
         });
 
-        res.status(200).send({
-            gameData : game,
-        });
+        res.status(200).json(game);
     }
     catch (error) {
         console.log(error, error.stack);
@@ -35,16 +34,14 @@ router.get('/get_one_game', async (req, res) => {
 });
 
 // Get a game image from its game ID
-router.get('/get_one_game_image', async (req, res) => {
+router.get('/get_one_game_image/:gameID', async (req, res) => {
+    const gameID = req.params.gameID;
     try{
         const game = await Games.findOne({
-            'id': req.body.id,
+            'id': gameID,
         });
 
-        console.log(game);
-        res.status(200).send({
-            imageURL : game.cover,
-        });
+        res.status(200).json(game.cover);
     }
     catch (error) {
         console.log(error, error.stack);
@@ -89,8 +86,6 @@ router.get('/get_saved_games/:user', async (req, res) => {
 
         var game = await Games.find({id: {$in: savedGames}});
 
-        console.log(game);
-        console.log('username', username);
         res.status(200).json(game);
     }
     catch(error){
@@ -98,5 +93,38 @@ router.get('/get_saved_games/:user', async (req, res) => {
     }
 });
 
+// Get searched game data from its name
+router.get('/get_searched_game/:game', async (req, res) => {
+    try {
+        const gameName = req.params.game;
+        const game = await Games.findOne({
+            gameName : req.body.name,
+        });
+
+        res.status(200).json(game);
+    }
+    catch (error) {
+        console.log(error, error.stack);
+        res.status(500).json(error);
+    }
+});
+
+// Return array of games when searching with keywords
+router.get('/autosearch/:gameName', async (req, res) => {
+    try {
+        let q = req.params.gameName;
+        console.log('Params: ' + q);
+        let query = {
+            "$or": [{"name": {"$regex": q, "$options": "i"}}]
+        };
+        const games = await Games.find(query, {'name' : 1, 'id': 1},)
+                                .limit(30);
+        console.log(games);
+        res.status(200).json(games);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
 
 module.exports = router;

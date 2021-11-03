@@ -25,3 +25,7 @@ export { default as Message} from './Message';
 export { default as CreatePost} from './CreatePost';
 
 export { default as CreateSub} from './CreateSub';
+
+export { default as ProfileImage} from './ProfileImage';
+
+export { default as Game} from './Game';

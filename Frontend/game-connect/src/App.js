@@ -15,7 +15,9 @@ import {
   CreatePost,
   CreateSub,
   NotFound,
-  Message
+  Message,
+  ProfileImage,
+  Game,
 } from './pages';
 
 import { useContext } from "react";
@@ -34,7 +36,9 @@ function App() {
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
           <Route exact path='/community'><Community/></Route>
-          <Route exact path='/profile'><Profile/></Route>
+          <Route path='/profile/:username'>
+            {user ? <Profile/> : <Redirect to = "/"/>} 
+          </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
 
@@ -59,6 +63,12 @@ function App() {
           <Route exact path='/postform'><CreatePost/></Route>
 
           <Route exact path='/subform'><CreateSub/></Route>
+          
+          <Route path = '/profile_image'>
+            {user ?  <ProfileImage/> : <Redirect to = "/"/>} 
+          </Route>
+          
+          <Route path='/game/:gameID'><Game/></Route>
 
           <Route component={NotFound}/>
         </Switch>

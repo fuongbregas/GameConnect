@@ -1,5 +1,5 @@
 # This file is used in run.py
-
+import os
 import requests
 from datetime import datetime
 import time
@@ -83,7 +83,7 @@ def getGames():
         
         # Get PC games, offset 500+ to get 500 games every call
         raw_body ='fields ' + str(filter) + '; where release_dates.platform = 6; limit 500; ' + 'offset ' + str(offset_value) + ';'
-        response = requests.post(url, raw_body, headers = {'Client-ID':client_id, 'Authorization':authorization_token,})
+        response = requests.post(url, raw_body, headers = {'Client-ID': client_id, 'Authorization':authorization_token,})
         
         # Check for connection
         if response.status_code != 200:

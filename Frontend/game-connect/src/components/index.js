@@ -8,4 +8,8 @@ export { LoginForm, RegisterForm, MessengerForm, PostForm, SubForm, ProfileForm,
 
 export { default as Signoff } from './Signoff';
 
-export { PostHeader, PostDetail, PostList, CommentList, Comment, Search } from './Community';
+export { default as ProfileImageChanger} from './ProfileImageChanger';
+
+export {default as GameContainer} from './GameComponents';
+
+export { PostHeader, PostDetail, PostList, CommentList, Comment, Search, Trending } from './Community';

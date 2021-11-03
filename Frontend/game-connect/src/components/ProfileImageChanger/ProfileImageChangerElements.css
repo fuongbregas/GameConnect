@@ -1,0 +1,23 @@
+.profileImageChangerContaienr{
+    display: flex;
+    flex-direction: column;
+    min-height: 65vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadButton {
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+}
+.uploadButton:disabled {
+    cursor: not-allowed;
+    background-color: grey;
+}

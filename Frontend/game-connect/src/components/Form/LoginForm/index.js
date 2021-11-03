@@ -52,7 +52,7 @@ const Login = () => {
                     {isFetching? <CircularProgress size = "20px"/> : "Continue"} 
                   </FormButton>
                   { error_checker === 418 ? <Error> The account is terminated </Error> 
-                  : error_checker === 400 ? <Error> Error logging in, please try again.</Error>
+                  : error_checker === 401 ? <Error> Error logging in, please try again.</Error>
                   : error_checker === 404 ? <Error> Error logging in, please try again.</Error>
                   : null}
                   <Text><TextLink to='/resetpass'>Forgot Password</TextLink></Text>

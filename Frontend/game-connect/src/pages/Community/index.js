@@ -1,10 +1,12 @@
 import React from 'react';
-import { PostList } from '../../components';
+import { PostList, Trending } from '../../components';
+import './CommunityElements.css';
 
 export default function Community() {
   return (
-    <>
-      <PostList />
-    </>
+    <div className="content">
+      {/* <PostList /> */}
+      <Trending />
+    </div>
   );
 } 

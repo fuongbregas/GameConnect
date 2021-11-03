@@ -1,20 +1,45 @@
 import './OnlineElements.css';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
+import {AuthContext} from '../../../context/AuthContext';
 
 const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
-    
+    // Username
+    const {user} = useContext(AuthContext);
     const [onlineFriends, setOnlineFriends] = useState([]);
-    
+
+    // Get friend list from backend   
     useEffect(() => {
-        setOnlineFriends(onlineUsers);
-    }, [onlineUsers]);
-    //console.log('onlineFriends', onlineFriends);
+        const source = axios.CancelToken.source();
+
+        const getOnlineFriends = async (user) => {
+            try {
+                const res = await axios.get("backend/users/friends/" + user, {
+                    cancelToken: source.token,
+                });
+                var friendList = res.data.filter((each_friend) => onlineUsers.some((each_socket_user) => each_socket_user.userName === each_friend.username))
+
+                setOnlineFriends(friendList);
+            }   
+            catch (error) {
+                if (axios.isCancel(error)){
+
+                } else {
+                    console.log(error);
+                }
+            }
+        }
+
+        getOnlineFriends(user);
+
+        return () => {
+            source.cancel();
+        }
+    }, [user, onlineUsers]);
 
     const setConversation = async (user) => {
         try {
-            console.log("User", user);
-            console.log("current", currentUser);
+            
             const res = await axios.get('backend/conversations/get_one_conversation/' + currentUser + '/' + user);
             setCurrentChat(res.data);
         }
@@ -25,17 +50,24 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
 
     return(
         <div className="online">
-            {onlineFriends.map (each_online_friend => (
-                <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
-                    <div className="onlineImageContainer">
-                        <img className="onlineImage"
-                            src = {each_online_friend.profile_picture !== '' ? each_online_friend.profile_picture : '/avatar.png'} 
-                            alt = ''/>
-                        <div className = "onlineIndicator"/>
-                    </div>
-                    <span className="onlineUsername">{each_online_friend.username}</span>
-                 </div>
-            ))}
+            {
+                onlineFriends.length !== 0 ?
+                    onlineFriends.map (each_online_friend => (
+                        <div key = {each_online_friend._id} className="onlineFriend" onClick = {() => setConversation (each_online_friend.username)}>
+                            <div className="onlineImageContainer">
+                                <img className="onlineImage"
+                                    src = {each_online_friend.profile_picture !== '' ? 
+                                           each_online_friend.profile_picture 
+                                           : '/avatar.png'} 
+                                    alt = ''
+                                    referrerPolicy="no-referrer"/>
+                                <div className = "onlineIndicator"/>
+                            </div>
+                            <span className="onlineUsername">{each_online_friend.username}</span>
+                        </div>
+                    ))
+                : null
+            }
         </div>
     );
 }
