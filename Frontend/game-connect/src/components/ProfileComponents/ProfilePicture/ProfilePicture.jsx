@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './ProfilePicture.css';
 import {AuthContext} from '../../../context/AuthContext';
 const ProfilePicture = ({username}) => {
-    
+    const {user} = useContext(AuthContext);
     const [profilePicture, setProfilePicture] = useState('');
     useEffect(() => {
         
@@ -27,7 +27,10 @@ const ProfilePicture = ({username}) => {
 
     return (
         <div className = 'profile_picture_container'>
-            <Link to = '/profile_image'>
+            
+            <Link to = {`/profile_image`}
+                style = {user === username ? null : {pointerEvents: 'none'}}
+            >
                 <img    className = 'profile_picture' 
                         src = {profilePicture !== '' ? profilePicture : '/avatar.png'} 
                         alt = '' 

@@ -6,9 +6,9 @@
 }
 
 .cover {
-    flex: 4;
+    flex: 3;
 }
 
 .main {
-    flex: 5;
+    flex: 7;
 }

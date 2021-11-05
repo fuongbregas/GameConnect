@@ -1,7 +1,8 @@
 import {React, useEffect, useState, useContext} from 'react';
 import './GameInformation.css';
 import {CircularProgress} from '@material-ui/core';
-import Pie from '../../PercentageRing/Pie';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import {AuthContext} from '../../../context/AuthContext';
 
@@ -9,12 +10,16 @@ const GameInformation = ({gameID}) => {
     const {user} = useContext(AuthContext);
     const [gameInfo, setGameInfo] = useState(null);
     const [rating, setRating] = useState(0);
+    const [color, setColor] = useState('#964B00');
+    
     const getGameInfo = async () => {
         const res = await axios.get('/backend/game/get_one_game/' + gameID);
         setGameInfo(res.data);
-        setRating(res.data.rating);
+        setRating(Math.round(res.data.rating));
+        if (rating > 50) {
+            setColor("green");
+        }
     }
-
     useEffect(() => {
         getGameInfo();
     }, [gameID]);
@@ -24,13 +29,36 @@ const GameInformation = ({gameID}) => {
             <div>
                 <div className = 'titleContainer'>
                     {
-                        gameInfo !== null ? 
-                        <h1 className = 'gameName'>{gameInfo.name}</h1>
+                        gameInfo !== null ? <h1 className = 'gameName'>{gameInfo.name}</h1>
                         : null
                     }
-                    <Pie percentage = {rating} colour={
-                        rating > 50 ? "green" : "#964B00"
-                    }/>
+                    <div className = 'ratingContainer'style={{ width: 150, height: 150 }}>
+                        <CircularProgressbar value = {rating} text = {rating}
+                        styles={
+                            {
+                                // Customize the root svg element
+                                root: {},
+                                // Customize the path, i.e. the "completed progress"
+                                path: {
+                                    // Path color
+                                    stroke: color,
+                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                                    strokeLinecap: 'round',
+                                    // Customize transition animation
+                                    transition: 'stroke-dashoffset 1s ease 1s',
+                                    // Rotate the path
+                                    transformOrigin: 'center center',
+                                },
+                                // Customize the text
+                                text: {
+                                    // Text color
+                                    fill: 'white',
+                                    // Text size
+                                    fontSize: '30px',
+                                }
+                            }
+                        }/>
+                    </div>
                 </div>
                 {
                     gameInfo !== null ? 
@@ -43,7 +71,7 @@ const GameInformation = ({gameID}) => {
                         </h2>
                         <p className = 'summary'>{gameInfo.summary}</p>
                     </>
-                    : <CircularProgress/> 
+                    : <CircularProgress/>  
                 }
             </div>
         </div>

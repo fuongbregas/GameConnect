@@ -62,7 +62,9 @@ const ProfileTabs = ({username}) => {
                 <TabPanel>Game</TabPanel>
 
                 {/* Friend list goes here */}
-                <TabPanel>Friends</TabPanel>
+                {
+                    user === username ? <TabPanel>Friends</TabPanel> : null
+                }
             </Tabs>
         </div>
         

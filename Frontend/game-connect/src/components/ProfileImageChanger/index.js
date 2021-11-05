@@ -56,9 +56,10 @@ const ProfileImageChanger = () => {
                     username : user,
                     profile_picture : link,
                 }
-                axios.put('/backend/users/new_profile_picture', data);
                 
-            }).then(setRedirect(true));
+                axios.put('/backend/users/new_profile_picture', data);  
+            })
+            .then(setRedirect(true));
             
         }
 
