@@ -1,27 +1,10 @@
 import {React, useState, useContext, useEffect} from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './ProfilePicture.css';
 import {AuthContext} from '../../../context/AuthContext';
-const ProfilePicture = ({username}) => {
+const ProfilePicture = ({username, profilePicture}) => {
     const {user} = useContext(AuthContext);
-    const [profilePicture, setProfilePicture] = useState('');
-
-    const getProfilePicture = async () => {
-        try {
-            const res = await axios.get('/backend/users?username=' + username);
-            setProfilePicture(res.data.profile_picture);
-            
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        getProfilePicture();
-    }, [username]);
-
+    
     return (
         <div className = 'profile_picture_container'>
             <Link to = '/profile_image' style = {user !== username ? {pointerEvents: 'none'} : null}>
