@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Background = styled.div`
     width: 100%;
     height: 100%;
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,3 +103,12 @@ export const Error = styled.p`
   margin-top: 24px;
   font-size: 20px;
 ` 
+
+export const ProfilePicture = styled.img`
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 3.4px;
+    margin-right: 10px
+`

@@ -8,6 +8,7 @@ import {Background,
     SendButton,
     SuggestionBox,
     Error,
+    ProfilePicture,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
@@ -153,7 +154,16 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                                          required 
                                          ref={receiver}/>
                         {suggestions && suggestions.map((each_suggestion) => 
-                            <SuggestionBox key = {each_suggestion._id} onClick = {() => onSuggestHandler(each_suggestion.username)}>
+                            <SuggestionBox  key = {each_suggestion._id} 
+                                            onClick = {() => onSuggestHandler(each_suggestion.username)}>
+                                <ProfilePicture
+                                    src = {
+                                        each_suggestion.profile_picture !== ''
+                                        ? each_suggestion.profile_picture
+                                        : '/avatar.png'
+                                    }
+                                    alt = ''
+                                    referrerPolicy="no-referrer"/>
                                 {each_suggestion.username}
                             </SuggestionBox>
                         )}

@@ -10,7 +10,7 @@ router.get('/autosearch', async (req, res) => {
         let query = {
             "$or": [{"username": {"$regex": q, "$options": "i"}}]
         };
-        const users = await User.find(query, {'username' : 1},)
+        const users = await User.find(query, {'username' : 1, 'profile_picture' : 1})
                                 .sort({date: -1})
                                 .limit(10);
         
