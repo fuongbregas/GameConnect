@@ -37,7 +37,10 @@ const ProfileTabs = ({username}) => {
     }
 
     useEffect (() => {
-        getFriendCount();
+        if (user === username) {
+            // Get friend info
+            getFriendCount();
+        }
     }, []);
     console.log('Friends', friendList);
     return (
@@ -62,7 +65,9 @@ const ProfileTabs = ({username}) => {
                 <TabPanel>Game</TabPanel>
 
                 {/* Friend list goes here */}
-                <TabPanel>Friends</TabPanel>
+                {
+                    user === username ? <TabPanel>Friends</TabPanel> : null
+                }
             </Tabs>
         </div>
         
