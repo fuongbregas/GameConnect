@@ -31,9 +31,3 @@ const Cover = ({gameID}) => {
 }
 
 export default Cover;
-
-/*
-colour={
-                        rating > 50 ? "green" : "#964B00"
-                    }
-*/
