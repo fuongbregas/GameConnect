@@ -64,7 +64,7 @@ const GameInformation = ({gameID}) => {
                     
                 </div>
                 {
-                    gameInfo !== null ? 
+                    gameInfo !== null ?
                     <>
                         <h2 className = 'extra'>Initial release date: {gameInfo.first_release_date}</h2>
                         <h2 className = 'extra'>Genres:{" "}

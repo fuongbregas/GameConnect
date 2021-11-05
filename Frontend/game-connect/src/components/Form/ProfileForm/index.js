@@ -2,6 +2,7 @@ import './ProfileElements.css';
 import ProfilePicture from '../../ProfileComponents/ProfilePicture/ProfilePicture';
 import ProfileTabs from '../../ProfileComponents/ProfileTabs/ProfileTabs';
 import RequestButton from '../../ProfileComponents/FriendRequestButtons/RequestButton';
+import {ProfileImageChanger} from '../../../components';
 import axios from 'axios';
 import {React, useState, useEffect, useContext} from 'react';
 import { useParams } from 'react-router';
@@ -12,6 +13,7 @@ const Profile = () => {
     const {username} = useParams();
 
     const [profilePicture, setProfilePicture] = useState('');
+    const [screen, changeScreen] = useState(false);
 
     const getProfilePicture = async () => {
         try {
@@ -29,11 +31,18 @@ const Profile = () => {
     }, [username]);
 
     return (
-        <div className="profileContainer">
-            <ProfilePicture username = {username} profilePicture = {profilePicture}/>
-            <RequestButton username = {username}/>
-            <ProfileTabs username = {username}/>
-        </div>
+        <>
+            {
+                screen === false ? 
+                <div className="profileContainer">
+                    <ProfilePicture username = {username} profilePicture = {profilePicture} changeScreen={changeScreen}/>
+                    <RequestButton username = {username}/>
+                    <ProfileTabs username = {username}/>
+                </div>
+                : <ProfileImageChanger setProfilePicture={setProfilePicture} changeScreen={changeScreen}/>
+            }
+        </>
+        
     );
 }
 
