@@ -11,6 +11,7 @@ const GameInformation = ({gameID}) => {
     const [gameInfo, setGameInfo] = useState(null);
     const [color, setColor] = useState('#964B00');
     const [rating, setRating] = useState(0);
+
     const getGameInfo = async () => {
         const res = await axios.get('/backend/game/get_one_game/' + gameID);
         setGameInfo(res.data);
@@ -22,7 +23,7 @@ const GameInformation = ({gameID}) => {
 
     useEffect(() => {
         getGameInfo();
-    }, [gameID]);
+    }, [gameID, rating]);
 
     return (
         <div className = 'gameinfoContainer'>
