@@ -88,7 +88,6 @@ router.get('/get_searched_game/:game', async (req, res) => {
 router.get('/autosearch/:gameName', async (req, res) => {
     try {
         let q = req.params.gameName;
-        console.log('Params: ' + q);
         let query = {
             "$or": [{"name": {"$regex": q, "$options": "i"}}]
         };

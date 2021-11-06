@@ -6,7 +6,6 @@ const User = require('../models/Users/UserSchema');
 router.get('/autosearch', async (req, res) => {
     try {
         let q = req.query.key;
-        console.log('Params: ' + q);
         let query = {
             "$or": [{"username": {"$regex": q, "$options": "i"}}]
         };

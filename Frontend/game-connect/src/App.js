@@ -30,7 +30,7 @@ function App() {
         <Switch>
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
-          <Route exact path='/community'><Community/></Route>
+          <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
             {user ? <Profile/> : <Redirect to = "/"/>} 
           </Route>
