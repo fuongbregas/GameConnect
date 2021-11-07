@@ -206,4 +206,53 @@ router.get('/total_friends/:username', async (req, res) => {
     }
 });
 
+// Check if the game is saved or not
+router.get('/saved_games/:user/:gameID', async (req, res) => {
+    const username = req.params.user;
+    const gameID = req.params.gameID;
+    try {
+        const user = await User.findOne({username: username});
+        
+        if (user.saved_games.includes(gameID)){
+            res.status(200).json("Saved");
+        }
+        // If the logged in user sent a friend request to the viewed user
+        else{
+            res.status(200).json("Unsaved");
+        }
+        
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Save a game to save game list
+router.put('/saved_games/save', async (req, res) => {
+    const username = req.body.user;    
+    const gameID = req.body.gameID;
+
+    try {
+        await User.findOneAndUpdate({username : username}, {$push: {saved_games: gameID}});
+        res.status(200).json("Saved");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Unsave a game from save game list
+router.put('/saved_games/unsave', async (req, res) => {
+    const username = req.body.user;    
+    const gameID = req.body.gameID;
+    try {
+        // Delete friends from each list
+        await User.findOneAndUpdate({username : username}, {$pull: {saved_games: gameID}});
+        res.status(200).json("Unsaved");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;

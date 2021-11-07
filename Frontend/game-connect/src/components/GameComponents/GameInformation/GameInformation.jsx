@@ -5,6 +5,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import {AuthContext} from '../../../context/AuthContext';
+import GameTab from '../GameTab/GameTab';
 
 const GameInformation = ({gameID}) => {
     const {user} = useContext(AuthContext);
@@ -27,7 +28,7 @@ const GameInformation = ({gameID}) => {
 
     return (
         <div className = 'gameinfoContainer'>
-            <div>
+            <div className = 'inside'>
                 <div className = 'titleContainer'>
                     {
                         gameInfo !== null ? 
@@ -52,7 +53,6 @@ const GameInformation = ({gameID}) => {
                                 // Rotate the path
                                 transformOrigin: 'center center',
                             },
-                                
                             // Customize the text
                             text: {
                                 // Text color
@@ -62,19 +62,10 @@ const GameInformation = ({gameID}) => {
                             }
                         }}/>
                     </div>
-                    
                 </div>
                 {
                     gameInfo !== null ?
-                    <>
-                        <h2 className = 'extra'>Initial release date: {gameInfo.first_release_date}</h2>
-                        <h2 className = 'extra'>Genres:{" "}
-                            {
-                                gameInfo.genres.map(each_genre => each_genre.name).join(', ')
-                            }
-                        </h2>
-                        <p className = 'summary'>{gameInfo.summary}</p>
-                    </>
+                    <GameTab gameInfo = {gameInfo} gameID = {gameID}/>
                     : <CircularProgress/> 
                 }
             </div>

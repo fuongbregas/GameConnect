@@ -157,7 +157,6 @@ const Messenger = () => {
     return (
         <>
             <div className="messenger">
-            
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <div className = 'buttonWrapper'>
@@ -179,9 +178,7 @@ const Messenger = () => {
                 </div>
 
                 <div className="chatBox">
-                    
                     <div className= "chatBoxWrapper">
-                        
                         {
                             currentChat ?
                             <>
@@ -195,22 +192,17 @@ const Messenger = () => {
                                             />
                                         </div>
                                     ))}
-                                    
-                                
                                 </div>
                                 <div className="chatBoxBottom">
                                     <textarea className="chatInput" placeholder="Aa"
                                               onChange = {(event) => setNewMessage(event.target.value)}
                                               value = {newMessage}>
-                                    
                                     </textarea>
-
                                     <button className="sendButton" onClick={sendMessageSubmit}>
                                         Send
                                     </button>
                                 </div> 
-                            </> : <NewConversation setCurrentChat = {setCurrentChat} setConversations = {setConversations}/>
-                                        
+                            </> : <NewConversation setCurrentChat = {setCurrentChat} setConversations = {setConversations}/> 
                         }
                     </div>
                 </div>
@@ -225,8 +217,6 @@ const Messenger = () => {
                                 <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
                                 : null
                         }
-                        
-                        
                     </div>
                 </div>
             </div>
