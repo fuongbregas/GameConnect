@@ -60,7 +60,11 @@ class MongoDB(object):
                 return ""    
             else:
                 return(rec['genres'])
-        
+    
+    def insert_recom_friend(self,username,payload):
+        #db.userData.update({"username":"RossieLinkie5"},{$set:{"recomended_friends":["value5"]}})
+        return self._collection.update({'username':username,},{'$set':{'recomended_friends':payload}})
+
     def get_all_saved_games(self): 
         return self._collection.find()
         

@@ -2,6 +2,7 @@
 from collections import defaultdict
 
 from pandas.core.frame import DataFrame
+from pandas.core.indexes.base import Index
 from MongoDB_Object import MongoDB
 import pandas as pd
 import numpy as np 
@@ -75,8 +76,18 @@ def compute_jaccard_similarity_score(x, y):
     return intersection_cardinality / float(union_cardinality)
 
 def insert_recomended_friend(recom_friend,friend_key):
-    
-    print("place holder ")
+    user_data = MongoDB(database_name = 'gameConnect', collection_name = 'userData')
+    #print(recom_friend)
+    #print("place holder ")
+    for k, values in recom_friend.items():
+        friends = []
+        for i in range(0, len(values)) :
+            if(values[i]==True):
+                # records = user_data.get_all_saved_games()
+                user_data.insert_recom_friend(k,friend_key[i])
+                print(k,friend_key[i])    
+                friends.append(friend_key[i])
+        user_data.insert_recom_friend(k,friends)
 
 if __name__ == "__main__":
     getSavedGamesArrayFromUsers()
@@ -99,3 +110,4 @@ if __name__ == "__main__":
         recom_friend[key] = flat_list
         #print(recom_friend)
         #print(friend_key)
+    insert_recomended_friend(recom_friend,friend_key)
