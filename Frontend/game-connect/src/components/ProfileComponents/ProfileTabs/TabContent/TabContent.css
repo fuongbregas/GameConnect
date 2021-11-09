@@ -29,3 +29,8 @@
 .page-button:hover {
     background-color: #0a5fad;
 }
+
+.page-button:disabled {
+    cursor: not-allowed;
+    background-color: grey;
+}
