@@ -183,8 +183,8 @@ const Messenger = () => {
                             currentChat ?
                             <>
                                 <div className="chatBoxTop">
-                                    {messages.map(each_message => (
-                                        <div key = {each_message._id} ref = {scrollRef}>                                            
+                                    {messages.map((each_message, index) => (
+                                        <div key = {index} ref = {scrollRef}>                                            
                                             <Message
                                                 message = {each_message}
                                                 sender = {each_message.sender_username}
