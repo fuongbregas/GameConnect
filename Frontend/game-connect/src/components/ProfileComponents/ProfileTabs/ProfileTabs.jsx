@@ -3,34 +3,50 @@ import axios from 'axios';
 import {React, useState, useContext, useEffect} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {AuthContext} from '../../../context/AuthContext';
+import TabContent from './TabContent/TabContent';
 const ProfileTabs = ({username}) => {
     const {user} = useContext(AuthContext);
     const [tabIndex, setTabIndex] = useState(0);
 
     return (
-        <div>
+        <div >
             <Tabs selected={tabIndex} onSelect = {index => setTabIndex(index)}>
                 <TabList>
                     <Tab>Posts</Tab>
                     <Tab>Comments</Tab>
-                    <Tab>Saved Games</Tab>
                     {
-                        user === username ? <Tab>Friends</Tab> : null
+                        user === username ? 
+                        <>
+                            <Tab>Saved Games</Tab>
+                            <Tab>Friends</Tab>
+                        </> : null
                     }
                 </TabList>
 
                 {/* Posts go here*/}
-                <TabPanel>Post</TabPanel>
+                <TabPanel>
+                    <div className="tab-container">Posts</div>
+                </TabPanel>
 
                 {/* Comments go here */}
-                <TabPanel>Comment</TabPanel>
-
-                {/* Saved Games go here */}
-                <TabPanel>Game</TabPanel>
+                <TabPanel>
+                    <div className="tab-container">Comment</div>
+                </TabPanel>
 
                 {/* Friend list goes here */}
                 {
-                    user === username ? <TabPanel>Friends</TabPanel> : null
+                    user === username ?
+                    <>
+                    <TabPanel>
+                        <div className="tab-container">Games</div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="tab-container">
+                            <TabContent username={username} URL='/backend/users/friends/'/>
+                        </div>
+                    </TabPanel> 
+                    </>
+                    : null
                 }
             </Tabs>
         </div>

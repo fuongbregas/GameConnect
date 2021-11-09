@@ -25,19 +25,28 @@ router.get('/friends/:username', async (req, res) => {
     try {
         const username = req.params.username;
         const user = await User.findOne({username: username});
-        const friends = await Promise.all(
-            user.friend_list.map ((friend_username) => {
-                return User.findOne({username: friend_username});
-            })
-        );
+        const friend_list = user.friend_list;
+        const friends = await User.find({username: {$in: friend_list}},
+                                        {username : 1, profile_picture: 1});
+        res.status(200).json(friends);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
-        var friend_list = [];
-        friends.map ((each_friend) => {
-            const {_id, username, profile_picture} = each_friend;
-            friend_list.push({_id, username, profile_picture});
-        });
-
-        res.status(200).json(friend_list);
+// Get friends in pages
+router.get('/friends/:username/:pageNumber', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        const user = await User.findOne({username: username});
+        const friend_list = user.friend_list;
+        const friends = await User.find({username: {$in: friend_list}},
+                                        {username : 1, profile_picture: 1})
+                                        .skip((pageNumber - 1) * 15)
+                                        .limit(15);
+        res.status(200).json(friends);
     }
     catch (error) {
         res.status(500).json(error);

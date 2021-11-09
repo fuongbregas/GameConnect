@@ -6,3 +6,8 @@
     max-height: 150vh;
     background-color: #242526;
 }
+
+.bottom {
+    height: 100%;
+    width: 100%;
+}
