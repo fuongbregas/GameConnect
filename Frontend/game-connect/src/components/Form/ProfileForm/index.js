@@ -37,9 +37,7 @@ const Profile = () => {
                 <div className="profileContainer">
                     <ProfilePicture username = {username} profilePicture = {profilePicture} changeScreen={changeScreen}/>
                     <RequestButton username = {username}/>
-                    <div className="bottom">
-                        <ProfileTabs username = {username}/>
-                    </div>
+                    <ProfileTabs username = {username}/>
                 </div>
                 : <ProfileImageChanger setProfilePicture={setProfilePicture} changeScreen={changeScreen}/>
             }
