@@ -38,7 +38,9 @@ const ProfileTabs = ({username}) => {
                     user === username ?
                     <>
                     <TabPanel>
-                        <div className="tab-container">Games</div>
+                        <div className="tab-container">
+                            <TabContent type = 'Games' username={username} URL='/backend/savedGames/'/>
+                        </div>
                     </TabPanel>
                     <TabPanel>
                         <div className="tab-container">

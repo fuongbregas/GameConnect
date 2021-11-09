@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Games = require('../models/Games/GameSchema');
-const Genres = require('../models/Games/GenreSchema');
-const Community = require('../models/Games/CommunitySchema');
-const User = require('../models/Users/UserSchema');
+const Games = require('../../models/Games/GameSchema');
+const Genres = require('../../models/Games/GenreSchema');
+const Community = require('../../models/Games/CommunitySchema');
+const User = require('../../models/Users/UserSchema');
 
 // Get a game data from its ID
 router.get('/get_one_game/:gameID', async (req, res) => {

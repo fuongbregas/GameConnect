@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import './TabContent.css';
 import axios from 'axios';
+import GameContent from './GameContent/GameContent';
 import FriendContent from './FriendContent/FriendContent';
 
 const TabContent = ({type, username, URL}) => {
@@ -43,7 +44,8 @@ const TabContent = ({type, username, URL}) => {
         <div className = 'tab-content-container'>
             <div className = 'top-container'>
                 {
-                    type === 'Friends' ? <FriendContent data = {data}/>
+                    type === 'Games' ? <GameContent data = {data}/> 
+                    : type === 'Friends' ? <FriendContent data = {data}/>
                     : null
                 }
             </div>

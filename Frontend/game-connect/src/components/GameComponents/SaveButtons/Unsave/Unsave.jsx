@@ -13,7 +13,7 @@ const Unsave = ({gameID, setGameStatus}) => {
             gameID: gameID,
         };
         try {
-            const res = await axios.put('/backend/users/saved_games/unsave', data);
+            const res = await axios.put('/backend/savedGames/saved_games/unsave', data);
             setGameStatus(res.data);
         }
         catch (error) {

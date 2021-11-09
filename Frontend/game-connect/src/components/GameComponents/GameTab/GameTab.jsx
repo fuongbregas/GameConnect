@@ -11,7 +11,7 @@ const GameTab = ({gameInfo, gameID}) => {
     const [gameStatus, setGameStatus] = useState('');
 
     const getGameStatus = async () => {
-        const res = await axios.get('/backend/users/saved_games/'+ user + '/' + gameID);
+        const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
         setGameStatus(res.data);
     }
 

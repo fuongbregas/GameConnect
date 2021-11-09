@@ -13,7 +13,7 @@ const Save = ({gameID, setGameStatus}) => {
             gameID: gameID,
         };
         try {
-            const res = await axios.put('/backend/users/saved_games/save', data);
+            const res = await axios.put('/backend/savedGames/saved_games/save', data);
             setGameStatus(res.data);
         }
         catch (error) {
