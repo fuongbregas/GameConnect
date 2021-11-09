@@ -74,9 +74,10 @@ def compute_jaccard_similarity_score(x, y):
     union_cardinality = len(set(x).union(set(y)))
     return intersection_cardinality / float(union_cardinality)
 
-def insert_recomended_friend():
-    print("place holder ")
+def insert_recomended_friend(recom_friend,friend_key):
     
+    print("place holder ")
+
 if __name__ == "__main__":
     getSavedGamesArrayFromUsers()
     #print(list_users_saved_games)
@@ -96,5 +97,5 @@ if __name__ == "__main__":
         values = df.values.tolist()
         flat_list = [item for sublist in values for item in sublist]
         recom_friend[key] = flat_list
-        print(recom_friend)
-        print(friend_key)
+        #print(recom_friend)
+        #print(friend_key)
