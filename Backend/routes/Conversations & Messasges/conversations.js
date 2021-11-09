@@ -3,7 +3,6 @@ const router = express.Router();
 const Conversation = require('../../models/Converstions & Messages/ConversationSchema');
 
 router.post('/', async (req, res) => {
-    console.log('Sender: ' + req.body.sender_username);
     const newConversation = new Conversation({
         users: [req.body.sender_username, req.body.receiver_username]
     });
@@ -32,8 +31,6 @@ router.get('/:username', async (req, res) => {
 // Get a conversation between two users
 router.get('/get_one_conversation/:sender/:receiver', async (req, res,) => {
     try {
-        console.log('Sender: ' + req.params.sender);
-        console.log('Receiver: ' + req.params.receiver);
         const array_of_users = [req.params.sender, req.params.receiver];
         const conversation = await Conversation.findOne({
             users : {$all: array_of_users},

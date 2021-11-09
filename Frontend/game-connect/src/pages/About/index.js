@@ -37,7 +37,6 @@ const AboutTeamContainer = styled.div`
 
 export default function About() {
   const user = useContext(AuthContext);
-  console.log(user);
     return(
       <AboutPage>
         <AboutGameConnectContainer>

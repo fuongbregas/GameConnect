@@ -32,7 +32,6 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                 const res = await axios.get(url, {
                     cancelToken: source.token,
                 });
-                //console.log("User data: " + res.data);
                 setUsers(res.data);
             }   
             catch (error) {
