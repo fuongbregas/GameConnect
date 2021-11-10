@@ -2,7 +2,7 @@ import {React, useState, useEffect} from 'react';
 import './TabContent.css';
 import axios from 'axios';
 import GameContent from './GameContent/GameContent';
-import FriendContent from './FriendContent/FriendContent';
+import UserContent from './UserContent/UserContent';
 
 const TabContent = ({type, username, URL}) => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -17,7 +17,9 @@ const TabContent = ({type, username, URL}) => {
 
     // Preload data for current page
     useEffect(() => {
-        getData();
+        if (username !== ''){
+            getData();
+        }
     }, [username, pageNumber]);
 
     // Get data for next page
@@ -29,7 +31,9 @@ const TabContent = ({type, username, URL}) => {
 
     // Preload data for next page
     useEffect(() => {
-        getNextData();
+        if (username !== ''){
+            getNextData();
+        }
     }, [username, pageNumber]);
 
     const goNext = () => {
@@ -45,7 +49,7 @@ const TabContent = ({type, username, URL}) => {
             <div className = 'top-container'>
                 {
                     type === 'Games' ? <GameContent data = {data}/> 
-                    : type === 'Friends' ? <FriendContent data = {data}/>
+                    : type === 'Users' ? <UserContent data = {data}/>
                     : null
                 }
             </div>

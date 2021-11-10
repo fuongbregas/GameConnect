@@ -55,15 +55,17 @@ const ProfileTabs = ({username}) => {
                     </TabPanel>
                     <TabPanel>
                         <div className="tab-container">
-                            <TabContent type = 'Friends' username={username} URL='/backend/users/'/>
+                            <TabContent type = 'Users' username={username} URL='/backend/users/'/>
                         </div>
                     </TabPanel> 
                     </>
                     : null
                 }
+                {/* Search users goes here */}
                 <TabPanel>
                     <div className="tab-container">
                         <input ref={inputText} onKeyDown = {pressEnter} className = 'search-input'/>
+                        <TabContent type = 'Users' username={searchInput} URL='/backend/users/search/'/>
                     </div>
                 </TabPanel>
             </Tabs>

@@ -1,8 +1,8 @@
 import {React} from 'react';
 import { useHistory } from 'react-router';
-import './FriendContent.css';
+import './UserContent.css';
 
-const FriendContent = ({data}) => {
+const UserContent = ({data}) => {
     const history = useHistory();
     const handleClick = (username) => {
         history.push(`/profile/${username}`);
@@ -12,7 +12,7 @@ const FriendContent = ({data}) => {
         <>
             {
                 data.map((each_data, index) => (
-                    <div key = {index} className = 'friend' onClick={() => handleClick(each_data.username)}>
+                    <div key = {index} className = 'user' onClick={() => handleClick(each_data.username)}>
                         <img className = 'profile-picture' 
                              src = {each_data.profile_picture !== '' ? each_data.profile_picture : '/avatar.png'}
                              alt = ''
@@ -24,4 +24,4 @@ const FriendContent = ({data}) => {
     );
 }
 
-export default FriendContent;
+export default UserContent;

@@ -20,6 +20,26 @@ router.get('/autosearch', async (req, res) => {
     }
 });
 
+// Search users with pages
+router.get('/search/:username/:pageNumber', async (req, res) => {
+    try {
+        let q = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        let query = {
+            "$or": [{"username": {"$regex": q, "$options": "i"}}]
+        };
+        const users = await User.find(query, {'username' : 1, 'profile_picture' : 1})
+                                .skip((pageNumber - 1) * 15)
+                                .sort({date: -1})
+                                .limit(15);
+        
+        res.status(200).json(users);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
+
 // Get friends
 router.get('/friends/:username', async (req, res) => {
     try {
