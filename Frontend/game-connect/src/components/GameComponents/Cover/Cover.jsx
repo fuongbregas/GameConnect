@@ -4,13 +4,17 @@ import axios from 'axios';
 
 const Cover = ({gameID}) => {
     const [cover, setCover] = useState('');
-    const [result, setRes] = useState([]);
 
     const getImage = async () => {
         try {
             const res = await axios.get('/backend/game/get_one_game_image/' + gameID);
             // Need http header to work correctly
-            setCover("https://" + res.data);
+            if(res.data === null ) {
+
+            }
+            else {
+                setCover("https://" + res.data);
+            }
         }
         catch (error) {
             console.error(error);
