@@ -15,6 +15,7 @@ const ProfileTabs = ({username}) => {
         if (event.key === 'Enter') {
             event.preventDefault();
             setSearchInput(inputText.current.value);
+            inputText.current.value = '';
         }
     }
 

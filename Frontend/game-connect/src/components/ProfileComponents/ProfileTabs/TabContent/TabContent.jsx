@@ -4,7 +4,7 @@ import axios from 'axios';
 import GameContent from './GameContent/GameContent';
 import UserContent from './UserContent/UserContent';
 
-const TabContent = ({type, username, URL}) => {
+const TabContent = ({type, username, URL, setSearchInput}) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [data, setData] = useState([]);
     const [nextData, setNextData] = useState([]);
