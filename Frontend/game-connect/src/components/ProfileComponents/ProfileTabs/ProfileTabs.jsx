@@ -1,12 +1,22 @@
 import './ProfileTabs.css';
 import axios from 'axios';
-import {React, useState, useContext, useEffect} from 'react';
+import {React, useState, useContext, useRef} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {AuthContext} from '../../../context/AuthContext';
 import TabContent from './TabContent/TabContent';
 const ProfileTabs = ({username}) => {
     const {user} = useContext(AuthContext);
     const [tabIndex, setTabIndex] = useState(0);
+    const [searchInput, setSearchInput] = useState('');
+    const inputText = useRef();
+
+    // When enter is pressed
+    const pressEnter = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            setSearchInput(inputText.current.value);
+        }
+    }
 
     return (
         <div >
@@ -21,6 +31,7 @@ const ProfileTabs = ({username}) => {
                             <Tab>Friends</Tab>
                         </> : null
                     }
+                    <Tab>Search users</Tab>
                 </TabList>
 
                 {/* Posts go here*/}
@@ -50,6 +61,11 @@ const ProfileTabs = ({username}) => {
                     </>
                     : null
                 }
+                <TabPanel>
+                    <div className="tab-container">
+                        <input ref={inputText} onKeyDown = {pressEnter} className = 'search-input'/>
+                    </div>
+                </TabPanel>
             </Tabs>
         </div>
     );

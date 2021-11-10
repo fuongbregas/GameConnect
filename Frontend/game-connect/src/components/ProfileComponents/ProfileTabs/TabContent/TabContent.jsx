@@ -49,16 +49,18 @@ const TabContent = ({type, username, URL}) => {
                     : null
                 }
             </div>
-            <div className = 'bottom-container'>
-                <button className = 'page-button' onClick={goBack} disabled = {
-                            pageNumber === 1 ? true : false
-                        }>{'<'} Previous</button>
-                {' | '}
-                <button className = 'page-button' onClick={goNext} disabled = {
-                            nextData.length === 0 ? true : false
-                        }>Next {'>'}</button>
-            </div>
-            
+            {
+                data.length === 0 ? null :
+                <div className = 'bottom-container'>
+                    <button className = 'page-button' onClick={goBack} disabled = {
+                                pageNumber === 1 ? true : false
+                            }>{'<'} Previous</button>
+                    {' | '}
+                    <button className = 'page-button' onClick={goNext} disabled = {
+                                nextData.length === 0 ? true : false
+                            }>Next {'>'}</button>
+                </div>
+            }            
         </div>
     );
 };

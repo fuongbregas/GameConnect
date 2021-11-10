@@ -58,9 +58,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                 return user.username.match(regex);
             });
         }
-        //console.log('matches', matches);
         setSuggestions(matches);
-        //console.log('suggestions', suggestions);
         setUsernameInput(usernameInput);
     }
     
