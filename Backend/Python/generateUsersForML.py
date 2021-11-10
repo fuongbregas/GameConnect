@@ -48,7 +48,7 @@ def generateRandomGames():
     try:
 
         with connection.cursor() as cur:
-            sql = 'SELECT id FROM Games ORDER BY RAND() limit {0};'.format(str(randint(1,3)))
+            sql = 'SELECT id FROM Games ORDER BY RAND() limit {0};'.format(str(randint(1,15)))
             print(sql)
             cur.execute(sql)
             rows = cur.fetchall()
