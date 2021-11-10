@@ -5,11 +5,10 @@ import RequestButton from '../../ProfileComponents/FriendRequestButtons/RequestB
 import {ProfileImageChanger} from '../../../components';
 import axios from 'axios';
 import {React, useState, useEffect, useContext} from 'react';
-import { useParams } from 'react-router';
-import {AuthContext} from '../../../context/AuthContext';
+import { useParams, useHistory } from 'react-router';
 
 const Profile = () => {
-    const {user} = useContext(AuthContext);
+    const history = useHistory();
     const {username} = useParams();
 
     const [profilePicture, setProfilePicture] = useState('');
@@ -22,7 +21,7 @@ const Profile = () => {
             
         }
         catch (error) {
-            console.error(error);
+            history.push('/profile');
         }
     }
 
