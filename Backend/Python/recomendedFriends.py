@@ -85,7 +85,7 @@ def insert_recomended_friend(recom_friend,friend_key):
             if(values[i]==True):
                 # records = user_data.get_all_saved_games()
                 user_data.insert_recom_friend(k,friend_key[i])
-                print(k,friend_key[i])    
+                #print(k,friend_key[i])    
                 friends.append(friend_key[i])
         user_data.insert_recom_friend(k,friends)
 
