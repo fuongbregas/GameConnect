@@ -5,23 +5,23 @@ import axios from 'axios';
 const Cover = ({gameID}) => {
     const [cover, setCover] = useState('');
 
-    const getImage = async () => {
-        try {
-            const res = await axios.get('/backend/game/get_one_game_image/' + gameID);
-            // Need http header to work correctly
-            if(res.data === null ) {
-
-            }
-            else {
-                setCover("https://" + res.data);
-            }
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
     useEffect (() => {
+        const getImage = async () => {
+            try {
+                const res = await axios.get('/backend/game/get_one_game_image/' + gameID);
+                // Need http header to work correctly
+                if(res.data === null ) {
+    
+                }
+                else {
+                    setCover("https://" + res.data);
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        
         getImage();
     }, [gameID]);
 

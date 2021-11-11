@@ -1,5 +1,4 @@
-import {React, useState, useContext, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {React, useContext} from 'react';
 import './ProfilePicture.css';
 import {AuthContext} from '../../../context/AuthContext';
 const ProfilePicture = ({username, profilePicture, changeScreen}) => {

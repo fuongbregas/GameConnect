@@ -9,32 +9,32 @@ const TabContent = ({type, username, URL}) => {
     const [data, setData] = useState([]);
     const [nextData, setNextData] = useState([]);
 
-    // Get data for current page
-    const getData = async () => {
-        const res = await axios.get(URL + username + '/' + pageNumber);
-        setData(res.data);
-    };
-
     // Preload data for current page
     useEffect(() => {
+        // Get data for current page
+        const getData = async () => {
+            const res = await axios.get(URL + username + '/' + pageNumber);
+            setData(res.data);
+        };
+
         if (username !== ''){
             getData();
         }
-    }, [username, pageNumber]);
-
-    // Get data for next page
-    const getNextData = async () => {
-        const nextPage = pageNumber + 1;
-        const res = await axios.get(URL + username + '/' + nextPage);
-        setNextData(res.data);
-    };
+    }, [URL, username, pageNumber]);
 
     // Preload data for next page
     useEffect(() => {
+        // Get data for next page
+        const getNextData = async () => {
+            const nextPage = pageNumber + 1;
+            const res = await axios.get(URL + username + '/' + nextPage);
+            setNextData(res.data);
+        };
+
         if (username !== ''){
             getNextData();
         }
-    }, [username, pageNumber]);
+    }, [URL, username, pageNumber]);
 
     const goNext = () => {
         setPageNumber(pageNumber + 1);

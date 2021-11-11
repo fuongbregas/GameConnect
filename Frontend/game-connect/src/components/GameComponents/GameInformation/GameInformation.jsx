@@ -1,28 +1,26 @@
-import {React, useEffect, useState, useContext} from 'react';
+import {React, useEffect, useState} from 'react';
 import './GameInformation.css';
 import {CircularProgress} from '@material-ui/core';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
-import {AuthContext} from '../../../context/AuthContext';
 import GameTab from '../GameTab/GameTab';
 
 const GameInformation = ({gameID}) => {
-    const {user} = useContext(AuthContext);
     const [gameInfo, setGameInfo] = useState(null);
     const [color, setColor] = useState('#964B00');
     const [rating, setRating] = useState(0);
 
-    const getGameInfo = async () => {
-        const res = await axios.get('/backend/game/get_one_game/' + gameID);
-        setGameInfo(res.data);
-        setRating(Math.round(res.data.rating));
-        if (rating > 50) {
-            setColor('#50C878');
-        }
-    }
-
     useEffect(() => {
+        const getGameInfo = async () => {
+            const res = await axios.get('/backend/game/get_one_game/' + gameID);
+            setGameInfo(res.data);
+            setRating(Math.round(res.data.rating));
+            if (rating > 50) {
+                setColor('#50C878');
+            }
+        }
+
         getGameInfo();
     }, [gameID, rating]);
 

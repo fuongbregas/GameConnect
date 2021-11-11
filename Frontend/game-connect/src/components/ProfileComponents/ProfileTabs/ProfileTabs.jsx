@@ -1,5 +1,4 @@
 import './ProfileTabs.css';
-import axios from 'axios';
 import {React, useState, useContext, useRef} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {AuthContext} from '../../../context/AuthContext';
@@ -30,6 +29,7 @@ const ProfileTabs = ({username}) => {
                         <>
                             <Tab>Saved Games</Tab>
                             <Tab>Friends</Tab>
+                            <Tab>Recommended users</Tab>
                         </> : null
                     }
                     <Tab>Search users</Tab>
@@ -45,7 +45,6 @@ const ProfileTabs = ({username}) => {
                     <div className="tab-container">Comment</div>
                 </TabPanel>
 
-                {/* Friend list goes here */}
                 {
                     user === username ?
                     <>
@@ -57,6 +56,13 @@ const ProfileTabs = ({username}) => {
                     <TabPanel>
                         <div className="tab-container">
                             <TabContent type = 'Users' username={username} URL='/backend/users/'/>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="tab-container">
+                            {/*
+                            <TabContent type = 'Users' username={username} />
+                             */}
                         </div>
                     </TabPanel> 
                     </>

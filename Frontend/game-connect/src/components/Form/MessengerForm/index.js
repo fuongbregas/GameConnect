@@ -93,7 +93,7 @@ const Messenger = () => {
         return () => {
             source.cancel();
         }
-    }, []);
+    }, [user]);
 
     // Changes if there is new messages
     useEffect(() => {

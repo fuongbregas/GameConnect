@@ -1,7 +1,5 @@
 import './MessageElements.css';
 import {format} from 'timeago.js';
-import {useState, useEffect, useContext} from 'react';
-import axios from 'axios';
 
 const Message = ({message, own, sender}) => {
     return (

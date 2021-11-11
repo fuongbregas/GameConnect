@@ -1,5 +1,4 @@
 import {React, useState, useContext} from 'react';
-import { Redirect } from 'react-router';
 import axios from 'axios';
 import './ProfileImageChangerElements.css';
 import ImageUploader from 'react-images-upload';
@@ -8,7 +7,6 @@ const ProfileImageChanger = ({setProfilePicture, changeScreen}) => {
     // Username
     const {user} = useContext(AuthContext);
     const [pictureUrl, setPictureUrl] = useState("");
-    const [redirect, setRedirect] = useState(false);
     const client_id = process.env.REACT_APP_Imgur_ClientID;
     const clientID = "Client-ID " + client_id;
     var FormData = require('form-data');

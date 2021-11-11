@@ -4,7 +4,7 @@ import ProfileTabs from '../../ProfileComponents/ProfileTabs/ProfileTabs';
 import RequestButton from '../../ProfileComponents/FriendRequestButtons/RequestButton';
 import {ProfileImageChanger} from '../../../components';
 import axios from 'axios';
-import {React, useState, useEffect, useContext} from 'react';
+import {React, useState, useEffect} from 'react';
 import { useParams, useHistory } from 'react-router';
 
 const Profile = () => {
@@ -14,20 +14,20 @@ const Profile = () => {
     const [profilePicture, setProfilePicture] = useState('');
     const [screen, changeScreen] = useState(false);
 
-    const getProfilePicture = async () => {
-        try {
-            const res = await axios.get('/backend/users?username=' + username);
-            setProfilePicture(res.data.profile_picture);
-            
-        }
-        catch (error) {
-            history.push('/profile');
-        }
-    }
-
     useEffect(() => {
+        const getProfilePicture = async () => {
+            try {
+                const res = await axios.get('/backend/users?username=' + username);
+                setProfilePicture(res.data.profile_picture);
+                
+            }
+            catch (error) {
+                history.push('/profile');
+            }
+        }
+
         getProfilePicture();
-    }, [username]);
+    }, [history, username]);
 
     return (
         <>
