@@ -13,7 +13,6 @@
     border-radius: 50%;
     border: solid grey;
     border-width: 1px;
-    transition: transform .2s;
     cursor: pointer;
 }
 

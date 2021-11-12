@@ -1,0 +1,36 @@
+.tab-content-container{
+    height: 100%;
+    width: 100%;
+}
+
+.top-container {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+.bottom-container {
+    height: 100%;
+    width: 100%;
+}
+
+.page-button{
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.page-button:hover {
+    background-color: #0a5fad;
+}
+
+.page-button:disabled {
+    cursor: not-allowed;
+    background-color: grey;
+}

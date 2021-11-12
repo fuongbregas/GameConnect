@@ -1,32 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const Games = require('../models/Games/GameSchema');
-const Genres = require('../models/Games/GenreSchema');
-const Community = require('../models/Games/CommunitySchema');
-const User = require('../models/Users/UserSchema');
-
-// Get all games from MongoDB, should not use
-router.get('/game_data', async (req, res) => {
-    try {
-        const gameData = await Games.find({});
-        res.status(200).send({
-            gameData : gameData,
-        });
-    }
-    catch (error) {
-        console.log(error, error.stack);
-    }
-});
+const Games = require('../../models/Games/GameSchema');
+const Genres = require('../../models/Games/GenreSchema');
+const Community = require('../../models/Games/CommunitySchema');
+const User = require('../../models/Users/UserSchema');
 
 // Get a game data from its ID
 router.get('/get_one_game/:gameID', async (req, res) => {
     const gameID = req.params.gameID;
+    
     try {
-        const game = await Games.findOne({
-            'name' : gameID,
-        });
-
-        res.status(200).json(game);
+        const game = await Games.findOne(
+            {'id' : gameID},
+            {
+                'name' : 1,
+                'first_release_date' : 1,
+                'genres' : 1,
+                'rating' : 1,
+                'summary' : 1,
+            },
+        );
+        const genres = await Genres.find({"id" : {$in : game.genres}}, {'_id': 0, 'name' : 1});
+        const date = new Date(game.first_release_date).toLocaleDateString('en-GB', {month: 'long', day: 'numeric', year: 'numeric'});
+        const data = {
+            'name' : game.name,
+            'first_release_date': date,
+            'rating': game.rating,
+            'summary': game.summary,
+            'genres': genres,
+        }
+        //console.log('Game', data);    
+        res.status(200).json(data);
     }
     catch (error) {
         console.log(error, error.stack);
@@ -46,35 +50,6 @@ router.get('/get_one_game_image/:gameID', async (req, res) => {
     catch (error) {
         console.log(error, error.stack);
     }
-});
-
-// Get all genres from MongoDB
-router.get('/genres', async (req, res) => {
-    try {
-        const genreData = await Genres.find({});
-        res.status(200).send({
-            genreData : genreData,
-        });
-    }
-    catch (error) {
-        console.log(error, error.stack);
-    }
-});
-
-// Get a community from its name
-router.get('/get_one_community', async (req, res) => {
-    try {
-        const community = await Community.findOne({
-            'name' : req.body.name
-        });
-
-        res.status(200).send({
-            communityData : community,
-        });
-    }
-    catch (error){
-        console.log(error, error.stack);
-    }    
 });
 
 // Get saved game array
@@ -113,7 +88,6 @@ router.get('/get_searched_game/:game', async (req, res) => {
 router.get('/autosearch/:gameName', async (req, res) => {
     try {
         let q = req.params.gameName;
-        console.log('Params: ' + q);
         let query = {
             "$or": [{"name": {"$regex": q, "$options": "i"}}]
         };

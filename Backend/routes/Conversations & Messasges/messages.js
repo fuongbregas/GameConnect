@@ -48,7 +48,6 @@ router.get('/pagination_message/:conversation_id/:offset', async (req, res) => {
         const message = await Message.find({
             conversation_id : conversation_id,
         }).skip(offset).limit(10).lean();
-        console.log(message);
 
         const deleted_message = 'This message has been deleted.';
         for(var i = 0; i < message.length; i++) {

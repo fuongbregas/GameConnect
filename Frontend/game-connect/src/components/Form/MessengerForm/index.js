@@ -93,7 +93,7 @@ const Messenger = () => {
         return () => {
             source.cancel();
         }
-    }, []);
+    }, [user]);
 
     // Changes if there is new messages
     useEffect(() => {
@@ -157,7 +157,6 @@ const Messenger = () => {
     return (
         <>
             <div className="messenger">
-            
                 <div className="chatMenu">
                     <div className= "chatMenuWrapper">
                         <div className = 'buttonWrapper'>
@@ -179,15 +178,13 @@ const Messenger = () => {
                 </div>
 
                 <div className="chatBox">
-                    
                     <div className= "chatBoxWrapper">
-                        
                         {
                             currentChat ?
                             <>
                                 <div className="chatBoxTop">
-                                    {messages.map(each_message => (
-                                        <div key = {each_message._id} ref = {scrollRef}>                                            
+                                    {messages.map((each_message, index) => (
+                                        <div key = {index} ref = {scrollRef}>                                            
                                             <Message
                                                 message = {each_message}
                                                 sender = {each_message.sender_username}
@@ -195,22 +192,17 @@ const Messenger = () => {
                                             />
                                         </div>
                                     ))}
-                                    
-                                
                                 </div>
                                 <div className="chatBoxBottom">
                                     <textarea className="chatInput" placeholder="Aa"
                                               onChange = {(event) => setNewMessage(event.target.value)}
                                               value = {newMessage}>
-                                    
                                     </textarea>
-
                                     <button className="sendButton" onClick={sendMessageSubmit}>
                                         Send
                                     </button>
                                 </div> 
-                            </> : <NewConversation setCurrentChat = {setCurrentChat} setConversations = {setConversations}/>
-                                        
+                            </> : <NewConversation setCurrentChat = {setCurrentChat} setConversations = {setConversations}/> 
                         }
                     </div>
                 </div>
@@ -225,8 +217,6 @@ const Messenger = () => {
                                 <Online onlineUsers = {onlineUsers} currentUser = {user} setCurrentChat = {setCurrentChat}/>
                                 : null
                         }
-                        
-                        
                     </div>
                 </div>
             </div>

@@ -6,13 +6,32 @@ const User = require('../models/Users/UserSchema');
 router.get('/autosearch', async (req, res) => {
     try {
         let q = req.query.key;
-        console.log('Params: ' + q);
         let query = {
             "$or": [{"username": {"$regex": q, "$options": "i"}}]
         };
-        const users = await User.find(query, {'username' : 1},)
+        const users = await User.find(query, {'username' : 1, 'profile_picture' : 1})
                                 .sort({date: -1})
                                 .limit(10);
+        
+        res.status(200).json(users);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
+
+// Search users with pages
+router.get('/search/:username/:pageNumber', async (req, res) => {
+    try {
+        let q = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        let query = {
+            "$or": [{"username": {"$regex": q, "$options": "i"}}]
+        };
+        const users = await User.find(query, {'username' : 1, 'profile_picture' : 1})
+                                .skip((pageNumber - 1) * 15)
+                                .sort({date: -1})
+                                .limit(15);
         
         res.status(200).json(users);
     }
@@ -39,6 +58,24 @@ router.get('/friends/:username', async (req, res) => {
         });
 
         res.status(200).json(friend_list);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Get friends in pages
+router.get('/:username/:pageNumber', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        const user = await User.findOne({username: username});
+        const friend_list = user.friend_list;
+        const friends = await User.find({username: {$in: friend_list}},
+                                        {username : 1, profile_picture: 1})
+                                        .skip((pageNumber - 1) * 15)
+                                        .limit(15);
+        res.status(200).json(friends);
     }
     catch (error) {
         res.status(500).json(error);
@@ -164,43 +201,6 @@ router.put('/friends/unfriend', async (req, res) => {
         await User.findOneAndUpdate({username : viewed_user}, {$pull: {friend_list: logged_in_user}});
         await User.findOneAndUpdate({username : logged_in_user}, {$pull: {friend_list: viewed_user}});
         res.status(200).json("Nothing");
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-});
-
-// Friend pagination
-router.post('/friends/friends_page', async (req, res) => {
-    const username =  req.body.username;
-    const pagination = req.body.pagination ? parseInt(req.body.pagination) : 10;
-    //PageNumber From which Page to Start 
-    const pageNumber = req.body.page ? parseInt(req.body.page) : 1;
-
-    try {
-        const user = await User.findOne({username: username});
-        const friends = await Promise.all(
-            user.friend_list.map ((friend_username) => {
-                return User.findOne({username: friend_username});
-            })).skip((pageNumber - 1) * pagination)
-                //limit is number of Records we want to display
-                .limit(pagination);
-        res.status(200).json(friends);
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-});
-
-// Count friends
-router.get('/total_friends/:username', async (req, res) => {
-    
-        
-    try {
-        const username = req.params.username;
-        const user = await User.findOne({username: username}).lean();
-        
-        res.status(200).json(user.friend_list.length);
     }
     catch (error) {
         res.status(500).json(error);

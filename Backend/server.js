@@ -7,7 +7,8 @@ const PORT = process.env.SERVER_PORT;
 const CORS = require('cors');
 
 // routes
-const gameDataRoute = require('./routes/gameData');
+const gameDataRoute = require('./routes/Games/gameData');
+const savedGameRoute = require('./routes/Games/savedGames');
 const authorizationRoute = require('./routes/authorization');
 const userRoute = require('./routes/users');
 const messageRoute = require('./routes/Conversations & Messasges/messages');
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // Initialize routes
 app.use('/backend/game', gameDataRoute);
+app.use('/backend/savedGames', savedGameRoute);
 app.use('/backend/auth', authorizationRoute);
 app.use('/backend/users', userRoute);
 app.use('/backend/conversations', conversationRoute);

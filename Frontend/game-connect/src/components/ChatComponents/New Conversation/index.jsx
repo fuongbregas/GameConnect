@@ -8,6 +8,7 @@ import {Background,
     SendButton,
     SuggestionBox,
     Error,
+    ProfilePicture,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
@@ -31,7 +32,6 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                 const res = await axios.get(url, {
                     cancelToken: source.token,
                 });
-                //console.log("User data: " + res.data);
                 setUsers(res.data);
             }   
             catch (error) {
@@ -58,9 +58,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                 return user.username.match(regex);
             });
         }
-        //console.log('matches', matches);
         setSuggestions(matches);
-        //console.log('suggestions', suggestions);
         setUsernameInput(usernameInput);
     }
     
@@ -153,7 +151,16 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                                          required 
                                          ref={receiver}/>
                         {suggestions && suggestions.map((each_suggestion) => 
-                            <SuggestionBox key = {each_suggestion._id} onClick = {() => onSuggestHandler(each_suggestion.username)}>
+                            <SuggestionBox  key = {each_suggestion._id} 
+                                            onClick = {() => onSuggestHandler(each_suggestion.username)}>
+                                <ProfilePicture
+                                    src = {
+                                        each_suggestion.profile_picture !== ''
+                                        ? each_suggestion.profile_picture
+                                        : '/avatar.png'
+                                    }
+                                    alt = ''
+                                    referrerPolicy="no-referrer"/>
                                 {each_suggestion.username}
                             </SuggestionBox>
                         )}

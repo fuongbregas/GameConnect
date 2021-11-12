@@ -12,7 +12,6 @@ import {
   Signup,
   NotFound,
   Message,
-  ProfileImage,
   Game,
 } from './pages';
 
@@ -31,7 +30,7 @@ function App() {
         <Switch>
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
-          <Route exact path='/community'><Community/></Route>
+          <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
             {user ? <Profile/> : <Redirect to = "/"/>} 
           </Route>
@@ -51,10 +50,6 @@ function App() {
           </Route>
 
           <Route path="/signoff" exact ><Signoff/></Route>
-
-          <Route path = '/profile_image'>
-            {user ?  <ProfileImage/> : <Redirect to = "/"/>} 
-          </Route>
           
           <Route path='/game/:gameID'><Game/></Route>
 

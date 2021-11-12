@@ -11,20 +11,20 @@ const RequestButton = ({username}) => {
     const {user} = useContext(AuthContext);
     const [friendStatus, setFriendStatus] = useState(null);
 
-    // Get friend status between two users
-    const checkFriendStatus = async () => {
-        try {
-            const res = await axios.get('/backend/users/friends/' + user + '/' + username);
-            setFriendStatus(res.data);
-        }
-        catch (error) {
-            console.error(error);
-        }        
-    }
-
     useEffect (() => {
+        // Get friend status between two users
+        const checkFriendStatus = async () => {
+            try {
+                const res = await axios.get('/backend/users/friends/' + user + '/' + username);
+                setFriendStatus(res.data);
+            }
+            catch (error) {
+                console.error(error);
+            }        
+        }
+
         checkFriendStatus();
-    }, [username])
+    }, [user, username])
     
     return (
         <div className= 'request_button_container'>
@@ -46,10 +46,8 @@ const RequestButton = ({username}) => {
                             : null /* if friendStatus is not fully loaded */
                         }                        
                     </>
-                    
                 : null
-            }            
-            
+            }
         </div>
     );
 }
