@@ -1,0 +1,16 @@
+.unsave_game {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff0000;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    margin: 12px
+}
+
+.unsave_game:hover {
+    background-color: #e02a2a;
+}

@@ -7,9 +7,6 @@
 
 .cover {
     flex: 4;
-    margin: 20px;
-    justify-content: center;
-    align-items: center;
 }
 
 .main {

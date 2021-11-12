@@ -20,7 +20,6 @@ import {
   DiscoverGamesList,
   HomeContainer
 } from './HomeFormElements'
-import { Fragment } from 'react';
 
 const HomeForm = () => {
   const [searchedGame, setSearchedGame] = useState(null);
@@ -43,14 +42,14 @@ const HomeForm = () => {
 
     return(
       <>
-      {searchedGame === null ? 
-      
+      {searchedGame === null ?
+
         <HomeContainer>
           <HomeNavBar pageNumber={pageNumber} setSearchValue={setSearchValue}/>
           <SavedGames/>
           <DiscoverGames/>
           <GenreList/>
-        </HomeContainer> : 
+        </HomeContainer> :
         <DisplaySearch searchedGame={searchedGame} setSearchedGame={setSearchedGame} pageNumber= {pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue}/>
       }
       </>

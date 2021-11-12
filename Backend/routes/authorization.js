@@ -46,7 +46,6 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne ({email: req.body.email}); // find the user in MongoDB with the given email
-        console.log("Login request: " + JSON.stringify(req.body));
         !user && res.status(404).json("No email found"); // no email found
         
         const validPassword = await bcrypt.compare(req.body.password, user.password);
@@ -56,7 +55,6 @@ router.post('/login', async (req, res) => {
             res.status(418).json("User is banned");
         }
         else {
-            console.log("Login user: " + user);
             res.status(200).json(user);
         }
     }
