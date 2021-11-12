@@ -11,7 +11,7 @@ export default function About() {
             Resize the browser window to see that this page is responsive by the way.
           </p>
         </div>
-        <div className = 'container'>
+        <div className = 'team-container'>
           <h1 className='team'>Our team</h1>
         </div>
         
