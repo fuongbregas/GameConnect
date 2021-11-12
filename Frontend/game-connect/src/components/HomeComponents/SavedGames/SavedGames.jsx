@@ -6,20 +6,28 @@ import './SavedGames.css';
 
 const SavedGames =  () => {
     const[savedGames, setSavedGames] = useState([]);
-
     const {user} = useContext(AuthContext);
 
     useEffect(() => {
-        const displayGameData = async() => {
-          const res = await axios.get('/backend/game/get_saved_games/' + user);
-          setSavedGames(res.data);
+        const grabSavedGames = async() => {
+            const res = await axios.get('/backend/game/get_saved_games/' + user);
+            setSavedGames(res.data);
         }
-        displayGameData();
-    }, []);
+        grabSavedGames();
+    }, [user]);
 
     return(
         <div className='SavedGames'>
-            Saved Games
+            {
+                // <img className = 'EachGame'
+                // src = {cover !== '' ? cover : '/no_image.jpg'} 
+                // alt = ''/>
+                savedGames.map(eachGame => 
+                <img className='EachGame' key={eachGame.cover}
+                    src = {eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
+                    alt = ''>
+                </img>)
+            }
         </div>
     );
       

@@ -4,24 +4,28 @@ import {AuthContext} from '../../../context/AuthContext';
 import './HomeNavBar.css';
 import DisplaySearch from '../DisplaySearch/DisplaySearch';
 
-const HomeNavBar = ({setSearchedGame}) => {
+const HomeNavBar = ({pageNumber, setSearchValue}) => {
     const searchInput = useRef();
 
     //Search function
     const searchGames = async(event) => {
         event.preventDefault();
         const search = searchInput.current.value;
-        try{
-            const res = await axios.get("backend/game/autosearch/" + search);
-            setSearchedGame(res.data);
-        }catch(error){
-            console.log(error);
-        }
+        setSearchValue(search);
     }
 
-    useEffect(() => {
-        
-    });
+    // useEffect(() => {
+    //     const getSearchData = async () => {
+    //         try {
+    //             const res = await axios.get("backend/game/autosearch/" + searchValue + "/" + pageNumber);
+    //             setSearchedGame(res.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     getSearchData();
+    // }, [searchValue, pageNumber]);
+    console.log(pageNumber);
 
     return(
         <div className = 'HomeNavBar'>

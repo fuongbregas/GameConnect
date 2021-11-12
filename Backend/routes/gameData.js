@@ -110,15 +110,16 @@ router.get('/get_searched_game/:game', async (req, res) => {
 });
 
 // Return array of games when searching with keywords
-router.get('/autosearch/:gameName', async (req, res) => {
+router.get('/autosearch/:gameName/:pageNumber', async (req, res) => {
     try {
         let q = req.params.gameName;
-        console.log('Params: ' + q);
+        const pageNumber = req.params.pageNumber;
         let query = {
             "$or": [{"name": {"$regex": q, "$options": "i"}}]
         };
         const games = await Games.find(query, {'name' : 1, 'id': 1},)
-                                .limit(30);
+                                .skip((pageNumber - 1) * 30)
+                                .limit(15);
         console.log(games);
         res.status(200).json(games);
     }
@@ -126,5 +127,17 @@ router.get('/autosearch/:gameName', async (req, res) => {
         res.status(404).json(error);
     }
 });
+
+// Return array of games with ratings to display in Discover Games
+router.get('/get_rated_game', async (req, res) => {
+    try{
+        const games = await Games.find({'rating': {"$ne": null}}, {'name': 1, 'id': 1, 'cover': 1, 'rating': 1})
+        console.log(games);
+        res.status(200).json(games);
+
+    }catch(error){
+        res.status(404).json(error);
+    }
+})
 
 module.exports = router;
