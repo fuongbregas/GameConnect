@@ -30,24 +30,33 @@ const Messenger = () => {
     // Autoscroll when new message added
     const scrollRef = useRef();
 
+    // Load more button ref
+    const loadMoarRef = useRef();
+
     // Scroll down to bottom of message screen
+    
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({
-            behavior: 'smooth',
-        });
+        scrollRef.current?.scrollIntoView();
     }, [messages]);
 
     // Run socket connection once
     useEffect(() => {
+        let mounted = true;
         socket.current = io('ws://localhost:6969');
         // Get message from socket
         socket.current.on('getMessage', data => {
-            setArrivalMessage({
-                sender: data.sender,
-                message_content: data.message_content,
-                createdAt: Date.now(),
-            });
+            if(mounted) {
+                setArrivalMessage({
+                    sender: data.sender,
+                    message_content: data.message_content,
+                    createdAt: Date.now(),
+                });
+            }
         });
+
+        return function cleanup() {
+            mounted = false;
+        };
     }, []);
 
     useEffect(() => {
@@ -189,8 +198,13 @@ const Messenger = () => {
     }
 
     // Load more button
-    const loadMore = () => {
+    const loadMore = async () => {
         setPageNumber(pageNumber + 1);
+        await setTimeout(() => {
+            loadMoarRef.current.scrollIntoView({
+                behavior: 'smooth',
+            });
+        }, 500);
     }
 
     return (
@@ -222,7 +236,7 @@ const Messenger = () => {
                             currentChat ?
                                 <>
                                     <div className="chatBoxTop">
-                                        <div className='load-more-container'>
+                                        <div className='load-more-container' ref = {loadMoarRef}>
                                             <button className='load-more-button' onClick={loadMore} disabled={
                                                 nextData.length === 0 ? true : false
                                             }>Load Moar</button>
