@@ -47,7 +47,7 @@ router.get('/:conversation_id/:pageNumber', async (req, res) => {
         var pageNumber = req.params.pageNumber;
         const message = await Message.find({
             conversation_id : conversation_id,
-        }).sort({"createdAt": -1}).skip((pageNumber - 1) * 15).limit(15).lean();
+        }).sort({'createdAt' : -1}).skip(pageNumber).limit(10).lean();
 
         const deleted_message = 'This message has been deleted.';
         for(var i = 0; i < message.length; i++) {
@@ -55,8 +55,9 @@ router.get('/:conversation_id/:pageNumber', async (req, res) => {
                 message[i].message_content = deleted_message;
             }
         }
-        const reverse_message = message.reverse();
-        res.status(200).send(reverse_message);
+        const reversed_message = message.reverse();
+        
+        res.status(200).send(reversed_message);
     }
     catch (error) {
         

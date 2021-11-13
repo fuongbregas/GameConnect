@@ -29,28 +29,6 @@
     border-right: 1px solid grey;
 }
 
-.load-more-button {
-    align-self: center;
-    width: 120px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #0084ff;
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
-    font-weight: 100;
-}
-
-.load-more-button:hover {
-    background-color: #0a5fad;
-}
-
-.load-more-button:disabled {
-    cursor: not-allowed;
-    background-color: grey;
-}
-
 .chatBoxBottom {
     margin-top: 5px;
     display: flex;
@@ -85,11 +63,6 @@
     color: white;
     font-size: 20px;
     font-weight: 100;
-}
-
-.sendButton:disabled {
-    cursor: not-allowed;
-    background-color: grey;
 }
 
 .chatBoxWrapper {
