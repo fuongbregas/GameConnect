@@ -112,7 +112,8 @@ const Messenger = () => {
         const source = axios.CancelToken.source();
         const getNextMessages = async () => {
             try {
-                const res = await axios.get('backend/messages/' + currentChat?._id + '/' + pageNumber, {
+                const nextPageNumber = pageNumber + 1;
+                const res = await axios.get('backend/messages/' + currentChat?._id + '/' + nextPageNumber, {
                     cancelToken: source.token,
                 });
                 setNextData(res.data);
@@ -200,11 +201,11 @@ const Messenger = () => {
     // Load more button
     const loadMore = async () => {
         setPageNumber(pageNumber + 1);
-        await setTimeout(() => {
+        setTimeout(() => {
             loadMoarRef.current.scrollIntoView({
                 behavior: 'smooth',
             });
-        }, 500);
+        }, 100);
     }
 
     return (
