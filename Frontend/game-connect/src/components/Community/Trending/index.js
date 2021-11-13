@@ -7,18 +7,18 @@ import trendingItems from '../../../data/trending-items.json';
 export default function Trending() {
     return (
         <div className="trending-today-section">
-           <span className="title">Trending today</span>
+           <span className="title">Trending PC games</span>
            <div className="items">
                {trendingItems.map((item, index) => (
-                   <div className="trending-item hoverable" style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(${item.image_src})` }}>
+                   <div className="trending-item hoverable" style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(${item.cover})` }}>
                        <div className="context">
-                            <span className="title">{item.title}</span>
+                            <span className="title">{item.name}</span>
                             <br />
-                            <span className="description">{item.description}</span>
-                            <div className="subreddit">
-                                <img src={item.subreddit.image_src} />
-                                <span>r/{item.subreddit.name}</span>
-                            </div>
+                            <span className="description">{item.summary}</span>
+                            {/* <div className="subconnect">
+                                <img src={item.community.cover} />
+                                <span>g/{item.community.name}</span>
+                            </div> */}
                        </div>
                     </div>
                ))}

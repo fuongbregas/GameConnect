@@ -12,4 +12,4 @@ export { default as ProfileImageChanger} from './ProfileImageChanger';
 
 export {default as GameContainer} from './GameComponents';
 
-export { PostHeader, PostDetail, PostList, CommentList, Comment, Search, Trending } from './Community';
+export { PostHeader, PostDetail, PostList, CommentList, Comment, Search, Trending, MainBar, SideBar, Posts, AddPost } from './Community';

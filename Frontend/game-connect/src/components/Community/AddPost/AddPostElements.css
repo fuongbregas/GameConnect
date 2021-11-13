@@ -1,0 +1,14 @@
+.post-container {
+    display: flex;
+    background-color: rgb(235, 225, 225);
+    padding: 10px 15px;
+    margin-top: 15px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+}
+
+.post-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+}

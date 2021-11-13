@@ -1,40 +1,40 @@
 [
     {
-      "image_src": "assets/images/art.jpg",
-      "title": "Street art",
-      "description": "Coolest street art pictures ever taken",
-      "subreddit": {
-        "image_src": "assets/images/subreddit.jpg",
-        "name": "amazing art"
+      "cover": "http://images.igdb.com/igdb/image/upload/t_1080p/co3wac.jpg",
+      "name": "Dark Age of Camelot",
+      "summary": "Dark Age of Camelot (DAoC) is a 3D medieval fantasy MMORPG, released on October 10, 2001 in North America and in Europe shortly after through its partner GOA. The game combines Arthurian lore, Norse mythology and Irish Celtic legends with a dash of high fantasy. It is set in the period after King Arthur's death and his kingdom has split into three parts which are in a constant state of war with each other.DAoC includes both Player versus Environment (PvE) and Realm versus Realm (RvR) combat. Players can choose to adventure alone or join groups. Players may also join battlegroups, which are formed so all members are able to get completion of credit in large-scale PvE encounters and for communication purposes in RvR.",
+      "community": {
+        "cover": "assets/images/subreddit.jpg",
+        "name": "Dark Age of Camelot"
       }
     },
   
     {
-      "image_src": "assets/images/tiger.jpg",
-      "title": "Big tiger",
-      "description": "Big tiger in the wild searches for food",
-      "subreddit": {
-        "image_src": "assets/images/subreddit.jpg",
+      "cover": "http://images.igdb.com/igdb/image/upload/t_1080p/co2k3b.jpg",
+      "name": "Unreal Tournament",
+      "summary": "The first game in the Unreal series which has come to revolutionize game physics in the present. Unreal is a first person shooter with futuristic weapons, ammo, and arenas.",
+      "community": {
+        "cover": "assets/images/subreddit.jpg",
         "name": "animals"
       }
     },
   
     {
-      "image_src": "assets/images/programming.jpg",
-      "title": "Web development",
-      "description": "Top 5 tricks to speed up your web development process and get better results",
-      "subreddit": {
-        "image_src": "assets/images/subreddit.jpg",
+      "cover": "http://images.igdb.com/igdb/image/upload/t_1080p/co2561.jpg",
+      "name": "Mini Metro",
+      "summary": "In Mini Metro, you take on the task of designing the subway layout for a rapidly expanding city. Your city starts with three stations. Draw routes between these stations to connect them with subway lines. Commuters travel along your lines to get around the city as fast as they can. Each station can only hold a handful of waiting commuters so your subway network will need to be well-designed to avoid delays.The city is growing. More stations are opening, and commuters are appearing faster. The demands on your network are ever-increasing. You'll be constantly redesigning your lines to maximise efficiency. The new assets you earn every week will help immensely — as long as they're used wisely.Eventually your network will fail. Stations will open too quickly. Commuters will crowd the platforms. How long the city keeps moving is up to you.",
+      "community": {
+        "cover": "assets/images/subreddit.jpg",
         "name": "programming"
       }
     },
   
     {
-      "image_src": "assets/images/soccer.jpg",
-      "title": "Epic goal",
-      "description": "Watch this goal being made!",
-      "subreddit": {
-        "image_src": "assets/images/subreddit.jpg",
+      "cover": "http://images.igdb.com/igdb/image/upload/t_1080p/co2q9n.jpg",
+      "name": "Grand Prix 3",
+      "summary": "Grand Prix 3 (GP3) is a computer racing simulator by MicroProse. Released in 2000 by Hasbro Interactive featuring the 1998 Formula One season (with all drivers except Jacques Villeneuve, who is instead replaced by a fictional character, John Newhouse). The game wasn't quite as well received as its predecessors, but at the time was widely considered to be the best racing simulation available.   An add-on to the game, called GP3-2000 or GP32k, was released by Hasbro which updated the game to the 2000 Formula One season. A few other changes were made as well including: updated damage physics including damage from on-circuit debris, improved AI, a new replay system, and EAX 3D-sound.    Since the release of Grand Prix 4, the GP3 modding scene has slowly declined, and with the cracking of track editing for GP4 many track modders left GP3 for the newer title.",
+      "community": {
+        "cover": "assets/images/subreddit.jpg",
         "name": "sports"
       }
     }

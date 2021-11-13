@@ -46,19 +46,19 @@
     font-family: Noto Sans,Arial,sans-serif;
 }
 
-.trending-today-section .items .trending-item .context .subreddit {
+/* .trending-today-section .items .trending-item .context .subconnect {
     display: flex;
     align-items: center;
     font-size: 14px;
 }
 
-.trending-today-section .items .trending-item .context .subreddit img {
+.trending-today-section .items .trending-item .context .subconnect img {
     width: 16px;
     height: 16px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.trending-today-section .items .trending-item .context .subreddit span {
+.trending-today-section .items .trending-item .context .subconnect span {
     font-family: Noto Sans,Arial,sans-serif;
-}
+} */
