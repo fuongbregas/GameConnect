@@ -82,6 +82,24 @@ router.get('/:username/:pageNumber', async (req, res) => {
     }
 });
 
+// Get recommended friends in pages
+router.get('/recommend/:username/:pageNumber', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        const user = await User.findOne({username: username});
+        const recommended_friends = user.recommended_friends;
+        const friends = await User.find({username: {$in: recommended_friends}},
+                                        {username : 1, profile_picture: 1})
+                                        .skip((pageNumber - 1) * 15)
+                                        .limit(15);
+        res.status(200).json(friends);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // Get a user
 router.get('/', async (req, res) => {
     // const user_id = req.query.user_id;
@@ -177,9 +195,11 @@ router.put('/friends/acceptable', async (req, res) => {
     const viewed_user = req.body.username;
 
     try {
-        // Remove both users from both pending lists
+        // Remove both users from both pending lists & recommended friend list
         await User.findOneAndUpdate({username : viewed_user}, {$pull: {pending_friend_requests: logged_in_user}});
         await User.findOneAndUpdate({username : logged_in_user}, {$pull: {pending_friend_requests: viewed_user}});
+        await User.findOneAndUpdate({username : viewed_user}, {$pull: {recommended_friends: logged_in_user}});
+        await User.findOneAndUpdate({username : logged_in_user}, {$pull: {recommended_friends: viewed_user}});
         
         // Add both users to both friend lists
         await User.findOneAndUpdate({username : viewed_user}, {$push: {friend_list: logged_in_user}});

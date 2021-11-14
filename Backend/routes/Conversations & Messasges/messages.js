@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
 
 // Get all messages from a conversation ID
-router.get('/:conversation_id', async (req, res) => {
+router.get('/:conversation_id/', async (req, res) => {
     try {
         const message = await Message.find({
             conversation_id : req.params.conversation_id,
@@ -41,13 +41,13 @@ router.get('/:conversation_id', async (req, res) => {
 });
 
 // Get few number of messages from a conversation ID
-router.get('/pagination_message/:conversation_id/:offset', async (req, res) => {
+router.get('/:conversation_id/:pageNumber', async (req, res) => {
     try {
         var conversation_id = req.params.conversation_id;
-        var offset = req.params.offset;
+        var pageNumber = req.params.pageNumber;
         const message = await Message.find({
             conversation_id : conversation_id,
-        }).skip(offset).limit(10).lean();
+        }).sort({"createdAt": -1}).skip((pageNumber - 1) * 15).limit(15).lean();
 
         const deleted_message = 'This message has been deleted.';
         for(var i = 0; i < message.length; i++) {
@@ -55,9 +55,8 @@ router.get('/pagination_message/:conversation_id/:offset', async (req, res) => {
                 message[i].message_content = deleted_message;
             }
         }
-        
-        
-        res.status(200).send(message);
+        const reverse_message = message.reverse();
+        res.status(200).send(reverse_message);
     }
     catch (error) {
         

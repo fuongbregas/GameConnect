@@ -26,6 +26,10 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
+    recommended_friends:{
+        type: Array,
+        required: true,
+    },
     blocked_list: {
         type: Array,
         required: true,
