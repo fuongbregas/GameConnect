@@ -27,6 +27,7 @@ router.post('/register', async (req, res) => {
             communities_mod: [],
             conversations: [],
             saved_games: [],
+            recommended_friends:[],
             is_creator: false,
             is_banned: false,            
         });
