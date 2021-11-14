@@ -13,7 +13,7 @@ const authorizationRoute = require('./routes/authorization');
 const userRoute = require('./routes/users');
 const messageRoute = require('./routes/Conversations & Messasges/messages');
 const conversationRoute = require('./routes/Conversations & Messasges/conversations');
-
+const commentRoute = require('./routes/Posts & Comments/comments');
 
 // Connect MongoDB
 connectMongoDB();
@@ -32,7 +32,7 @@ app.use('/backend/auth', authorizationRoute);
 app.use('/backend/users', userRoute);
 app.use('/backend/conversations', conversationRoute);
 app.use('/backend/messages', messageRoute);
-
+app.use('/backend/comments', commentRoute);
 
 app.listen(PORT, function(){
     console.log('Worked');

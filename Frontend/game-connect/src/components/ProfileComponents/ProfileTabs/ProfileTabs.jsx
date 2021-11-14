@@ -42,7 +42,9 @@ const ProfileTabs = ({username}) => {
 
                 {/* Comments go here */}
                 <TabPanel>
-                    <div className="tab-container">Comment</div>
+                    <div className="tab-container">
+                        <TabContent type = 'Comments' username={username} URL='/backend/comments/'/>
+                    </div>
                 </TabPanel>
 
                 {

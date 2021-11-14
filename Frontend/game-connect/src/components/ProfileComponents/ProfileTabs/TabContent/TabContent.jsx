@@ -3,6 +3,7 @@ import './TabContent.css';
 import axios from 'axios';
 import GameContent from './GameContent/GameContent';
 import UserContent from './UserContent/UserContent';
+import CommentContent from './CommentContent/CommentContent';
 
 const TabContent = ({type, username, URL}) => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -50,6 +51,7 @@ const TabContent = ({type, username, URL}) => {
                 {
                     type === 'Games' ? <GameContent data = {data}/> 
                     : type === 'Users' ? <UserContent data = {data}/>
+                    : type === 'Comments' ? <CommentContent data = {data}/>
                     : null
                 }
             </div>
