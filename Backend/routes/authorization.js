@@ -21,6 +21,7 @@ router.post('/register', async (req, res) => {
             friend_list: [],
             blocked_list: [],
             pending_friend_requests: [],
+            recommended_friends: [],
             post_history: [],
             comment_history: [],
             communities: [],

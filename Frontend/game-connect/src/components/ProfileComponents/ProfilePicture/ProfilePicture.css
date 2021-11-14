@@ -5,6 +5,7 @@
     justify-content: center;
     background-color: #242526;
     margin-top: 10px;
+    padding-bottom: 15px;
 }
 
 .profile_picture {
@@ -18,4 +19,5 @@
 
 .userName {
     color: white;
+    padding-top: 10px;
 }

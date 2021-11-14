@@ -4,18 +4,12 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
     
     // The ID of the game/community the post belongs to
-    game_id: {
+    community_id: {
         type: Number,
         required: true,
     },
-    
     karma: {
         type: Number,
-        required: true,
-    },
-    // True if Solved, and False if Unsolved
-    status: {
-        type: Boolean,
         required: true,
     },
     // The type of the post which can be “Question,” “Discussion,” “News,”
@@ -34,7 +28,7 @@ const PostSchema = new Schema({
         required: true,
     },
     // URL of image
-    image_list: {
+    image_URL: {
         type: String,
     },
     // ID of the user who created the post
