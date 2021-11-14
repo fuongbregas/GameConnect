@@ -5,8 +5,6 @@
     background-color: #474e5d;
     color: white;
   }
-
-  
   
   .team-container {
     display: flex;
@@ -22,7 +20,11 @@
       color: white;
   }
 
-  .button {
+  .people-container {
+    
+  }
+
+  .contact-button {
     border: none;
     outline: 0;
     display: inline-block;
@@ -34,7 +36,7 @@
     width: 100%;
   }
   
-  .button:hover {
+  .contact-button:hover {
     background-color: #555;
   }
   

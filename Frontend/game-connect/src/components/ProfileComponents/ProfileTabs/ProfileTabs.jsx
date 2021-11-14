@@ -60,9 +60,9 @@ const ProfileTabs = ({username}) => {
                     </TabPanel>
                     <TabPanel>
                         <div className="tab-container">
-                            {/*
-                            <TabContent type = 'Users' username={username} />
-                             */}
+                            {
+                            <TabContent type = 'Users' username={username} URL='/backend/users/recommend/'/>
+                             }
                         </div>
                     </TabPanel> 
                     </>
