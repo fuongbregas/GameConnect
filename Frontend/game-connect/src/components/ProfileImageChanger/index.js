@@ -1,17 +1,14 @@
 import {React, useState, useContext} from 'react';
-import { Redirect } from 'react-router';
 import axios from 'axios';
 import './ProfileImageChangerElements.css';
 import ImageUploader from 'react-images-upload';
 import {AuthContext} from '../../context/AuthContext';
-const ProfileImageChanger = () => {
+const ProfileImageChanger = ({setProfilePicture, changeScreen}) => {
     // Username
     const {user} = useContext(AuthContext);
     const [pictureUrl, setPictureUrl] = useState("");
-    const [redirect, setRedirect] = useState(false);
     const client_id = process.env.REACT_APP_Imgur_ClientID;
     const clientID = "Client-ID " + client_id;
-    
     var FormData = require('form-data');
     
     const onDrop = (picture) => {    
@@ -27,13 +24,14 @@ const ProfileImageChanger = () => {
         else {
             setPictureUrl("");
         }
-        
     };
+
+    const goBack = () => {
+        changeScreen(false);
+    }
 
     const handleClick = async (event) => {
         event.preventDefault();
-        
-        
         var myHeaders = new Headers();
         myHeaders.append("Authorization", clientID);
 
@@ -56,12 +54,11 @@ const ProfileImageChanger = () => {
                     username : user,
                     profile_picture : link,
                 }
+                setProfilePicture(link);
                 axios.put('/backend/users/new_profile_picture', data);
                 
-            }).then(setRedirect(true));
-            
+            }).then(changeScreen(false));
         }
-
         catch (error) {
             console.error(error);
         }
@@ -69,17 +66,17 @@ const ProfileImageChanger = () => {
     
     return (
         <div className = 'profileImageChangerContaienr'>
-            {
-                redirect === true ? <Redirect to = {`/profile/${user}`}/>
-                : null
-            }
             <ImageUploader singleImage={true} maxFileSize={5242880} imgExtension={['.jpg','.png']} label="Max file size: 5mb, accepted: JPG and PNG" withPreview={true} onChange={onDrop}/>
             <button className = 'uploadButton'
-                    onClick={handleClick} 
+                    onClick = {handleClick} 
                     disabled = {
                         pictureUrl === "" ? true : false
-                    }>Upload</button>
-            
+                    }>Upload
+            </button>
+            <button className = 'cancelButton'
+                    onClick = {goBack}
+                    >Cancel
+            </button>
         </div>
     );
 }

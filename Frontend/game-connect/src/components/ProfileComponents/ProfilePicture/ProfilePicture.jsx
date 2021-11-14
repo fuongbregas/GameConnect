@@ -1,39 +1,23 @@
-import {React, useState, useContext, useEffect} from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {React, useContext} from 'react';
 import './ProfilePicture.css';
 import {AuthContext} from '../../../context/AuthContext';
-const ProfilePicture = ({username}) => {
-    
-    const [profilePicture, setProfilePicture] = useState('');
-    useEffect(() => {
-        
-        const getProfilePicture = async () => {
-            try {
-                const res = await axios.get('/backend/users?username=' + username);
-                setProfilePicture(res.data.profile_picture);
-                
-            }
-            catch (error) {
-                console.error(error);
-            }
+const ProfilePicture = ({username, profilePicture, changeScreen}) => {
+    const {user} = useContext(AuthContext);
+
+    const handleClick = () => {
+        if (user === username) {
+            changeScreen(true);
         }
-
-        getProfilePicture();
-        
-    }, [username]);
-
-    console.log('URL', profilePicture);
+    }
 
     return (
         <div className = 'profile_picture_container'>
-            <Link to = '/profile_image'>
-                <img    className = 'profile_picture' 
-                        src = {profilePicture !== '' ? profilePicture : '/avatar.png'} 
-                        alt = '' 
-                        referrerPolicy="no-referrer"/>
-            </Link>
-            
+            <img    className = 'profile_picture' 
+                    src = {profilePicture !== '' ? profilePicture : '/avatar.png'} 
+                    alt = ''
+                    onClick={handleClick}
+                    referrerPolicy="no-referrer"
+            />
             <h2 className = 'userName'>{username}</h2>
         </div>
     );

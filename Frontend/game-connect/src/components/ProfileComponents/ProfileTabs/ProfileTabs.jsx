@@ -1,72 +1,82 @@
 import './ProfileTabs.css';
-import axios from 'axios';
-import {React, useState, useContext, useEffect} from 'react';
+import {React, useState, useContext, useRef} from 'react';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {AuthContext} from '../../../context/AuthContext';
+import TabContent from './TabContent/TabContent';
 const ProfileTabs = ({username}) => {
     const {user} = useContext(AuthContext);
     const [tabIndex, setTabIndex] = useState(0);
-    const [friendList, setFriendList] = useState([]);
-    const [friendCount, setFriendCount] = useState(0);
+    const [searchInput, setSearchInput] = useState('');
+    const inputText = useRef();
 
-    const getFriendList = async (currentPage) => {
-        const data = {
-            username : user,
-            pagination: 8,
-            pageNumber: currentPage,
-        }
-        try {
-            const res = await axios.post('/backend/users/friends/friends_page', data);
-            setFriendList(res.data);
-        }
-        catch (error) {
-            console.error(error);
+    // When enter is pressed
+    const pressEnter = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            setSearchInput(inputText.current.value);
+            inputText.current.value = '';
         }
     }
 
-    const getFriendCount = async () => {
-        try {
-            const res = await axios.get('/backend/users/total_friends/' + user);
-            console.log(res.data);
-            setFriendCount(res.data);
-            await getFriendList(friendCount);
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect (() => {
-        getFriendCount();
-    }, []);
-    console.log('Friends', friendList);
     return (
-        <div>
+        <div >
             <Tabs selected={tabIndex} onSelect = {index => setTabIndex(index)}>
                 <TabList>
                     <Tab>Posts</Tab>
                     <Tab>Comments</Tab>
-                    <Tab>Saved Games</Tab>
                     {
-                        user === username ? <Tab>Friends</Tab> : null
+                        user === username ? 
+                        <>
+                            <Tab>Saved Games</Tab>
+                            <Tab>Friends</Tab>
+                            <Tab>Recommended users</Tab>
+                        </> : null
                     }
+                    <Tab>Search users</Tab>
                 </TabList>
 
                 {/* Posts go here*/}
-                <TabPanel>Post</TabPanel>
+                <TabPanel>
+                    <div className="tab-container">Posts</div>
+                </TabPanel>
 
                 {/* Comments go here */}
-                <TabPanel>Comment</TabPanel>
+                <TabPanel>
+                    <div className="tab-container">Comment</div>
+                </TabPanel>
 
-                {/* Saved Games go here */}
-                <TabPanel>Game</TabPanel>
-
-                {/* Friend list goes here */}
-                <TabPanel>Friends</TabPanel>
+                {
+                    user === username ?
+                    <>
+                    <TabPanel>
+                        <div className="tab-container">
+                            <TabContent type = 'Games' username={username} URL='/backend/savedGames/'/>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="tab-container">
+                            <TabContent type = 'Users' username={username} URL='/backend/users/'/>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="tab-container">
+                            {/*
+                            <TabContent type = 'Users' username={username} />
+                             */}
+                        </div>
+                    </TabPanel> 
+                    </>
+                    : null
+                }
+                {/* Search users goes here */}
+                <TabPanel>
+                    <div className="tab-container">
+                        <input ref={inputText} onKeyDown = {pressEnter} className = 'search-input'/>
+                        <TabContent type = 'Users' username={searchInput} URL='/backend/users/search/'/>
+                    </div>
+                </TabPanel>
             </Tabs>
         </div>
-        
-        
     );
 }
 

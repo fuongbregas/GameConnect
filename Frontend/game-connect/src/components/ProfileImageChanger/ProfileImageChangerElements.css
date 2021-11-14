@@ -16,8 +16,20 @@
     color: white;
     font-size: 20px;
     font-weight: 100;
+    margin-bottom: 15px;
 }
 .uploadButton:disabled {
     cursor: not-allowed;
     background-color: grey;
+}
+.cancelButton{
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #df2525;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
 }
