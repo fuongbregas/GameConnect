@@ -42,7 +42,7 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         let mounted = true;
-        socket.current = io('ws://localhost:6969');
+        socket.current = io('ws://192.168.50.81:6969');
         // Get message from socket
         socket.current.on('getMessage', data => {
             if(mounted) {
