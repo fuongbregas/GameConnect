@@ -5,7 +5,7 @@ const app = express();
 const connectMongoDB = require("./config/initMongoDB");
 const PORT = process.env.SERVER_PORT;
 const CORS = require('cors');
-
+const http = require('http')
 // routes
 const gameDataRoute = require('./routes/Games/gameData');
 const savedGameRoute = require('./routes/Games/savedGames');
@@ -13,7 +13,7 @@ const authorizationRoute = require('./routes/authorization');
 const userRoute = require('./routes/users');
 const messageRoute = require('./routes/Conversations & Messasges/messages');
 const conversationRoute = require('./routes/Conversations & Messasges/conversations');
-
+const commentRoute = require('./routes/Posts & Comments/comments');
 
 // Connect MongoDB
 connectMongoDB();
@@ -32,10 +32,8 @@ app.use('/backend/auth', authorizationRoute);
 app.use('/backend/users', userRoute);
 app.use('/backend/conversations', conversationRoute);
 app.use('/backend/messages', messageRoute);
+app.use('/backend/comments', commentRoute);
+http.createServer(app).listen(PORT)
 
-
-app.listen(PORT, function(){
-    console.log('Worked');
-});
 
 

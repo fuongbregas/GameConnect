@@ -48,4 +48,6 @@ io.on('connection', (socket) => {
         removeUser(socket.id);
         io.emit('getUsers', users);
     });
+
+    console.log('Total users in Socket', users.length);
 });
