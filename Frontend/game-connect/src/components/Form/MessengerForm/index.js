@@ -141,7 +141,7 @@ const Messenger = () => {
                 const res = await axios.get('backend/messages/' + currentChat?._id + '/' + pageNumber, {
                     cancelToken: source.token,
                 });
-                setMessages((each_message) => res.data.concat(each_message));
+                setMessages(res.data);
             }
             catch (error) {
                 if (axios.isCancel(error)) {
@@ -151,8 +151,10 @@ const Messenger = () => {
                 }
             }
         }
-
-        getMessages();
+        if (pageNumber === 1) {
+            getMessages();
+        }
+        
         return () => {
             source.cancel();
         }
@@ -189,6 +191,7 @@ const Messenger = () => {
 
     // Show the Create Conversation overlay
     const openNewConversation = () => {
+        setPageNumber(1);
         setMessages([]);
         setCurrentChat(null);
     }
@@ -196,14 +199,18 @@ const Messenger = () => {
     // Open a conversation
     const openConversation = async (each_conversation) => {
         setPageNumber(1);
-        setCurrentChat(each_conversation)
-        const res = await axios.get('backend/messages/' + each_conversation._id + '/' + pageNumber);
+        setCurrentChat(each_conversation);
+        setTimeout(() => {setMessages([])});
+        console.log(messages);
+        const res = await axios.get('backend/messages/' + each_conversation._id + '/' + 1);
         setMessages(res.data);
     }
 
     // Load more button
     const loadMore = async () => {
         setPageNumber(pageNumber + 1);
+        const newMessageList = nextData.concat(messages);
+        setMessages(newMessageList);
         setTimeout(() => {
             loadMoarRef.current.scrollIntoView({
                 behavior: 'smooth',

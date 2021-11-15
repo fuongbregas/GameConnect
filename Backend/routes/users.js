@@ -82,6 +82,24 @@ router.get('/:username/:pageNumber', async (req, res) => {
     }
 });
 
+// Get pending request in pages
+router.get('/pending/:username/:pageNumber', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const pageNumber = req.params.pageNumber;
+        const user = await User.findOne({username: username});
+        const pending_request = user.pending_friend_requests;
+        const pending_users = await User.find({username: {$in: pending_request}},
+                                        {username : 1, profile_picture: 1})
+                                        .skip((pageNumber - 1) * 15)
+                                        .limit(15);
+        res.status(200).json(pending_users);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // Get recommended friends in pages
 router.get('/recommend/:username/:pageNumber', async (req, res) => {
     try {
