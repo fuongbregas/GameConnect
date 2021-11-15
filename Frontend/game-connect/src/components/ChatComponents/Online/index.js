@@ -3,7 +3,7 @@ import {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../../context/AuthContext';
 
-const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
+const Online = ({onlineUsers, currentUser, setCurrentChat, setMessages, setPageNumber}) => {
     // Username
     const {user} = useContext(AuthContext);
     const [onlineFriends, setOnlineFriends] = useState([]);
@@ -39,9 +39,11 @@ const Online = ({onlineUsers, currentUser, setCurrentChat}) => {
 
     const setConversation = async (user) => {
         try {
-            
+            setPageNumber(1);
             const res = await axios.get('backend/conversations/get_one_conversation/' + currentUser + '/' + user);
             setCurrentChat(res.data);
+            const res2 = await axios.get('backend/messages/' + res.data._id + '/1');
+            setMessages(res2.data);
         }
         catch (error) {
             console.error(error);

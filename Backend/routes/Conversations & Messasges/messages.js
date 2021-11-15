@@ -36,7 +36,7 @@ router.get('/:conversation_id/:pageNumber', async (req, res) => {
         res.status(200).send(reverse_message);
     }
     catch (error) {
-        
+        res.status(500).json(error);
     }
 });
 

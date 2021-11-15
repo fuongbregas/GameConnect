@@ -273,7 +273,7 @@ const Messenger = () => {
                         </div>
                         {
                             onlineUsers.length !== 0 ?
-                                <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} />
+                                <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} setPageNumber = {setPageNumber} setMessages = {setMessages}/>
                                 : null
                         }
                     </div>
