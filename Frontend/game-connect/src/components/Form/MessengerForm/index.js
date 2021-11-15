@@ -189,13 +189,16 @@ const Messenger = () => {
 
     // Show the Create Conversation overlay
     const openNewConversation = () => {
+        setMessages([]);
         setCurrentChat(null);
     }
 
     // Open a conversation
-    const openConversation = (each_conversation) => {
+    const openConversation = async (each_conversation) => {
         setPageNumber(1);
         setCurrentChat(each_conversation)
+        const res = await axios.get('backend/messages/' + each_conversation._id + '/' + pageNumber);
+        setMessages(res.data);
     }
 
     // Load more button
@@ -261,7 +264,7 @@ const Messenger = () => {
                                                 newMessage === '' ? true : false
                                         }>Send</button>
                                     </div>
-                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} />
+                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber}/>
                         }
                     </div>
                 </div>

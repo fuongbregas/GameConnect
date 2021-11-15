@@ -12,7 +12,7 @@ import {Background,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
-const NewConversation = ({setCurrentChat, setConversations}) => {
+const NewConversation = ({setCurrentChat, setConversations, setPageNumber, setMessages}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
@@ -20,7 +20,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
     const [users, setUsers] = useState([]);
     const [usernameInput, setUsernameInput] = useState('');
     const [suggestions, setSuggestions] = useState([]);
-
+    
     // Get user when there is an input
     useEffect(() => {
         const source = axios.CancelToken.source();
@@ -103,10 +103,13 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                         
                         // Add new message to the recently created conversation
                         await axios.post('backend/messages/', message);
-                        setCurrentChat(conversation_data);
-                        const res4 = await axios.get("backend/conversations/" + user);
+                        const res3 = await axios.get("backend/conversations/" + user);
                         // Set the new conversation to the side bar
-                        setConversations(res4.data);  
+                        setConversations(res3.data);
+                        setPageNumber(1);
+                        const res4 = await axios.get('backend/messages/' + conversation_data._id + '/1');
+                        setMessages(res4.data);
+                        setCurrentChat(conversation_data);
                     }
                     else {
                         console.log(res2);
@@ -123,6 +126,9 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
                     };
                     // Add new message to the existed conversation
                     await axios.post('backend/messages/', message);
+                    setPageNumber(1);
+                    const res2 = await axios.get('backend/messages/' + conversation_data._id + '/1');
+                    setMessages(res2.data);
                     setCurrentChat(conversation_data);               
                 }
             }
@@ -137,7 +143,7 @@ const NewConversation = ({setCurrentChat, setConversations}) => {
             console.log(error);
         }
     }
-
+    
     return (
         <>
             <NoConversationText>Start a conversation.</NoConversationText> 
