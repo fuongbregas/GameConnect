@@ -43,9 +43,12 @@ io.on('connection', (socket) => {
     // Send & get a message
     socket.on('sendMessage', ({sender, receiver, message_content}) => {
         const user = getUser(receiver); // Receiver username & socketID
-        io.to(user.socketID).emit('getMessage', {
-            sender, message_content,
-        });
+        console.log('Receiver', user);
+        if (user !== undefined) {
+            io.to(user.socketID).emit('getMessage', {
+                sender, message_content,
+            });
+        }
     });
 
     // User disconnect
