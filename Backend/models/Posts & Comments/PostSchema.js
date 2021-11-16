@@ -32,7 +32,7 @@ const PostSchema = new Schema({
         type: String,
     },
     // ID of the user who created the post
-    user_id: {
+    username: {
         type: String,
         required: true,
     },
