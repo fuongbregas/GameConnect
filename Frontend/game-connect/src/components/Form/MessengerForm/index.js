@@ -8,7 +8,7 @@ import './MessengerFormElements.css'
 import { React, useContext, useEffect, useState, useRef, } from 'react';
 import { MdCreate } from 'react-icons/md'
 import { AuthContext } from '../../../context/AuthContext';
-const Messenger = ({loginUser}) => {
+const Messenger = () => {
 
     // All the states of different components
     const [conversations, setConversations] = useState([]);
@@ -22,7 +22,7 @@ const Messenger = ({loginUser}) => {
     const [pageNumber, setPageNumber] = useState(1);
 
     // Username
-    const user = loginUser;
+    const {user} = useContext(AuthContext);
 
     // Socket reference
     const socket = useRef();

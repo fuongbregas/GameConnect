@@ -45,7 +45,7 @@ function App() {
           </Route>
 
           <Route exact path='/message'>
-            {user ? <Message user = {user}/> : <Redirect to = "/"/> }
+            {user ? <Message/> : <Redirect to = "/"/> }
           </Route>
 
           <Route path="/signoff" exact ><Signoff/></Route>
