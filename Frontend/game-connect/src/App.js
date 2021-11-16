@@ -32,7 +32,7 @@ function App() {
           <Route exact path='/about'><About/></Route>
           <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
-            {user ? <Profile/> : <Redirect to = "/"/>} 
+            <Profile/> 
           </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>

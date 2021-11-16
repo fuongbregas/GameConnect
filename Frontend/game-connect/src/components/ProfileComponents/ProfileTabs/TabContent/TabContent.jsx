@@ -18,7 +18,7 @@ const TabContent = ({type, username, URL}) => {
             setData(res.data);
         };
 
-        if (username !== ''){
+        if (username !== '' && username !== null){
             getData();
         }
     }, [URL, username, pageNumber]);
@@ -32,7 +32,7 @@ const TabContent = ({type, username, URL}) => {
             setNextData(res.data);
         };
 
-        if (username !== ''){
+        if (username !== '' && username !== null){
             getNextData();
         }
     }, [URL, username, pageNumber]);
@@ -56,7 +56,7 @@ const TabContent = ({type, username, URL}) => {
                 }
             </div>
             {
-                data.length === 0 ? null :
+                data.length === 0 ? <h1 className = 'nothing-here'>Nothing yet</h1> :
                 <div className = 'bottom-container'>
                     <button className = 'page-button' onClick={goBack} disabled = {
                                 pageNumber === 1 ? true : false
