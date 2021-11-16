@@ -29,6 +29,7 @@ const ProfileTabs = ({username}) => {
                         <>
                             <Tab>Saved Games</Tab>
                             <Tab>Friends</Tab>
+                            <Tab>Pending Friend Requests</Tab>
                             <Tab>Recommended users</Tab>
                         </> : null
                     }
@@ -58,6 +59,11 @@ const ProfileTabs = ({username}) => {
                         <TabPanel>
                             <div className="tab-container">
                                 <TabContent type = 'Users' username={username} URL='/backend/users/'/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className="tab-container">
+                                <TabContent type = 'Users' username={username} URL='/backend/users/pending/'/>
                             </div>
                         </TabPanel>
                         <TabPanel>

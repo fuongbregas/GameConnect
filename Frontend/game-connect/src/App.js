@@ -20,7 +20,6 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-  //console.log("User: " + user);
 
   return (
     <div className="App">
@@ -32,7 +31,7 @@ function App() {
           <Route exact path='/about'><About/></Route>
           <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
-            {user ? <Profile/> : <Redirect to = "/"/>} 
+            <Profile/> 
           </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
@@ -46,7 +45,7 @@ function App() {
           </Route>
 
           <Route exact path='/message'>
-            {user ? <Message/> : <Redirect to = "/"/> }
+            {user ? <Message user = {user}/> : <Redirect to = "/"/> }
           </Route>
 
           <Route path="/signoff" exact ><Signoff/></Route>

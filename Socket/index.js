@@ -10,14 +10,20 @@ let users = [];
 
 // Only add user who are not in the 'users' array
 const addUser = (userName, socketID) => {
-    !users.some(user => user === userName) && 
+    removeUserName(userName);
     users.push({userName, socketID});
+    console.log('Socket', users);
 }
 
 // get user from the 'user' array
 const getUser = (userName) => {
     const user = users.find((user) => user.userName === userName);
     return user;
+}
+
+// Remove a user with username
+const removeUserName = (userName) => {
+    users = users.filter((user) => user.userName !== userName);
 }
 
 // Remove a user from 'users' array
@@ -37,9 +43,12 @@ io.on('connection', (socket) => {
     // Send & get a message
     socket.on('sendMessage', ({sender, receiver, message_content}) => {
         const user = getUser(receiver); // Receiver username & socketID
-        io.to(user.socketID).emit('getMessage', {
-            sender, message_content,
-        });
+        console.log('Receiver', user);
+        if (user !== undefined) {
+            io.to(user.socketID).emit('getMessage', {
+                sender, message_content,
+            });
+        }
     });
 
     // User disconnect

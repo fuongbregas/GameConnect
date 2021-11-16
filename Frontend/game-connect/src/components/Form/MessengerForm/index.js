@@ -8,7 +8,7 @@ import './MessengerFormElements.css'
 import { React, useContext, useEffect, useState, useRef, } from 'react';
 import { MdCreate } from 'react-icons/md'
 import { AuthContext } from '../../../context/AuthContext';
-const Messenger = () => {
+const Messenger = ({loginUser}) => {
 
     // All the states of different components
     const [conversations, setConversations] = useState([]);
@@ -22,7 +22,7 @@ const Messenger = () => {
     const [pageNumber, setPageNumber] = useState(1);
 
     // Username
-    const { user } = useContext(AuthContext);
+    const user = loginUser;
 
     // Socket reference
     const socket = useRef();
@@ -42,7 +42,14 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         let mounted = true;
-        socket.current = io('ws://192.168.50.81:6969');
+
+        if (socket.current === undefined) {
+            socket.current = io('ws://localhost:6969');
+        }
+        else {
+            console.log('Socket exists', socket.current);
+        }
+
         // Get message from socket
         socket.current.on('getMessage', data => {
             if(mounted) {
@@ -59,6 +66,7 @@ const Messenger = () => {
         };
     }, []);
 
+    // Add user to socket
     useEffect(() => {
         let mounted = true;
         // Add user to Socket
@@ -75,6 +83,24 @@ const Messenger = () => {
             mounted = false;
         };
 
+    }, [user]);
+    
+    // Remove a user from socket
+    useEffect(() => {
+        let mounted = true;
+        socket.current.on('disconnect', () => {
+            socket.current.emit('removeUser', socket.current.id);
+        })
+
+        socket.current.on('getUsers', users => {
+            if (mounted) {
+                setOnlineUsers(users);
+            }
+        });
+
+        return function cleanup() {
+            mounted = false;
+        };
     }, [user]);
 
     // if there is new message
@@ -141,7 +167,7 @@ const Messenger = () => {
                 const res = await axios.get('backend/messages/' + currentChat?._id + '/' + pageNumber, {
                     cancelToken: source.token,
                 });
-                setMessages((each_message) => res.data.concat(each_message));
+                setMessages(res.data);
             }
             catch (error) {
                 if (axios.isCancel(error)) {
@@ -151,8 +177,10 @@ const Messenger = () => {
                 }
             }
         }
-
-        getMessages();
+        if (pageNumber === 1) {
+            getMessages();
+        }
+        
         return () => {
             source.cancel();
         }
@@ -189,18 +217,26 @@ const Messenger = () => {
 
     // Show the Create Conversation overlay
     const openNewConversation = () => {
+        setPageNumber(1);
+        setMessages([]);
         setCurrentChat(null);
     }
 
     // Open a conversation
-    const openConversation = (each_conversation) => {
+    const openConversation = async (each_conversation) => {
         setPageNumber(1);
-        setCurrentChat(each_conversation)
+        setCurrentChat(each_conversation);
+        setTimeout(() => {setMessages([])});
+        console.log(messages);
+        const res = await axios.get('backend/messages/' + each_conversation._id + '/' + 1);
+        setMessages(res.data);
     }
 
     // Load more button
     const loadMore = async () => {
         setPageNumber(pageNumber + 1);
+        const newMessageList = nextData.concat(messages);
+        setMessages(newMessageList);
         setTimeout(() => {
             loadMoarRef.current.scrollIntoView({
                 behavior: 'smooth',
@@ -261,7 +297,7 @@ const Messenger = () => {
                                                 newMessage === '' ? true : false
                                         }>Send</button>
                                     </div>
-                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} />
+                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber}/>
                         }
                     </div>
                 </div>
