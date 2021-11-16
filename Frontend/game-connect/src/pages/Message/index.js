@@ -1,10 +1,10 @@
 import React from 'react';
 import { MessengerForm } from '../../components';
 
-export default function Message({user}) {
+export default function Message() {
     return(
         <>
-          <MessengerForm loginUser = {user}/>
+          <MessengerForm/>
         </>
     );
 }
