@@ -10,17 +10,7 @@ let users = [];
 
 // Only add user who are not in the 'users' array
 const addUser = (userName, socketID) => {
-    const user_exist = users.some((each_user) => {
-        if( each_user.userName === userName){
-            return indexOf(each_user);
-        }
-        else {
-            return -1;
-        }
-    });
-    if (user_exist !== -1) {
-        users.splice(user_exist, 1);
-    }
+    removeUserName(userName);
     users.push({userName, socketID});
     console.log('Socket', users);
 }
@@ -29,6 +19,11 @@ const addUser = (userName, socketID) => {
 const getUser = (userName) => {
     const user = users.find((user) => user.userName === userName);
     return user;
+}
+
+// Remove a user with username
+const removeUserName = (userName) => {
+    users = users.filter((user) => user.userName !== userName);
 }
 
 // Remove a user from 'users' array
