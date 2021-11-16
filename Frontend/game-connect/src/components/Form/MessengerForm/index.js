@@ -42,12 +42,14 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         let mounted = true;
+
         if (socket.current === undefined) {
             socket.current = io('ws://localhost:6969');
         }
         else {
             console.log('Socket exists', socket.current);
         }
+
         // Get message from socket
         socket.current.on('getMessage', data => {
             if(mounted) {
