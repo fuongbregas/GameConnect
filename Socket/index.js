@@ -10,8 +10,19 @@ let users = [];
 
 // Only add user who are not in the 'users' array
 const addUser = (userName, socketID) => {
-    !users.some(user => user === userName) && 
+    const user_exist = users.some((each_user) => {
+        if( each_user.userName === userName){
+            return indexOf(each_user);
+        }
+        else {
+            return -1;
+        }
+    });
+    if (user_exist !== -1) {
+        users.splice(user_exist, 1);
+    }
     users.push({userName, socketID});
+    console.log('Socket', users);
 }
 
 // get user from the 'user' array

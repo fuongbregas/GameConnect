@@ -20,7 +20,6 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-  //console.log("User: " + user);
 
   return (
     <div className="App">
@@ -46,7 +45,7 @@ function App() {
           </Route>
 
           <Route exact path='/message'>
-            {user ? <Message/> : <Redirect to = "/"/> }
+            {user ? <Message user = {user}/> : <Redirect to = "/"/> }
           </Route>
 
           <Route path="/signoff" exact ><Signoff/></Route>

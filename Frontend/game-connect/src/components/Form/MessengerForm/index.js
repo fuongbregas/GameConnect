@@ -8,7 +8,7 @@ import './MessengerFormElements.css'
 import { React, useContext, useEffect, useState, useRef, } from 'react';
 import { MdCreate } from 'react-icons/md'
 import { AuthContext } from '../../../context/AuthContext';
-const Messenger = () => {
+const Messenger = ({loginUser}) => {
 
     // All the states of different components
     const [conversations, setConversations] = useState([]);
@@ -22,7 +22,7 @@ const Messenger = () => {
     const [pageNumber, setPageNumber] = useState(1);
 
     // Username
-    const { user } = useContext(AuthContext);
+    const user = loginUser;
 
     // Socket reference
     const socket = useRef();
@@ -42,7 +42,12 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         let mounted = true;
-        socket.current = io('ws://localhost:6969');
+        if (socket.current === undefined) {
+            socket.current = io('ws://localhost:6969');
+        }
+        else {
+            console.log('Socket exists', socket.current);
+        }
         // Get message from socket
         socket.current.on('getMessage', data => {
             if(mounted) {
@@ -59,6 +64,7 @@ const Messenger = () => {
         };
     }, []);
 
+    // Add user to socket
     useEffect(() => {
         let mounted = true;
         // Add user to Socket
@@ -75,6 +81,24 @@ const Messenger = () => {
             mounted = false;
         };
 
+    }, [user]);
+    
+    // Remove a user from socket
+    useEffect(() => {
+        let mounted = true;
+        socket.current.on('disconnect', () => {
+            socket.current.emit('removeUser', socket.current.id);
+        })
+
+        socket.current.on('getUsers', users => {
+            if (mounted) {
+                setOnlineUsers(users);
+            }
+        });
+
+        return function cleanup() {
+            mounted = false;
+        };
     }, [user]);
 
     // if there is new message
