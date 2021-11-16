@@ -62,6 +62,10 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
+    recommended_friends:{
+        type: Array,
+        required: true,
+    },
     is_creator: {
         type: Boolean,
         required: true,
