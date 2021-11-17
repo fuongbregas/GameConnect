@@ -14,9 +14,8 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
         setSearchValue('');
     }
 
-    const routeToGame = (event) => {
-        event.preventDefault();
-        history.push('/game/' + searchedGame.id);
+    const routeToGame = (gameID) => {
+        history.push(`/game/${gameID}`);
     }
 
     const nextButton = (event) => {
@@ -34,23 +33,25 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
             <div className='SearchResults'>
                 Search Results
             </div>
+
+            <button className='MoveSearchPageButton' onClick={backButton}>
+                    Back
+            </button>
+
             <div className='DisplaySearch'>
                     {
                         searchedGame.map(eachGame =>
-                            <div key={eachGame._id} onClick={routeToGame}>
+                            <div className='EachResult' key={eachGame._id} onClick={() => routeToGame(eachGame.id)}>
                                 {eachGame.name}
                             </div>)
                     }
                 </div>
-            <button className='BackButton' onClick={backButton}>
-                    Back
-            </button>
 
-            <button className='PrevButton' onClick={prevButton}>
+            <button className='MoveSearchPageButton' onClick={prevButton}>
                     Prev
             </button>
 
-            <button className='NextButton' onClick={nextButton}>
+            <button className='MoveSearchPageButton' onClick={nextButton}>
                     Next
             </button>
         </div>

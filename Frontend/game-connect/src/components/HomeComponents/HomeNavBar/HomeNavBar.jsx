@@ -4,8 +4,9 @@ import {AuthContext} from '../../../context/AuthContext';
 import './HomeNavBar.css';
 import DisplaySearch from '../DisplaySearch/DisplaySearch';
 
-const HomeNavBar = ({pageNumber, setSearchValue}) => {
+const HomeNavBar = ({pageNumber, setSearchValue, setNavState}) => {
     const searchInput = useRef();
+    const {user} = useContext(AuthContext);
 
     //Search function
     const searchGames = async(event) => {
@@ -14,39 +15,61 @@ const HomeNavBar = ({pageNumber, setSearchValue}) => {
         setSearchValue(search);
     }
 
-    // useEffect(() => {
-    //     const getSearchData = async () => {
-    //         try {
-    //             const res = await axios.get("backend/game/autosearch/" + searchValue + "/" + pageNumber);
-    //             setSearchedGame(res.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    //     getSearchData();
-    // }, [searchValue, pageNumber]);
-    console.log(pageNumber);
-
     return(
         <div className = 'HomeNavBar'>
-            <li className = 'NavbarRecommendationLink'>
-                Recommendations
-            </li>
-            <li className = 'NavbarNewReleasesLink'>
-                New Releases
-            </li>
-            <li className = 'NavbarRandomizeLink'>
-                Randomize
-            </li>
-            <input className = 'SearchInput'
-                type='text'
-                placeholder='Search for Games'
-                ref={searchInput}>
-            </input>
-            <button className = 'SearchIcon'
-            onClick={searchGames}>
-                Submit
-            </button>
+            <div className='FirstNavBarContainer'>
+                <div className='SearchContainer'>
+                    <input className = 'SearchInput'
+                        type='text'
+                        placeholder='Search for Games'
+                        ref={searchInput}>
+                    </input>
+                    <button className = 'SearchButton'
+                        onClick={searchGames}>
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+            {user ?
+                <div className='SecondNavBarContainer'>
+                    <div className='LinkContainer'>
+                        <div className='NavbarLink' onClick={() => setNavState('Recommendations')}>
+                            Recommendations
+                        </div>
+                    </div>
+                </div>
+                : null
+            }
+            
+
+            <div className='SecondNavBarContainer'>
+                <div className='LinkContainer'>
+                        <div className = 'NavbarLink' onClick={() => setNavState('New Releases')}>
+                            New Releases
+                        </div>
+                </div>
+            </div>
+
+            <div className='SecondNavBarContainer'>
+                <div className='LinkContainer'>
+                        <div className = 'NavbarLink' onClick={() => setNavState('Discover Games')}>
+                            Discover Games
+                        </div>
+                </div>
+            </div>
+            {user ?
+                <div className='SecondNavBarContainer'>
+                    <div className='LinkContainer'>
+                        <div className='NavbarLink' onClick={() => setNavState('Saved Games')}>
+                            Saved Games
+                        </div>
+                    </div>
+                </div>
+                : null
+            }
+            
+            
         </div>
     );
 }

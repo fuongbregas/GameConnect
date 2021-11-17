@@ -13,6 +13,7 @@ import {
   NotFound,
   Message,
   Game,
+  GenreDisplay
 } from './pages';
 
 import { useContext } from "react";
@@ -52,6 +53,8 @@ function App() {
           <Route path="/signoff" exact ><Signoff/></Route>
           
           <Route path='/game/:gameID'><Game/></Route>
+
+          <Route path='/genre/:genreID'><GenreDisplay/></Route>
 
           <Route component={NotFound}/>
         </Switch>

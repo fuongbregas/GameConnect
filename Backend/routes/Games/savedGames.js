@@ -53,22 +53,6 @@ router.put('/saved_games/unsave', async (req, res) => {
     }
 });
 
-// Get saved game array
-router.get('/get_saved_games/:user', async (req, res) => {
-    try{
-        const username = req.params.user;
-        const currentUser = await User.findOne({username: username});
-        const savedGames = currentUser.saved_games;
-
-        var game = await Games.find({id: {$in: savedGames}});
-
-        res.status(200).json(game);
-    }
-    catch(error){
-        res.status(500).json(error);
-    }
-});
-
 // Get saved game array page
 router.get('/:user/:pageNumber', async (req, res) => {
     try{
@@ -78,7 +62,7 @@ router.get('/:user/:pageNumber', async (req, res) => {
         const savedGames = currentUser.saved_games;
 
         var game = await Games.find({id: {$in: savedGames}},
-                                    {_id: 0, id: 1, name: 1, cover: 1})
+                                    {_id: 0, id: 1, name: 1, cover: 1, genres: 1})
                               .skip((pageNumber - 1) * 15)
                               .limit(15);
         res.status(200).json(game);

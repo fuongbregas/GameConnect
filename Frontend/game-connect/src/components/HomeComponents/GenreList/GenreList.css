@@ -1,14 +1,20 @@
+.ListContain{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
 .GenreListBox{
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: #f5f5f5;
+    padding-top: 40px;
+    padding-left: 20px;
+    background-color: #242526;
     outline: 0;
-    position: absolute;
-    display: inline-block;
-    left: 8px;
-    width: 300px;
-    height: 500px;
-    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    color: white;
 }
 
 .GenreList{
@@ -17,6 +23,7 @@
     margin-left: 50px;
     vertical-align: middle;
     cursor: pointer;
+    color: white
 }
 
 .GenreList:hover{

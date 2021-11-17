@@ -1,8 +1,18 @@
 .DisplaySearch{
-    position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     margin-left: 25px;
     margin-top: 15px;
+    cursor: pointer;
+}
+
+.EachResult{
+    padding-bottom: 10px;
+}
+
+.EachResult:hover{
+    color: #0084ff;
 }
 
 .BackButton{
@@ -25,4 +35,25 @@
 
 .SearchResults{
     font-size: xx-large;
+}
+
+.MoveSearchPageButton{
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.MoveSearchPageButton:hover {
+    background-color: #0a5fad;
+}
+
+.MoveSearchPageButton:disabled {
+    cursor: not-allowed;
+    background-color: grey;
 }

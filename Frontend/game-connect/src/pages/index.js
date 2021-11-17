@@ -19,3 +19,5 @@ export { default as NotFound } from './NotFound';
 export { default as Message} from './Message';
 
 export { default as Game} from './Game';
+
+export {default as GenreDisplay} from './GenreDisplay';
