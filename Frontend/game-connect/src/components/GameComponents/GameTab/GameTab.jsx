@@ -10,14 +10,15 @@ const GameTab = ({gameInfo, gameID}) => {
     const [tabIndex, setTabIndex] = useState(0);
     const [gameStatus, setGameStatus] = useState('');
 
-    const getGameStatus = async () => {
-        const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
-        setGameStatus(res.data);
-    }
-
     useEffect(() => {
-        getGameStatus();
-    });
+        const getGameStatus = async () => {
+            const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
+            setGameStatus(res.data);
+        }
+        if(user !== null) {
+            getGameStatus();
+        }
+    }, [user, gameID]);
 
     return(
         <Tabs selected={tabIndex} onSelect = {index => setTabIndex(index)}>
@@ -33,7 +34,10 @@ const GameTab = ({gameInfo, gameID}) => {
             </TabPanel>
             <TabPanel>
                 <div className = 'tab-container'>
-                    <Button gameID = {gameID} gameStatus = {gameStatus} setGameStatus = {setGameStatus}/>
+                    {
+                        user ? <Button gameID = {gameID} gameStatus = {gameStatus} setGameStatus = {setGameStatus}/>
+                        : null
+                    }
                 </div>
             </TabPanel>
         </Tabs>
