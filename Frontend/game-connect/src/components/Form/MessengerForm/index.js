@@ -22,7 +22,7 @@ const Messenger = () => {
     const [pageNumber, setPageNumber] = useState(1);
 
     // Username
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     // Socket reference
     const socket = useRef();
@@ -35,7 +35,7 @@ const Messenger = () => {
     const loadMoarRef = useRef();
 
     // Scroll down to bottom of message screen
-    
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView();
     }, [messages]);
@@ -44,10 +44,10 @@ const Messenger = () => {
     useEffect(() => {
         let mounted = true;
         socket.current = io(link);
-        
+
         // Get message from socket
         socket.current.on('getMessage', data => {
-            if(mounted) {
+            if (mounted) {
                 setArrivalMessage({
                     sender: data.sender,
                     message_content: data.message_content,
@@ -79,7 +79,7 @@ const Messenger = () => {
         };
 
     }, [user]);
-    
+
     // Remove a user from socket
     useEffect(() => {
         let mounted = true;
@@ -175,7 +175,7 @@ const Messenger = () => {
         if (pageNumber === 1) {
             getMessages();
         }
-        
+
         return () => {
             source.cancel();
         }
@@ -221,7 +221,7 @@ const Messenger = () => {
     const openConversation = async (each_conversation) => {
         setPageNumber(1);
         setCurrentChat(each_conversation);
-        setTimeout(() => {setMessages([])});
+        setTimeout(() => { setMessages([]) });
         console.log(messages);
         const res = await axios.get('backend/messages/' + each_conversation._id + '/' + 1);
         setMessages(res.data);
@@ -268,7 +268,7 @@ const Messenger = () => {
                             currentChat ?
                                 <>
                                     <div className="chatBoxTop">
-                                        <div className='load-more-container' ref = {loadMoarRef}>
+                                        <div className='load-more-container' ref={loadMoarRef}>
                                             <button className='load-more-button' onClick={loadMore} disabled={
                                                 nextData.length === 0 ? true : false
                                             }>Load Moar</button>
@@ -289,10 +289,10 @@ const Messenger = () => {
                                             value={newMessage}>
                                         </textarea>
                                         <button className="sendButton" onClick={sendMessageSubmit} disabled={
-                                                newMessage === '' ? true : false
+                                            newMessage === '' ? true : false
                                         }>Send</button>
                                     </div>
-                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber}/>
+                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber} />
                         }
                     </div>
                 </div>
@@ -304,7 +304,7 @@ const Messenger = () => {
                         </div>
                         {
                             onlineUsers.length !== 0 ?
-                                <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} setPageNumber = {setPageNumber} setMessages = {setMessages}/>
+                                <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} setPageNumber={setPageNumber} setMessages={setMessages} />
                                 : null
                         }
                     </div>

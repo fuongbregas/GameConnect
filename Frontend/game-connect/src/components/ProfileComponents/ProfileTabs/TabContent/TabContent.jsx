@@ -3,6 +3,7 @@ import './TabContent.css';
 import axios from 'axios';
 import GameContent from './GameContent/GameContent';
 import UserContent from './UserContent/UserContent';
+import PostContent from './PostContent/PostContent';
 import CommentContent from './CommentContent/CommentContent';
 
 const TabContent = ({type, username, URL}) => {
@@ -51,6 +52,7 @@ const TabContent = ({type, username, URL}) => {
                 {
                     type === 'Games' ? <GameContent data = {data}/> 
                     : type === 'Users' ? <UserContent data = {data}/>
+                    : type === 'Posts' ? <PostContent data = {data}/>
                     : type === 'Comments' ? <CommentContent data = {data}/>
                     : null
                 }

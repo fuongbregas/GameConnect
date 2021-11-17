@@ -20,6 +20,7 @@ router.get('/:user/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {        
         const comments = await Comment.find({username: username}).skip((pageNumber - 1) * 15).limit(15);
+
         res.status(200).json(comments);
     }
     catch (error) {
