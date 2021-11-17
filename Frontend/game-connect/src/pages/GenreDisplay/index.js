@@ -9,8 +9,6 @@ export default function GenreDisplay() {
     const [genreGames, setGenreGames] = useState([]);
     const history = useHistory();
 
-    console.log(genreID);
-
     const handleClick = (gameID) => {
         history.push(`/game/${gameID}`);
     }
@@ -21,7 +19,7 @@ export default function GenreDisplay() {
             setGenreGames(res.data);
         }
         grabGenreGames();
-    }, []);
+    }, [genreID]);
 
     return(
       <>

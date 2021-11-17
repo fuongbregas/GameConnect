@@ -59,7 +59,7 @@ const Messenger = () => {
         return function cleanup() {
             mounted = false;
         };
-    }, []);
+    }, [link]);
 
     // Add user to socket
     useEffect(() => {
