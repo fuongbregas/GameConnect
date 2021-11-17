@@ -20,7 +20,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-
+  
   return (
     <div className="App">
       <Router>
@@ -32,6 +32,9 @@ function App() {
           <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
             <Profile/> 
+          </Route>
+          <Route path='/profile/'>
+            {user ? <Redirect to = {"/profile/" + user}/> : <Redirect to = "/"/> }
           </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
