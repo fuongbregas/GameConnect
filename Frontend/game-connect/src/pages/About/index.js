@@ -14,6 +14,7 @@ export default function About() {
         <div className = 'team-container'>
           <h1 className='team'>Our team</h1>
           <div className='people-container'>
+            
             <div className = 'individual'>
               <div className='individual-container'>
                 Phuong
