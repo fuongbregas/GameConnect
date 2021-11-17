@@ -3,6 +3,8 @@ import './TabContent.css';
 import axios from 'axios';
 import GameContent from './GameContent/GameContent';
 import UserContent from './UserContent/UserContent';
+import PostContent from './PostContent/PostContent';
+import CommentContent from './CommentContent/CommentContent';
 
 const TabContent = ({type, username, URL}) => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -17,7 +19,7 @@ const TabContent = ({type, username, URL}) => {
             setData(res.data);
         };
 
-        if (username !== ''){
+        if (username !== '' && username !== null){
             getData();
         }
     }, [URL, username, pageNumber]);
@@ -31,7 +33,7 @@ const TabContent = ({type, username, URL}) => {
             setNextData(res.data);
         };
 
-        if (username !== ''){
+        if (username !== '' && username !== null){
             getNextData();
         }
     }, [URL, username, pageNumber]);
@@ -50,11 +52,13 @@ const TabContent = ({type, username, URL}) => {
                 {
                     type === 'Games' ? <GameContent data = {data}/> 
                     : type === 'Users' ? <UserContent data = {data}/>
+                    : type === 'Posts' ? <PostContent data = {data}/>
+                    : type === 'Comments' ? <CommentContent data = {data}/>
                     : null
                 }
             </div>
             {
-                data.length === 0 ? null :
+                data.length === 0 ? <h1 className = 'nothing-here'>Nothing yet</h1> :
                 <div className = 'bottom-container'>
                     <button className = 'page-button' onClick={goBack} disabled = {
                                 pageNumber === 1 ? true : false

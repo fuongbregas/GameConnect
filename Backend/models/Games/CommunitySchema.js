@@ -17,11 +17,7 @@ const CommunitySchema = new Schema({
         type: Array,
         required: true,
     },
-    // The lists of post's ID
-    post_list: {
-        type: Array,
-        required: true,
-    },
+    
     // Number of memebers
     total_members:{
         type: Number,

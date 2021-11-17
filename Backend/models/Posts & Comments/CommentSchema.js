@@ -2,14 +2,20 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
-    
-    // ID of the user who made the comment
+    // MongoDB _id of the post
     post_id : {
         type: String,
         required: true,
     },
-
-    user_id: {
+    community_id : {
+        type: Number,
+        required: true,
+    },
+    post_title : {
+        type: String,
+        required: true,
+    },
+    username: {
         type: String,
         required: true,
     },
@@ -22,10 +28,6 @@ const CommentSchema = new Schema({
         required: true,
     },
     
-    // The ID of the image if the comment has one
-    image_id: {
-        type: Number,
-    }
 }, {timestamps: true});
 
 module.exports = Comments = mongoose.model('commentData', CommentSchema, 'commentData');
