@@ -19,8 +19,8 @@ const CommunitySchema = new Schema({
     },
     
     // Number of memebers
-    members:{
-        type: Array,
+    total_members:{
+        type: Number,
         required: true,
     }
 }, {collection: 'gameCommunities'});

@@ -38,11 +38,7 @@ const UserSchema = new Schema({
         type: Array,
         required: true,
     },
-    post_history: {
-        type: Array,
-        required: true,
-    },
-    comment_history: {
+    like_posts : {
         type: Array,
         required: true,
     },

@@ -8,15 +8,17 @@ const PostSchema = new Schema({
         type: Number,
         required: true,
     },
+    // Number of likes of this post
     karma: {
         type: Number,
         required: true,
     },
     // The type of the post which can be “Question,” “Discussion,” “News,”
+    /*
     post_type: {
         type: String,
         required: true,
-    },
+    },*/
     // The title of the post
     title: {
         type: String,

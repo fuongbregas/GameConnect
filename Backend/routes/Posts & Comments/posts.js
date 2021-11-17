@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require('../../models/Posts & Comments/PostSchema');
 const Comment = require('../../models/Posts & Comments/CommentSchema');
 const Game = require('../../models/Games/GameSchema');
-
+const User = require('../../models/Users/UserSchema');
 // Create a post
 router.post('/', async (req, res) => {
     const newPost = new Post(req.body);
@@ -53,7 +53,7 @@ router.get('/post/:pageNumber', async (req, res) => {
     }
 });
 
-// Get all posts with highest rating
+// Get all posts from game/communities with highest rating
 router.get('/game/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
@@ -89,6 +89,67 @@ router.delete('/:postID', async (req, res) => {
         await Comment.deleteMany({post_id: postID});
         await Post.deleteOne({_id: postID});
         res.status(200).json("Post is deleted");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Check if user has liked the post
+router.get('/karma/:user/:postID', async (req, res) => {
+    const username = req.params.user;
+    const postID = req.params.postID;
+    try {
+        const user = await User.findOne({username: username});
+        
+        if (user.like_posts.includes(postID)){
+            res.status(200).json("Liked");
+        }
+        // If the logged in user sent a friend request to the viewed user
+        else{
+            res.status(200).json("Unliked");
+        }
+        
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Like the post
+router.put('/karma/like', async (req, res) => {
+    const username = req.body.user;    
+    const postID = req.body.postID;
+
+    try {
+        await User.findOneAndUpdate({username : username}, {$push: {like_posts: postID}});
+        await Post.findOneAndUpdate({_id: postID}, {$inc: {karma : 1}});
+        const post = await Post.findOne({_id: postID});
+        data = {
+            like_status : "Liked",
+            post: post,
+        }
+        res.status(200).json(data);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Unlike the post
+router.put('/karma/unlike', async (req, res) => {
+    const username = req.body.user;    
+    const postID = req.body.postID;
+
+    try {
+        await User.findOneAndUpdate({username : username}, {$pull: {like_posts: postID}});
+        await Post.findOneAndUpdate({_id: postID}, {$inc: {karma : -1}});
+        const post = await Post.findOne({_id: postID});
+        data = {
+            like_status : "Unliked",
+            post: post,
+        }
+        res.status(200).json(data);
     }
     catch (error) {
         res.status(500).json(error);

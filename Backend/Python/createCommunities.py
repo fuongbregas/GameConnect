@@ -4,6 +4,6 @@ def create_community_dict(game_document):
         'id' : game_document['id'],
         'name' : game_document['name'],
         'mod_list': [],
-        'total_members': [],
+        'total_members': 0,
     }
     return community_dict
