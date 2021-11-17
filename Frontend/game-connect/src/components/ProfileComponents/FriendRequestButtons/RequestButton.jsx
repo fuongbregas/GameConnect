@@ -22,8 +22,10 @@ const RequestButton = ({username}) => {
                 console.error(error);
             }        
         }
-
-        checkFriendStatus();
+        if (user !== null) {
+            checkFriendStatus();
+        }
+        
     }, [user, username])
     
     return (

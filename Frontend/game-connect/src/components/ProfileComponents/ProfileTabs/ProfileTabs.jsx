@@ -29,6 +29,7 @@ const ProfileTabs = ({username}) => {
                         <>
                             <Tab>Saved Games</Tab>
                             <Tab>Friends</Tab>
+                            <Tab>Pending Friend Requests</Tab>
                             <Tab>Recommended users</Tab>
                         </> : null
                     }
@@ -42,29 +43,36 @@ const ProfileTabs = ({username}) => {
 
                 {/* Comments go here */}
                 <TabPanel>
-                    <div className="tab-container">Comment</div>
+                    <div className="tab-container">
+                        <TabContent type = 'Comments' username={username} URL='/backend/comments/'/>
+                    </div>
                 </TabPanel>
 
                 {
                     user === username ?
                     <>
-                    <TabPanel>
-                        <div className="tab-container">
-                            <TabContent type = 'Games' username={username} URL='/backend/savedGames/'/>
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <div className="tab-container">
-                            <TabContent type = 'Users' username={username} URL='/backend/users/'/>
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <div className="tab-container">
-                            {/*
-                            <TabContent type = 'Users' username={username} />
-                             */}
-                        </div>
-                    </TabPanel> 
+                        <TabPanel>
+                            <div className="tab-container">
+                                <TabContent type = 'Games' username={username} URL='/backend/savedGames/'/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className="tab-container">
+                                <TabContent type = 'Users' username={username} URL='/backend/users/'/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className="tab-container">
+                                <TabContent type = 'Users' username={username} URL='/backend/users/pending/'/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className="tab-container">
+                                {
+                                <TabContent type = 'Users' username={username} URL='/backend/users/recommend/'/>
+                                }
+                            </div>
+                        </TabPanel> 
                     </>
                     : null
                 }

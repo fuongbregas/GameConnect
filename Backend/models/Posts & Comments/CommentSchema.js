@@ -8,8 +8,11 @@ const CommentSchema = new Schema({
         type: String,
         required: true,
     },
-
-    user_id: {
+    post_title : {
+        type: String,
+        required: true,
+    },
+    username: {
         type: String,
         required: true,
     },
@@ -22,10 +25,6 @@ const CommentSchema = new Schema({
         required: true,
     },
     
-    // The ID of the image if the comment has one
-    image_id: {
-        type: Number,
-    }
 }, {timestamps: true});
 
 module.exports = Comments = mongoose.model('commentData', CommentSchema, 'commentData');

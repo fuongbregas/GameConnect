@@ -45,7 +45,7 @@
     font-size: 14px;
 }
 
-.posts-wrapper .posts .post-title {
+.posts-wrapper .posts .post-title-main {
     grid-area: post-title;
     display: flex;
     align-items: center;
@@ -63,7 +63,7 @@
     color: rgb(130,130,130);
 }
 
-.posts-wrapper .posts .post-title > img {
+.posts-wrapper .posts .post-title-main > img {
     min-width: 16px;
     min-height: 16px;
     max-width: 16px;
@@ -72,25 +72,25 @@
     border-radius: 50%;
 }
 
-.posts-wrapper .posts .post-title > .subreddit-name {
+.posts-wrapper .posts .post-title-main > .subreddit-name {
     font-size: 12px;
 }
 
-.posts-wrapper .posts .post-title > .subreddit-name:hover {
+.posts-wrapper .posts .post-title-main > .subreddit-name:hover {
     text-decoration: underline;
 }
 
-.posts-wrapper .posts .post-title > .post-user {
+.posts-wrapper .posts .post-title-main > .post-user {
     padding-left: 5px;
     font-size: 12px;
     color: rgb(150,150,150);
 }
 
-.posts-wrapper .posts .post-title > .underline:hover {
+.posts-wrapper .posts .post-title-main > .underline:hover {
     text-decoration: underline;
 }
 
-.posts-wrapper .posts .post-title > .button {
+.posts-wrapper .posts .post-title-main > .button {
     margin: 8px;
     padding: 4px 8px;
     font-size: 11px;

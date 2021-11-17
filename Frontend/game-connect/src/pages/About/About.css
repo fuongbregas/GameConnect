@@ -5,23 +5,39 @@
     background-color: #474e5d;
     color: white;
   }
-
   
-  
-  .container {
+  .team-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     height: 100%;
+    background-color: #242526;
   }
   
   .team {
       color: white;
   }
 
-  .contact_button {
+  .people-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .individual {
+    flex: 3;
+  }
+
+  .individual-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contact-button {
     border: none;
     outline: 0;
     display: inline-block;
@@ -33,7 +49,7 @@
     width: 100%;
   }
   
-  .button:hover {
+  .contact-button:hover {
     background-color: #555;
   }
   

@@ -13,7 +13,7 @@ export default function Community() {
           <SideBar />
         </div>
       </div>
-      {/* <PostList /> */}
+      <PostList />
     </div>
   );
 } 

@@ -6,7 +6,7 @@ import GameInformation from './GameInformation/GameInformation';
 const GameContainer = () => {
     const {gameID} = useParams();
     return (
-        <div className = 'container'>
+        <div className = 'gamepage-container'>
             <div className = 'cover'>
                 <Cover gameID={gameID}/>
             </div>

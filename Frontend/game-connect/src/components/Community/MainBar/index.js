@@ -6,9 +6,15 @@ import NewReleases from '@material-ui/icons/NewReleases';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import Menu from '@material-ui/icons/Menu';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import posts from '../../../data/posts.json';
 import {Posts, AddPost} from '../';
 
 export default function MainBar() {
+
+    const updateKarma = () => {
+
+    }
+
     return (
         <div className="main-bar">
             <div className="update-card">
@@ -47,7 +53,11 @@ export default function MainBar() {
                     <ArrowDropDown />
                 </div>
             </div>
-            <Posts />
+            <div className="posts-wrapper">
+                {posts.map(post => {
+                    return <Posts key={post.post_id} post={post} updateKarma={updateKarma}/>
+                })}
+            </div>
         </div>
     )
 }

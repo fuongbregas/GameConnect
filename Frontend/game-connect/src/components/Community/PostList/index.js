@@ -84,7 +84,7 @@ export default function PostList() {
   const postHandler = (e) => {
     e.preventDefault();
     history.push('/postform');
-}
+  }
 
   const subHandler = (e) => {
       e.preventDefault();
@@ -93,13 +93,13 @@ export default function PostList() {
 
   return (
     <>
-      <div className="search">
+      {/* <div className="search">
         <div className="buttons">
           <button className="post-button com-button" onClick={postHandler}>Create Post</button>
           <button className="sub-button com-button" onClick={subHandler}>Create Sub</button>
         </div>
         <Search />
-      </div>
+      </div> */}
       < div className="main-container" >
             <div className="posts-container">
               {threadData.map(post => {
