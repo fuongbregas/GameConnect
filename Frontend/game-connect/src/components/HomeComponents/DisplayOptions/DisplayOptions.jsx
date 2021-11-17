@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext, useRef } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../../context/AuthContext';
 import { useHistory } from 'react-router';
@@ -80,13 +80,13 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
                 <div className='DisplayOptionsBox'>
                     {
                         data.map(eachGame => (
-                            <div className = 'DisplayOptionsDisplay' key={eachGame.id}>
+                            <div class = 'DisplayOptionsDisplay' key={eachGame.id}>
                                 <img className='DisplayEachGame'
                                     src = {eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
                                     alt = ''
                                     onClick={() => routeToGame(eachGame.id)}>
                                 </img>
-                                <h2> {eachGame.name} </h2>
+                                <h2 className='DisplayEachGameName' onClick ={() => routeToGame(eachGame.id)}> {eachGame.name} </h2>
                             </div>))
                     }
                 </div>

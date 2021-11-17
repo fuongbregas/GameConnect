@@ -10,9 +10,6 @@
 
 }
 
-.DisplayOptionsDisplay{
-
-}
 
 .DisplayOptionsBox{
     background-color: #242526;
@@ -29,4 +26,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     cursor: pointer;
+}
+
+.DisplayEachGameName {
+    flex-direction: row;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+.DisplayEachGameName:hover{
+    color: #0084ff;
 }

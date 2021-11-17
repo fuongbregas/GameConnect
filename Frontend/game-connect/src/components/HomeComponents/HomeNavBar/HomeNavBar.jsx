@@ -1,10 +1,8 @@
-import { React, useEffect, useState, useContext, useRef } from 'react';
-import axios from 'axios';
+import { React, useContext, useRef } from 'react';
 import {AuthContext} from '../../../context/AuthContext';
 import './HomeNavBar.css';
-import DisplaySearch from '../DisplaySearch/DisplaySearch';
 
-const HomeNavBar = ({pageNumber, setSearchValue, setNavState}) => {
+const HomeNavBar = ({setSearchValue, setNavState}) => {
     const searchInput = useRef();
     const {user} = useContext(AuthContext);
 

@@ -1,24 +1,12 @@
-import {React, useEffect, useState, useContext} from 'react';
+import {React, useEffect, useState} from 'react';
 import axios from 'axios';
-import {AuthContext} from '../../../context/AuthContext';
-import SavedGames from '../../HomeComponents/SavedGames/SavedGames';
 import HomeNavBar from '../../HomeComponents/HomeNavBar/HomeNavBar';
-import DiscoverGames from '../../HomeComponents/DiscoverGames/DiscoverGames';
 import DisplaySearch from '../../HomeComponents/DisplaySearch/DisplaySearch';
 import GenreList from '../../HomeComponents/GenreList/GenreList';
 import DisplayOptions from '../../HomeComponents/DisplayOptions/DisplayOptions';
 
 
 import {
-  SearchbarNavbar,
-  SearchInput,
-  SearchIcon,
-  NavbarRecommendationLink,
-  NavbarProfileLink,
-  NavbarNewReleasesLink,
-  GenreListBox,
-  DiscoverGamesBox,
-  DiscoverGamesList,
   HomeContainer,
   MainFeatureContainer,
   GenreListContainer,
@@ -59,8 +47,6 @@ const HomeForm = () => {
             <RightSideBox>
               <HomeNavBar pageNumber={pageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
               <DisplayOptions pageNumber={pageNumber} setPageNumber={setPageNumber} navState={navState}/>
-              
-              {/* <DiscoverGames/> */}
             </RightSideBox>
             
           </MainFeatureContainer>

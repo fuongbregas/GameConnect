@@ -1,6 +1,6 @@
 import './GenreDisplay.css';
 import {useParams} from 'react-router';
-import { React, useEffect, useState, useContext } from 'react';
+import { React, useEffect, useState} from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
@@ -27,7 +27,7 @@ export default function GenreDisplay() {
       <>
         <div className="FullContentContainer">
             <div className="TopContainer">
-                
+
             </div>
             <div className="BottomContainer">
                 {
