@@ -8,7 +8,7 @@ const User = require('../../models/Users/UserSchema');
 // Get a game data from its ID
 router.get('/get_one_game/:gameID', async (req, res) => {
     const gameID = req.params.gameID;
-    
+
     try {
         const game = await Games.findOne(
             {'id' : gameID},
@@ -29,7 +29,7 @@ router.get('/get_one_game/:gameID', async (req, res) => {
             'summary': game.summary,
             'genres': genres,
         }
-        //console.log('Game', data);    
+        //console.log('Game', data);
         res.status(200).json(data);
     }
     catch (error) {
@@ -48,51 +48,21 @@ router.get('/get_one_game_image/:gameID', async (req, res) => {
         res.status(200).json(game.cover);
     }
     catch (error) {
-        console.log(error, error.stack);
-    }
-});
-
-// Get saved game array
-router.get('/get_saved_games/:user', async (req, res) => {
-    try{
-        const username = req.params.user;
-        const currentUser = await User.findOne({username: username});
-        const savedGames = currentUser.saved_games;
-
-        var game = await Games.find({id: {$in: savedGames}});
-
-        res.status(200).json(game);
-    }
-    catch(error){
-        res.status(500).json(error);
-    }
-});
-
-// Get searched game data from its name
-router.get('/get_searched_game/:game', async (req, res) => {
-    try {
-        const gameName = req.params.game;
-        const game = await Games.findOne({
-            gameName : req.body.name,
-        });
-
-        res.status(200).json(game);
-    }
-    catch (error) {
-        console.log(error, error.stack);
-        res.status(500).json(error);
+        res.status(404).json(error);
     }
 });
 
 // Return array of games when searching with keywords
-router.get('/autosearch/:gameName', async (req, res) => {
+router.get('/autosearch/:gameName/:pageNumber', async (req, res) => {
     try {
         let q = req.params.gameName;
+        const pageNumber = req.params.pageNumber;
         let query = {
             "$or": [{"name": {"$regex": q, "$options": "i"}}]
         };
         const games = await Games.find(query, {'name' : 1, 'id': 1},)
-                                .limit(30);
+                                .skip((pageNumber - 1) * 15)
+                                .limit(15);
         console.log(games);
         res.status(200).json(games);
     }
@@ -100,5 +70,39 @@ router.get('/autosearch/:gameName', async (req, res) => {
         res.status(404).json(error);
     }
 });
+
+// Return array of games with ratings to display in Discover Games
+router.get('/get_rated_game', async (req, res) => {
+    try{
+        const games = await Games.find({'rating': {"$ne": null}}, {'name': 1, 'id': 1, 'cover': 1, 'rating': 1});
+        console.log(games);
+        res.status(200).json(games);
+
+    }catch(error){
+        res.status(404).json(error);
+    }
+})
+
+// Get all genres from MongoDB
+router.get('/genres', async (req, res) => {
+    try {
+        const genreData = await Genres.find({});
+        res.status(200).json(genreData);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+})
+
+// Get all games of a particular genre
+router.get('/genres/:genreId/', async (req, res) => {
+    try{
+        const genreId = parseInt(req.params.genreId);
+        const genreGames = await Games.find({'genres': genreId}, {'name': 1, 'id': 1, 'cover': 1});
+        res.status(200).json(genreGames);
+    }catch(error){
+        res.status(404).json(error);
+    }
+})
 
 module.exports = router;
