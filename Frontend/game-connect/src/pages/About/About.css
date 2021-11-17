@@ -21,7 +21,20 @@
   }
 
   .people-container {
-    
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .individual {
+    flex: 3;
+  }
+
+  .individual-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .contact-button {
