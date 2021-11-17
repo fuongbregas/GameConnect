@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Community = require('../../models/Games/CommunitySchema');
+const User = require('../../models/Users/UserSchema');
 
 // Check if the user has joined a community
 router.get('/:user/:communityID', async (req, res) => {
     const username = req.params.user;
     const communityID = req.params.communityID;
     try {
-        const community = await Community.findOne({id: communityID});
+        const user = await User.findOne({username: username});
         
-        if (community.members.includes(username)){
+        if (user.communities.includes(communityID)){
             res.status(200).json("Joined");
         }
 
@@ -26,10 +27,16 @@ router.get('/:user/:communityID', async (req, res) => {
 router.put('/join', async (req, res) => {
     const username = req.body.user;    
     const communityID = req.body.communityID;
-    // Add a user to the community member list
+    // Add the communityID to user's communites list
     try {
-        await Community.findOneAndUpdate({id : communityID}, {$push: {members: username}});
-        res.status(200).json("Joined");
+        await User.findOneAndUpdate({username : username}, {$push: {communities: communityID}});
+        await Community.findOneAndUpdate({_id: communityID}, {$inc: {total_members : 1}});
+        const community = await Community.findOne({_id: communityID});
+        const data = {
+            join_status : "Joined",
+            community: community,
+        }
+        res.status(200).json(data);
     }
     catch (error) {
         res.status(500).json(error);
@@ -42,8 +49,14 @@ router.put('/unjoin', async (req, res) => {
     const communityID = req.body.communityID;
     // Remove a user to the community member list
     try {
-        await Community.findOneAndUpdate({id : communityID}, {$pull: {members: username}});
-        res.status(200).json("Unjoined");
+        await User.findOneAndUpdate({username : username}, {$pull: {communities: communityID}});
+        await Community.findOneAndUpdate({_id: communityID}, {$inc: {total_members : -1}});
+        const community = await Community.findOne({_id: communityID});
+        const data = {
+            join_status : "Unjoined",
+            community: community,
+        }
+        res.status(200).json(data);
     }
     catch (error) {
         res.status(500).json(error);
