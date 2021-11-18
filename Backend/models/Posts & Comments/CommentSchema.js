@@ -2,10 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
-    
-    // ID of the user who made the comment
+    // MongoDB _id of the post
     post_id : {
         type: String,
+        required: true,
+    },
+    community_id : {
+        type: Number,
         required: true,
     },
     post_title : {

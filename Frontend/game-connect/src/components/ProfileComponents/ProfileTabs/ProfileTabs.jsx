@@ -38,7 +38,9 @@ const ProfileTabs = ({username}) => {
 
                 {/* Posts go here*/}
                 <TabPanel>
-                    <div className="tab-container">Posts</div>
+                    <div className="tab-container">
+                        <TabContent type = 'Posts' username={username} URL='/backend/posts/'/>
+                    </div>
                 </TabPanel>
 
                 {/* Comments go here */}

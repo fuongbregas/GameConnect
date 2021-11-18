@@ -18,6 +18,7 @@ import {
   Message,
   ProfileImage,
   Game,
+  GenreDisplay
 } from './pages';
 
 import { useContext } from "react";
@@ -25,7 +26,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-
+  
   return (
     <div className="App">
       <Router>
@@ -37,6 +38,9 @@ function App() {
           <Route exact path='/community'><Community/></Route>
           <Route path='/profile/:username'>
             <Profile/> 
+          </Route>
+          <Route path='/profile/'>
+            {user ? <Redirect to = {"/profile/" + user}/> : <Redirect to = "/"/> }
           </Route>
           <Route exact path='/support'><Support/></Route>
           <Route exact path='/resetpass'><ResetPass/></Route>
@@ -68,6 +72,8 @@ function App() {
           </Route>
           
           <Route path='/game/:gameID'><Game/></Route>
+
+          <Route path='/genre/:genreID'><GenreDisplay/></Route>
 
           <Route component={NotFound}/>
         </Switch>

@@ -29,3 +29,5 @@ export { default as CreateSub} from './CreateSub';
 export { default as ProfileImage} from './ProfileImage';
 
 export { default as Game} from './Game';
+
+export {default as GenreDisplay} from './GenreDisplay';

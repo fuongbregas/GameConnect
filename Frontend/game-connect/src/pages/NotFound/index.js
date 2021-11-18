@@ -1,9 +1,11 @@
 import React from 'react';
-
+import './NotFound.css';
 export default function NotFound() {
     return (
-      <>
-        <h1 className='not-found'>404: Page Not Found</h1>
-      </>
+      <div className = 'notfound-bg'>
+        <span className = 'message-404'>GameCannot 404</span>
+        <span className = 'fool-connect'>Still better than Food Connect</span>
+        <span className = 'message-404'>¯\_(ツ)_/¯</span>
+      </div>
     );
 }

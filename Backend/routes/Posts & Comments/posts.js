@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 router.get('/:postID', async (req, res) => {
     const postID = req.params.postID;
     try {
-        const post = await Post.findOne({_id: postID});
+        const post = await Post.findOne({ _id: postID });
         res.status(200).json(post);
     }
     catch (error) {
@@ -33,7 +33,7 @@ router.get('/post/:communityID/:pageNumber', async (req, res) => {
     const communityID = req.params.communityID;
     const pageNumber = req.params.pageNumber;
     try {
-        const posts = await Post.find({community_id: communityID}).sort({"createdAt": -1}).skip((pageNumber - 1) * 15).limit(15);
+        const posts = await Post.find({ community_id: communityID }).sort({ "createdAt": -1 }).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {
@@ -45,7 +45,7 @@ router.get('/post/:communityID/:pageNumber', async (req, res) => {
 router.get('/post/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
-        const posts = await Post.find({}).sort({"createdAt": -1}).skip((pageNumber - 1) * 15).limit(15);
+        const posts = await Post.find({}).sort({ "createdAt": -1 }).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {
@@ -58,10 +58,22 @@ router.get('/game/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
         // Get an array of gameID/communityID with highest rating
-        const communities = await Game.find({}, {'_id': 0, 'id': 1}).sort({"rating": -1}).skip((pageNumber - 1) * 15).
-        limit(15);
+        const communities = await Game.find({}, { '_id': 0, 'id': 1 }).sort({ "rating": -1 }).skip((pageNumber - 1) * 15).
+            limit(15);
         // Search post with IDs in the array
-        const posts = await Post.find({community_id: {$in: communities}});
+        const posts = await Post.find({ community_id: { $in: communities } });
+        res.status(200).json(posts);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// Get posts with highest karmas from different communities
+router.get('/karma/:pageNumber', async (req, res) => {
+    const pageNumber = req.params.pageNumber;
+    try {
+        const post = await Post.find({}).sort({"karma": -1}).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {
@@ -73,8 +85,9 @@ router.get('/game/:pageNumber', async (req, res) => {
 router.get('/:user/:pageNumber', async (req, res) => {
     const username = req.params.user;
     const pageNumber = req.params.pageNumber;
-    try {        
-        const posts = await Post.find({username: username}).skip((pageNumber - 1) * 15).limit(15);
+    
+    try {
+        const posts = await Post.find({ username: username }).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {
@@ -86,8 +99,8 @@ router.get('/:user/:pageNumber', async (req, res) => {
 router.delete('/:postID', async (req, res) => {
     const postID = req.params.postID;
     try {
-        await Comment.deleteMany({post_id: postID});
-        await Post.deleteOne({_id: postID});
+        await Comment.deleteMany({ post_id: postID });
+        await Post.deleteOne({ _id: postID });
         res.status(200).json("Post is deleted");
     }
     catch (error) {
@@ -100,16 +113,16 @@ router.get('/karma/:user/:postID', async (req, res) => {
     const username = req.params.user;
     const postID = req.params.postID;
     try {
-        const user = await User.findOne({username: username});
-        
-        if (user.like_posts.includes(postID)){
+        const user = await User.findOne({ username: username });
+
+        if (user.like_posts.includes(postID)) {
             res.status(200).json("Liked");
         }
         // If the logged in user sent a friend request to the viewed user
-        else{
+        else {
             res.status(200).json("Unliked");
         }
-        
+
     }
     catch (error) {
         res.status(500).json(error);
@@ -118,15 +131,15 @@ router.get('/karma/:user/:postID', async (req, res) => {
 
 // Like the post
 router.put('/karma/like', async (req, res) => {
-    const username = req.body.user;    
+    const username = req.body.user;
     const postID = req.body.postID;
 
     try {
-        await User.findOneAndUpdate({username : username}, {$push: {like_posts: postID}});
-        await Post.findOneAndUpdate({_id: postID}, {$inc: {karma : 1}});
-        const post = await Post.findOne({_id: postID});
+        await User.findOneAndUpdate({ username: username }, { $push: { like_posts: postID } });
+        await Post.findOneAndUpdate({ _id: postID }, { $inc: { karma: 1 } });
+        const post = await Post.findOne({ _id: postID });
         data = {
-            like_status : "Liked",
+            like_status: "Liked",
             post: post,
         }
         res.status(200).json(data);
@@ -138,15 +151,15 @@ router.put('/karma/like', async (req, res) => {
 
 // Unlike the post
 router.put('/karma/unlike', async (req, res) => {
-    const username = req.body.user;    
+    const username = req.body.user;
     const postID = req.body.postID;
 
     try {
-        await User.findOneAndUpdate({username : username}, {$pull: {like_posts: postID}});
-        await Post.findOneAndUpdate({_id: postID}, {$inc: {karma : -1}});
-        const post = await Post.findOne({_id: postID});
+        await User.findOneAndUpdate({ username: username }, { $pull: { like_posts: postID } });
+        await Post.findOneAndUpdate({ _id: postID }, { $inc: { karma: -1 } });
+        const post = await Post.findOne({ _id: postID });
         data = {
-            like_status : "Unliked",
+            like_status: "Unliked",
             post: post,
         }
         res.status(200).json(data);
@@ -157,8 +170,8 @@ router.put('/karma/unlike', async (req, res) => {
 });
 
 /*
-    -list of communities by number of members 
-    -list of posts (filtered number of comments)
+    - list of communities by number of members 
+    - high karma posts
 */
 
 module.exports = router;

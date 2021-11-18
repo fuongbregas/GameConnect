@@ -5,7 +5,8 @@ const app = express();
 const connectMongoDB = require("./config/initMongoDB");
 const PORT = process.env.SERVER_PORT;
 const CORS = require('cors');
-const http = require('http')
+const http = require('http');
+
 // routes
 const gameDataRoute = require('./routes/Games/gameData');
 const communityRoute = require('./routes/Games/community');
@@ -37,7 +38,8 @@ app.use('/backend/conversations', conversationRoute);
 app.use('/backend/messages', messageRoute);
 app.use('/backend/posts', postRoute);
 app.use('/backend/comments', commentRoute);
-http.createServer(app).listen(PORT)
+
+http.createServer(app).listen(PORT);
 
 
 
