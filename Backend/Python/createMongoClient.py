@@ -1,6 +1,5 @@
 # This file is used in getGame.py, getGenres.py and offsetValue.py to init a connection to MongoDB
 import os
-import dotenv
 from dotenv import load_dotenv
 
 try:

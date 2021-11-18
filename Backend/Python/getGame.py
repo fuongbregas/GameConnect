@@ -74,7 +74,7 @@ def getGames():
     authorization_token = igdb_authorization.get_authorization_token() # token
     
     number_of_calls = 100000 # We can set to an infinite number
-    counter = 0
+    
     # There are 50866 PC games on IGDB at the moment
     for x in range(number_of_calls):
         
@@ -97,8 +97,10 @@ def getGames():
                 
             set_none(document) # Check for missing fields            
             game_data.insert(document) # Insert or Update data
+            game_data.delete_duplications()
             community = createCommunities.create_community_dict(document) # create a community dictionary from a game document
             communities_db.insert(community) # Insert into community DB
+            communities_db.delete_duplications
              
         # If the response length is 500, there are still values after that
         if len(jsonResponse) == 500:
