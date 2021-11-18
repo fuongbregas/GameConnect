@@ -68,3 +68,18 @@ class MongoDB(object):
     def get_all_saved_games(self): 
         return self._collection.find()
         
+    def delete_duplications(self):
+        cursor = self._collection.aggregate(
+            [
+                {"$group": {"_id": "$id", "unique_ids": {"$addToSet": "$_id"}, "count": {"$sum": 1}}},
+                {"$match": {"count": { "$gte": 2 }}}
+            ]
+        )
+
+        response = []
+        for doc in cursor:
+            del doc["unique_ids"][0]
+            for id in doc["unique_ids"]:
+                response.append(id)
+
+        self._collection.delete_many({"_id": {"$in": response}})
