@@ -30,7 +30,7 @@ router.get('/:postID', async (req, res) => {
 
 // Get all latest posts of a community
 router.get('/post/:communityID/:pageNumber', async (req, res) => {
-    const communityID = req.params.communityID;
+    const communityID = parseInt(req.params.communityID);
     const pageNumber = req.params.pageNumber;
     try {
         const posts = await Post.find({ community_id: communityID }).sort({ "createdAt": -1 }).skip((pageNumber - 1) * 15).limit(15);

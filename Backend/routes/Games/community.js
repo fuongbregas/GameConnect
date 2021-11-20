@@ -6,7 +6,7 @@ const User = require('../../models/Users/UserSchema');
 // Check if the user has joined a community
 router.get('/:user/:communityID', async (req, res) => {
     const username = req.params.user;
-    const communityID = req.params.communityID;
+    const communityID = parseInt(req.params.communityID);
     try {
         const user = await User.findOne({username: username});
         
@@ -26,7 +26,7 @@ router.get('/:user/:communityID', async (req, res) => {
 // Join a community
 router.put('/join', async (req, res) => {
     const username = req.body.user;    
-    const communityID = req.body.communityID;
+    const communityID = parseInt(req.body.communityID);
     // Add the communityID to user's communites list
     try {
         await User.findOneAndUpdate({username : username}, {$push: {communities: communityID}});
@@ -46,7 +46,7 @@ router.put('/join', async (req, res) => {
 // Leave a community
 router.put('/unjoin', async (req, res) => {
     const username = req.body.user;    
-    const communityID = req.body.communityID;
+    const communityID = parseInt(req.body.communityID);
     // Remove a user to the community member list
     try {
         await User.findOneAndUpdate({username : username}, {$pull: {communities: communityID}});
