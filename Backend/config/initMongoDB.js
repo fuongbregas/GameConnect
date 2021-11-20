@@ -6,6 +6,7 @@ const options = {
     userNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false,
 };
 
 const initDB = async () => {
