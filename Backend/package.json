@@ -4,25 +4,30 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongodb": "^3.7.3",
     "mongoose": "^5.13.12"
   },
   "devDependencies": {
-    "concurrently": "^6.3.0",
-    "nodemon": "^2.0.14",
-    "mpath": ">=0.8.4",
+    "ansi-regex": ">=5.0.1",
     "axios": ">=0.21.2",
-    "ansi-regex": ">=5.0.1"
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "concurrently": "^6.3.0",
+    "mocha": "^2.4.5",
+    "mpath": ">=0.8.4",
+    "nodemon": "^2.0.14",
+    "should": "^13.2.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx cross-env NODE_ENV=test mocha --timeout 10000",
     "start": "npm run dev",
     "install_socket": "cd ../Socket && npm install",
     "install_client": "cd ../Frontend/game-connect && npm install",
     "install_extra": "concurrently \"npm run install_client\" \"npm run install_socket\"",
-    "server": "npx nodemon server.js",
+    "server": "npx cross-env NODE_ENV=dev nodemon server.js",
     "client": "cd ../Frontend/game-connect && npm start",
     "socket": "cd ../Socket && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run socket\""
