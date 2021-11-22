@@ -14,6 +14,7 @@
     width: 100%;
     height: 100%;
     background-color: #242526;
+    padding-top: 20px;
   }
 
   .team {
@@ -24,6 +25,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    padding-top: 20px;
+    
   }
 
   .individual {
@@ -35,18 +38,46 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;
+  }
+
+  .individual-profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+  }
+
+  .individual-name {
+    color: white;
+    padding-top: 10px
+  }
+
+  .individual-role {
+    color: yellow;
+    font-weight: 100;
+    padding: 10px;
+  }
+
+  .individual-detais {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 13px;
   }
 
   .contact-button {
     border: none;
     outline: 0;
     display: inline-block;
-    padding: 8px;
     color: white;
+    font-size: 22px;
     background-color: #000;
     text-align: center;
     cursor: pointer;
-    width: 100%;
+    height: 50px;
+    width: 30%;
   }
 
   .contact-button:hover {
