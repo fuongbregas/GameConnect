@@ -4,99 +4,97 @@ import { AuthContext } from "../../../context/AuthContext";
 import { Comment } from '../';
 import './CommentElements.css';
 import axios from 'axios';
-import PostData from '../../../dummyData.json';
 
-export default function CommentList({post_id, addComment, updateComment}) {
+export default function CommentList({postData, addComment, updateComment}) {
+    const URL = '/backend/comments/';
     const { user } = useContext(AuthContext);
-    // TEST: comment previous line, uncomment next line
-    //const user = "userA";
     const [commentData, setCommentData] = useState([]);
-
+    const [pageNumber, setPageNumber] = useState(1);
+    const [nextComments, setNextComments] = useState([]);
+    const path = window.location.pathname;
+    const postid = path.split("/")[2];
     const [reply, setReply] = useState({ body: '' })
-    const initial = true;
+    const [newComment, setNewComment] = useState({});
+
+    // Preload post data
+    useEffect(() => {
+      // Get post data for current page
+      const getData = async () => {
+          const res = await axios.get(URL + 'post/' + postid + "/" + pageNumber);
+          setCommentData(res.data);
+      };
+      // Get post data for next page
+      const getNextData = async () => {
+          const nextPage = pageNumber + 1;
+          const res = await axios.get(URL + 'post/' + postid + "/" + nextPage);
+          setNextComments(res.data);
+      };
+      getData();
+      getNextData();
+    }, [pageNumber]);
+
+    // Add comment
+    useEffect(() => {
+      const postData = async () => {
+          const res = await axios.post(URL, newComment);
+          if(res.status === 200) {
+            addComment(res.data);
+            if(commentData.length === 15) setPageNumber(pageNumber + 1);
+            else {
+              const newComments = commentData.slice();
+              newComments.push(res.data);
+              setCommentData(newComments);
+            }
+          }
+      };
+      postData();
+    }, [newComment]);
+
+    const goNext = () => {
+        setPageNumber(pageNumber + 1);
+    }
+
+    const goBack = () => {
+        setPageNumber(pageNumber - 1);
+    }
 
     const changeHandler = (e) => {
       setReply({ ...reply, [e.target.name]: e.target.value })
     }
 
-    // TODO: Add new comment to post; get username and user id
-    // PLACEHOLDER: username, user id
+    // Add new comment to post; get username and user id
     const submitHandler = (e) => {
       e.preventDefault()
       if (!reply.body) {
           alert("Comment cannot be blank");
           return
       }
-      console.log(commentData);
-      let index = (commentData.length !== 0) ? commentData[commentData.length - 1].id : 0;
       const data = {
-        id: index+1,
-        body: reply.body,
-        likes: 0,
-        user_id: 1,
-        post_id: post_id,
+        community_id: postData.community_id,
+        comment_content: reply.body,
+        karma: 0,
+        post_title: postData.title,
+        post_id: postid,
         username: user
       };
       console.log(data);
-      setCommentData([...commentData, data]);
-      console.log(commentData);
-      addComment(data);
+      setNewComment(data);
     }
 
-    // TODO: Delete comment
     const deleteComment = (comment_id) => {
-        const items = commentData;
-        setCommentData(items.filter(item => item.id !== comment_id));
+        const newComments = commentData.filter((element) => element._id !== comment_id);;
+        if(newComments.length === 0 && pageNumber > 1) goBack();
+        else setCommentData(newComments);
         updateComment(comment_id);
     }
 
-    // TODO: fetch comment data
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            // const response = await axios.get('/backend/game_data');
-            // let data = response.gameData;
-            // console.log("Test \n" + JSON.stringify(response));
-            const path = window.location.pathname;
-            const id = parseInt(path.split("/").pop());
-            for(let i = 0; i < PostData.length; i++) {
-                let post = PostData[i];
-                if(post.id === id) {
-                    setCommentData(post.comments);
-                    console.log(commentData);
-                    break;
-                }
-            }  
-        }
-        catch (err) {
-            console.log(err);
-        }
-        };
-        fetchData();
-        // eslint-disable-next-line 
-    }, [initial]);
-
     // TODO: Add post request to update comment data
-    const upVoteHandler = (e, comment_id) => {
+    const updateKarma = (e, comment_id) => {
         e.preventDefault();
         let copy = commentData;
         for(let i = 0; i < copy.length; i++) {
           if(copy[i].id === comment_id) {
             copy[i].likes++;
-            break;
-          }
-        }
-        setCommentData(copy);
-        //console.log(commentData);
-    }
-
-    // TODO: Add post request to update comment data
-    const downVoteHandler = (e, comment_id, comment_likes) => {
-        e.preventDefault();
-        let copy = commentData;
-        for(let i = 0; i < copy.length; i++) {
-          if(copy[i].id === comment_id && comment_likes > 0) {
-            copy[i].likes--;
             break;
           }
         }
@@ -123,10 +121,22 @@ export default function CommentList({post_id, addComment, updateComment}) {
               <div>
                 {
                     commentData.map(comment => {
-                        return <Comment key={comment.id} comment={comment} upVoteHandler={upVoteHandler} downVoteHandler={downVoteHandler} deleteComment={deleteComment} />
+                        return <Comment key={comment._id} comment={comment} updateKarma={updateKarma} deleteComment={deleteComment} />
                     })
                 }
               </div>
+              {
+                commentData.length === 0 ? <h1 className = 'nothing-here'>Nothing yet</h1> :
+                <div className = 'bottom-container'>
+                    <button className = 'page-button' onClick={goBack} disabled = {
+                                pageNumber === 1 ? true : false
+                            }>{'<'} Previous</button>
+                    {' | '}
+                    <button className = 'page-button' onClick={goNext} disabled = {
+                                nextComments.length === 0 ? true : false
+                            }>Next {'>'}</button>
+                </div>
+              }
           </div>
         </>
     );

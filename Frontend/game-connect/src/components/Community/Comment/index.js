@@ -1,59 +1,52 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
-export default function Comment({comment, upVoteHandler, downVoteHandler, deleteComment}) {
+export default function Comment({comment, updateKarma, deleteComment}) {
     const {user} = useContext(AuthContext);
-    // TEST: comment previous line, uncomment next line
-    //const user = "userA";
-    const [vote, setVote] = useState(0);
     const history = useHistory();
+    const [del, setDelete] = useState(false);
+    const [likecomment, setLikeComment] = useState(false);
+    const [click, setClickCount] = useState(0);
 
-    // TODO: Update likes in comments
-    const updateLikes = (e, action) => {
-        // TEST: comment next line
-        if(user === null) history.push(`/signin`);
-        switch(action) {
-            case 1:
-                if(vote === 0) {
-                    upVoteHandler(e, comment.id);
-                    setVote(1);
-                } 
-                break;
-            case 2:
-                if(vote === 1) {
-                    downVoteHandler(e, comment.id, comment.likes);
-                    setVote(0);
-                } 
-                break;
-            default: break;
-        }
+    // Delete comment
+    useEffect(() => {
+        const deleteData = async () => {
+            const res = await axios.delete('/backend/comments/' + comment._id);
+            if(res.status === 200) deleteComment(comment._id);
+        };
+        if(del) deleteData();
+    }, [del]);
+
+    // Delete comment
+    const deleteHandler = (e) => {
+        e.preventDefault();
+        setDelete(true);
     }
 
-    // TODO: Delete comment
-    const deleteHandler = (e, comment_id) => {
+    // TODO: Update likes in comments
+    const karmaHandler = (e) => {
         e.preventDefault();
-        deleteComment(comment_id);
+        if(user === null) history.push(`/signin`);
+        setClickCount(click+1);
     }
 
     return(
         <>
-            <div className="comments" key={comment.id}>
+            <div className="comments" key={comment._id}>
                 <div>
-                    <div className="upvote" onClick={e => { updateLikes(e,1) }}>
+                    {/* <div className="upvote" onClick={e => { karmaHandler(e) }}>
                         <i className="fa fa-angle-up"></i>
-                    </div>
-                    <div className="downvote" onClick={e => { updateLikes(e,2) }}>
-                        <i className="fa fa-angle-down"></i>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div>
-                    <div>{comment.body}</div>
-                    <div className="post-info">Likes: {comment.likes}</div>
+                    <div>{comment.comment_content}</div>
+                    {/* <div className="post-info">Likes: {comment.karma}</div> */}
                     <div className="post-info">By: {comment.username}
                         {comment.username === user ?
-                            <span onClick={(e) => deleteHandler(e, comment.id)} style={{ color: "#007BFD", cursor: "pointer" }}>
+                            <span onClick={(e) => deleteHandler(e)} style={{ color: "#007BFD", cursor: "pointer" }}>
                                 &nbsp;&nbsp;delete
                                 </span> : null
                         }

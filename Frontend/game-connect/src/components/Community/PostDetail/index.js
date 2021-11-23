@@ -5,39 +5,27 @@ import { Link } from 'react-router-dom';
 import { CommentList } from '../';
 import './PostDetailElements.css';
 import axios from 'axios';
-import PostData from '../../../dummyData.json';
 
 export default function PostDetail() {
     const { user } = useContext(AuthContext);
-    const [postData, setPostData] = useState({
-        id: 0,
-        title: "",
-        body: "",
-        likes: 0,
-        subGameConnect: "",
-        username: "",
-        comments: []
-    });
-    const [vote, setVote] = useState(0);
+    const [postData, setPostData] = useState({});
+    const [comments, setComments] = useState([]);
+    const [community, setCommunity] = useState([]);
     const initial = true;
     const history = useHistory();
+    const path = window.location.pathname;
+    const postid = path.split("/")[2];
+    const [click, setClickCount] = useState(0);
+    const [userstatus, setUserStatus] = useState("");
 
-    // TODO: fetch single post data
+    // Fetch single post and community data
     useEffect(() => {
         const fetchData = async () => {
         try {
-            // const response = await axios.get('/backend/game_data');
-            // let data = response.gameData;
-            // console.log("Test \n" + JSON.stringify(response));
-            const path = window.location.pathname;
-            const id = parseInt(path.split("/").pop());
-            for(let i = 0; i < PostData.length; i++) {
-                let post = PostData[i];
-                if(post.id === id) {
-                    setPostData(post);
-                    break;
-                }
-            } 
+            let res = await axios.get('/backend/posts/' + postid);
+            setPostData(res.data);
+            res = await axios.get('/backend/communities/' + (res.data.community_id).toString());
+            if(res.status === 200) setCommunity(res.data);
         }
         catch (err) {
             console.log(err);
@@ -47,39 +35,56 @@ export default function PostDetail() {
         // eslint-disable-next-line 
     }, [initial]);
 
-    // TODO: Add post request to update community data
-    const updateLikes = (e, action) => {
-        // TEST: comment next line
+    // Get comments info
+    useEffect(() => {
+        const getCommentData = async () => {
+            const res = await axios.get('/backend/comments/' + postid);
+            if(res.status === 200) setComments(res.data);
+        };
+        getCommentData();
+    }, [user]);
+
+    // Check if user already like post
+    useEffect(() => {
+        const checkData = async () => {
+            const res = await axios.get('/backend/posts/karma/' + user + "/" + postData._id);
+            if(res.data === "Liked") setUserStatus("unlike");
+            else if(res.data === "Unliked") setUserStatus("like");
+        };
+        if(click > 0) checkData();
+    }, [click]);
+
+    // Update karma of post
+    useEffect(() => {
+        const updateData = async () => {
+            const header = {
+                user: user,
+                postID: postData._id
+            }
+            const res = await axios.put('/backend/posts/karma/' + userstatus, header);
+            if(res.status === 200) setPostData(res.data.post);
+        };
+        if(userstatus === "like" || userstatus === "unlike") updateData();
+    }, [userstatus]);
+
+    // Display karma update
+    const karmaHandler = (e) => {
+        e.preventDefault();
         if(user === null) history.push(`/signin`);
-        switch(action) {
-            case 1:
-                if(vote === 0) {
-                    setPostData({...postData, likes: postData.likes + 1});
-                    setVote(1);
-                } 
-                break;
-            case 2:
-                if(vote === 1) {
-                    setPostData({...postData, likes: postData.likes - 1});
-                    setVote(0);
-                } 
-                break;
-            default: break;
-        }
-        console.log(postData.comments);
+        setClickCount(click+1);
     }
 
-    // TODO: Add comment to post
-    const addComment = (data) => {
-        setPostData({...postData, comments: postData.comments.concat(data)});
-        console.log(postData);
+    // Add comment to post
+    const addComment = (comment) => {
+        const newComments = comments.slice();
+        newComments.push(comment);
+        setComments(newComments);
     }
 
-    // TODO: Delete comment
+    // Delete comment
     const updateComment = (comment_id) => {
-        const items = postData.comments;
-        setPostData({...postData, comments: items.filter(item => item.id !== comment_id)});
-        console.log(postData);
+        const newComments = comments.filter((element) => element._id !== comment_id);
+        setComments(newComments);
     }
 
     return (
@@ -89,33 +94,29 @@ export default function PostDetail() {
             <div className="post-details">
               <div className="like-container PostPage">
                   <div className="upvote-container">
-                      <div className="upvote" onClick={e => { updateLikes(e,1) }}>
+                      <div className="upvote" onClick={e => { karmaHandler(e) }}>
                           <i className="fa fa-angle-up"></i>
                       </div>
-                      <div className="downvote" onClick={e => { updateLikes(e,2) }}>
-                          <i className="fa fa-angle-down"></i>
-                      </div>
-
                   </div>
                   <div style={{ color: "#0000FF" }}>{postData.title}</div>
               </div>
  
               <div>
-                <div className="post-body">{postData.body}</div>
+                <div className="post-body">{postData.post_content}</div>
                 <div className="post-info">
-                    Posted By: {postData.username} on sub:
+                    Posted By: {postData.username} on <br />
                     <span style={{ color: "#007BFD", cursor: "pointer" }}>
-                        <Link to={`/sub/${postData.subGameConnect}`}>
-                            /sub/{postData.subGameConnect}
+                        <Link to={`/sub/${community.name}`}>
+                            {community.name}
                         </Link>
                     </span>
                 </div>
                 <div className="post-info">
-                    Likes: {postData.likes} Comments: {postData.comments.length}
+                    Likes: {postData.karma} Comments: {comments.length}
                 </div>
               </div>
             </div>
-            <CommentList post_id={postData.id} addComment={addComment} updateComment={updateComment}/>
+            <CommentList postData={postData} addComment={addComment} updateComment={updateComment} />
           </div>
         </div>
       </>

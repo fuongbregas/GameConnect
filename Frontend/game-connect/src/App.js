@@ -13,7 +13,6 @@ import {
   Post,
   SubCommunity,
   CreatePost,
-  CreateSub,
   NotFound,
   Message,
   ProfileImage,
@@ -63,9 +62,7 @@ function App() {
 
           <Route exact path='/sub/:id'><SubCommunity/></Route>
 
-          <Route exact path='/postform'><CreatePost/></Route>
-
-          <Route exact path='/subform'><CreateSub/></Route>
+          <Route exact path='/postform/:id'><CreatePost/></Route>
           
           <Route path = '/profile_image'>
             {user ?  <ProfileImage/> : <Redirect to = "/"/>} 

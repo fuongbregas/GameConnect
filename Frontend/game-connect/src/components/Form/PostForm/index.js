@@ -1,16 +1,39 @@
-import React, { useState , useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { AuthContext } from "../../../context/AuthContext";
 import './PostFormElements.css';
 
 export default function PostForm() {
-    const history = useHistory();
-    const [post, setPost] = useState({ title: '', body: '', subGameConnect_id: '', user_id: null });
-    const [postValid, setPostValid] = useState(true);
-
     const { user } = useContext(AuthContext);
-    // TEST: comment previous line, uncomment next line
-    //const user = "userA";
+    const history = useHistory();
+    const path = window.location.pathname;
+    const postid = path.split("/")[2];
+    const [post, setPost] = useState({ 
+        title: '', 
+        post_content: '', 
+        community_id: parseInt(postid), 
+        username: user,
+        karma: 0,
+        image_URL: "" 
+    });
+    const [createPost, setCreatePost] = useState(0);
+    const [err, setError] = useState("");
+
+    // Create Post
+    useEffect(() => {
+        // Check if community id is valid
+        const checkData = async () => {
+            const res = await axios.get('/backend/communities/' + (post.community_id).toString());
+            if(res.data !== null) createData();
+            else setError("Invalid community");
+        };
+        const createData = async () => {
+            const res = await axios.post('/backend/posts', post);
+            if(res.status === 200) history.push(`/post/${res.data._id}`);
+        };
+        if(createPost > 0) checkData();
+    }, [createPost]);
 
     const changeHandler = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -18,21 +41,11 @@ export default function PostForm() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if (!post.title || !post.body || !post.subGameConnect_id) {
-            alert("All fields must be filled");
+        if (!post.title || !post.post_content || !post.community_id) {
+            setError("Please enter a title, body and a valid community");
             return
         }
-
-        //search if subcommunity exists
-
-        //check if post is valid
-        const tempPost = { ...post, subGameConnect_id: 1, user_id: 1 };
-        fetchData(tempPost);
-    }
-
-    // TODO: update database with new post
-    const fetchData = (tempPost) => {
-        history.push("/community");
+        setCreatePost(createPost+1);
     }
 
     return(
@@ -45,27 +58,27 @@ export default function PostForm() {
                         name="title"
                         type="text"
                         value={post.title}
-                        placeholder="Enter title"
+                        placeholder="Enter post title"
                         onChange={changeHandler}
                     />
                     <textarea
-                        id="body"
-                        name="body"
+                        id="post_content"
+                        name="post_content"
                         className="postForm-body"
                         type="textarea"
-                        value={post.body}
-                        placeholder="Enter body"
+                        value={post.post_content}
+                        placeholder="Enter post content"
                         onChange={changeHandler}
                     />
                     <input
-                        id="subGameConnect_id"
-                        name="subGameConnect_id"
+                        id="community_id"
+                        name="community_id"
                         type="text"
-                        value={post.subGameConnect_id}
-                        placeholder="Enter a subcommunity"
+                        value={post.community_id}
+                        placeholder="Enter a game community"
                         onChange={changeHandler}
                     />
-                    {postValid === false ? <div className="err-msg">Please enter a title, body and a valid subreadit</div> : null}
+                    {err && <div className="err-msg">{err}</div>}
                     {user !== null ?
                         <button className="postForm-button">
                             submit

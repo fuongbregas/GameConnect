@@ -1,10 +1,10 @@
 [
     {
-      "game_id": 1,
-      "post_id": 1,
+      "community_id": 1,
+      "_id": 1,
       "title": "Which fictional world would you live in?",
+      "post_content": "What was your best and biggest snack?",
       "karma": 39,
-      "comments": 3,
       "community": {
         "image_src": "assets/images/subreddit.jpg",
         "name": "AskReddit"
@@ -12,12 +12,12 @@
       "username": "edward"
     },
     {
-      "game_id": 2,
-      "post_id": 2,
+      "community_id": 2,
+      "_id": 2,
       "title": "Crossover!",
+      "post_content": "What was your best and biggest snack?",
       "image_src": "assets/images/post-1.jpg",
       "karma": 100,
-      "comments": 12,
       "community": {
         "image_src": "assets/images/subreddit.jpg",
         "name": "Memes"
@@ -25,12 +25,11 @@
       "username": "brian"
     },
     {
-      "game_id": 3,
-      "post_id": 3,
+      "community_id": 3,
+      "_id": 3,
       "title": "Snacks",
       "post_content": "What was your best and biggest snack?",
       "karma": 3,
-      "comments": 1,
       "community": {
         "image_src": "assets/images/subreddit.jpg",
         "name": "Snacks"
@@ -38,13 +37,11 @@
       "username": "dragon"
     },
     {
-      "game_id": 4,
-      "post_id": 4,
+      "community_id": 4,
+      "_id": 4,
       "title": "Penguin!",
-      "video_src": "assets/videos/penguins.mp4",
-      "duration": 7,
+      "post_content": "What was your best and biggest snack?",
       "karma": 100,
-      "comments": 12,
       "community": {
         "image_src": "assets/images/subreddit.jpg",
         "name": "Memes"
@@ -52,12 +49,12 @@
       "username": "brian"
     },
     {
-      "game_id": 5,
-      "post_id": 5,
+      "community_id": 5,
+      "_id": 5,
       "title": "Favorite vacation destination?",
-      "image_src": "assets/images/post-2.jpg",
+      "post_content": "What was your best and biggest snack?",
+      "image_URL": "assets/images/post-2.jpg",
       "karma": 4,
-      "comments": 8,
       "community": {
         "image_src": "assets/images/subreddit.jpg",
         "name": "VacationDestinations"

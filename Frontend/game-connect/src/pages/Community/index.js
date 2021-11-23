@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostList, Trending, MainBar, SideBar } from '../../components';
+import { Trending, MainBar, SideBar } from '../../components';
 import './CommunityElements.css';
 
 export default function Community() {
@@ -9,11 +9,10 @@ export default function Community() {
       <div className="bars-wrapper">
         <span className="popular-posts-title">Popular posts</span>
         <div className="bars-wrapper-inside">
-          <MainBar />
+          <MainBar type={"community"}/>
           <SideBar />
         </div>
       </div>
-      <PostList />
     </div>
   );
 } 
