@@ -8,7 +8,7 @@ export default function Support() {
   return (
     <div className='support-bg'>
       <span className='support-message'>Contact us if you need assisstance via email</span>
-      <span className='support-link' onClick = {handelClick}>Email link</span>
+      <span className='support-link' onClick = {handelClick}>GameConnectFY21@gmail.com</span>
     </div>
   );
 }
