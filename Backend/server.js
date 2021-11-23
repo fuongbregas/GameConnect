@@ -17,7 +17,7 @@ const messageRoute = require('./routes/Conversations & Messasges/messages');
 const conversationRoute = require('./routes/Conversations & Messasges/conversations');
 const postRoute = require('./routes/Posts & Comments/posts');
 const commentRoute = require('./routes/Posts & Comments/comments');
-
+const healthcheck = require('./routes/healthcheck/healthcheck')
 // Connect MongoDB
 connectMongoDB();
 
@@ -39,7 +39,7 @@ app.use('/backend/messages', messageRoute);
 app.use('/backend/posts', postRoute);
 app.use('/backend/comments', commentRoute);
 
-http.createServer(app).listen(PORT);
+app.use('/', healthcheck);
+server = http.createServer(app).listen(PORT)
 
-
-
+module.exports = server
