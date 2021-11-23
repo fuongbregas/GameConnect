@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { Trending, MainBar, SideBar } from '../../components';
+import './CommunityElements.css';
 
 export default function Community() {
-  const [game, setGame] = useState('');
-  const initial = true;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/backend/game_data');
-        let data = response.gameData;
-        console.log("Test \n" + JSON.stringify(response));
-        setGame(data.name); 
-        console.log(game);
-      }
-      catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    // eslint-disable-next-line 
-  }, [initial]);
-
   return (
-    <>
-      <h1 className='community'>Community Page</h1>
-    </>
+    <div className="content">
+      <Trending />
+      <div className="bars-wrapper">
+        <span className="popular-posts-title">Popular posts</span>
+        <div className="bars-wrapper-inside">
+          <MainBar type={"community"}/>
+          <SideBar />
+        </div>
+      </div>
+    </div>
   );
 } 
