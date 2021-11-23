@@ -73,7 +73,7 @@ router.get('/game/:pageNumber', async (req, res) => {
 router.get('/karma/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
-        const posts = await Post.find({}).sort({"karma": -1}).skip((pageNumber - 1) * 15).limit(15);
+        const post = await Post.find({}).sort({"karma": -1}).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {

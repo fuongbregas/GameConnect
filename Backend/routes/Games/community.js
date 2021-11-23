@@ -3,18 +3,6 @@ const router = express.Router();
 const Community = require('../../models/Games/CommunitySchema');
 const User = require('../../models/Users/UserSchema');
 
-// Get community data from community id
-router.get('/:communityID', async (req, res) => {
-    const communityID = req.params.communityID;
-    try {
-        const community = await Community.findOne({id: communityID });
-        res.status(200).json(community);
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-});
-
 // Check if the user has joined a community
 router.get('/:user/:communityID', async (req, res) => {
     const username = req.params.user;
