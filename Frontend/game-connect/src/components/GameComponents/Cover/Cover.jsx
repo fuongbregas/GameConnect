@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react';
 import './Cover.css';
 import axios from 'axios';
 
-const Cover = ({gameID}) => {
+const Cover = ({gameID, setError}) => {
     const [cover, setCover] = useState('');
 
     useEffect (() => {
@@ -18,7 +18,7 @@ const Cover = ({gameID}) => {
                 }
             }
             catch (error) {
-                console.error(error);
+                setError(error);
             }
         }
         
