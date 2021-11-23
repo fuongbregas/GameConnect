@@ -2,6 +2,7 @@ import React from 'react';
 import './About.css';
 
 export default function About() {
+  
   const handleClick = (link) => {
     window.open(link, '_blank');
   }
