@@ -23,7 +23,7 @@ const Cover = ({gameID, setError}) => {
         }
         
         getImage();
-    }, [gameID]);
+    }, [gameID, setError]);
 
     return (
         <div className = 'coverContainer'>

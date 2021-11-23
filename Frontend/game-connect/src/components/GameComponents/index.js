@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import './GameElements.css';
 import { useParams } from 'react-router';
-import { Redirect, Route } from 'react-router-dom';
+import {Route } from 'react-router-dom';
 import Cover from './Cover/Cover';
 import { NotFound } from '../../pages';
 import GameInformation from './GameInformation/GameInformation';
