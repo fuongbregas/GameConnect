@@ -1,0 +1,34 @@
+.support-bg {
+    display: flex;
+    flex-direction: column;
+    background-image: url("./background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 70vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.support-message {
+    color: white;
+    font-size: 70px;
+}
+
+.support-link {
+    color: white;
+    font-size: 60px;
+    cursor: pointer;
+}
+
+.support-link:hover {
+    color: #0084ff;
+    transition: 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+}

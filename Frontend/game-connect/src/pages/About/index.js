@@ -11,7 +11,7 @@ export default function About() {
       <div className="about-section">
         <h1>About Us</h1>
         <p>We are guys who enjoy gaming on PC.</p>
-        <p>And memes</p>
+        <p>And cringe memes</p>
       </div>
       <div className='team-container'>
         <h1 className='team'>Our team</h1>
