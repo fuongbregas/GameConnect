@@ -86,7 +86,7 @@ export const FormInput = styled.input`
   border: none;
   border-radius: 4px;
   font-size: 20px;
-  color: black;
+  color: #fff;
 `
 
 export const FormButton = styled.button`
