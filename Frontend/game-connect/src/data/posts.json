@@ -60,6 +60,19 @@
         "name": "VacationDestinations"
       },
       "username": "edward"
+    },
+    {
+      "community_id": 10,
+      "_id": 5,
+      "title": "test",
+      "post_content": "What was your best and biggest snack?",
+      "image_URL": "assets/images/post-2.jpg",
+      "karma": 4,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "VacationDestinations"
+      },
+      "username": "edward"
     }
   ]
   

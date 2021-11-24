@@ -9,6 +9,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 export default function Posts({post,updateKarma,deletePost}) {
 
+    /*MERGE TEST COMMENT*/
     const URL = '/backend/posts/';
     const { user } = useContext(AuthContext);
     const history = useHistory();

@@ -4,9 +4,11 @@ const Community = require('../../models/Games/CommunitySchema');
 const User = require('../../models/Users/UserSchema');
 
 // Get community data from community id
+// MERGE TEST COMMENT
 router.get('/:communityID', async (req, res) => {
     const communityID = parseInt(req.params.communityID);
     try {
+        // MERGE TEST COMMENT
         const community = await Community.findOne({id: communityID });
         res.status(200).json(community);
     }

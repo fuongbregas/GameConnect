@@ -5,6 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import './PostFormElements.css';
 
 export default function PostForm() {
+    /*MERGE TEST COMMENT*/
     const { user } = useContext(AuthContext);
     const history = useHistory();
     const path = window.location.pathname;

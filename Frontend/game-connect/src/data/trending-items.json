@@ -37,5 +37,15 @@
         "cover": "assets/images/subreddit.jpg",
         "name": "sports"
       }
+    },
+
+    {
+      "cover": "http://images.igdb.com/igdb/image/upload/t_1080p/co2q9n.jpg",
+      "name": "TEST",
+      "summary": "Grand Prix 3 (GP3) is a computer racing simulator by MicroProse. Released in 2000 by Hasbro Interactive featuring the 1998 Formula One season (with all drivers except Jacques Villeneuve, who is instead replaced by a fictional character, John Newhouse). The game wasn't quite as well received as its predecessors, but at the time was widely considered to be the best racing simulation available.   An add-on to the game, called GP3-2000 or GP32k, was released by Hasbro which updated the game to the 2000 Formula One season. A few other changes were made as well including: updated damage physics including damage from on-circuit debris, improved AI, a new replay system, and EAX 3D-sound.    Since the release of Grand Prix 4, the GP3 modding scene has slowly declined, and with the cracking of track editing for GP4 many track modders left GP3 for the newer title.",
+      "community": {
+        "cover": "assets/images/subreddit.jpg",
+        "name": "sports"
+      }
     }
   ]

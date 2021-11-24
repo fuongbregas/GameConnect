@@ -13,8 +13,7 @@ import {
 
 const Sidebar = ({isOpen, toggle}) => {
     const {user} = useContext(AuthContext);
-    // TEST: comment previous line, uncomment next line
-    //const user = "userA";
+    /*MERGE TEST COMMENT*/
     return (
         <SidebarContainer isOpen={isOpen} onClick={toggle}>
           <Icon onClick={toggle}>

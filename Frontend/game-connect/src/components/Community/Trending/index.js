@@ -5,6 +5,7 @@ import './TrendingElements.css';
 import trendingItems from '../../../data/trending-items.json';
 
 export default function Trending() {
+    /*MERGE TEST COMMENT*/
     return (
         <div className="trending-today-section">
            <span className="title">Trending PC games</span>

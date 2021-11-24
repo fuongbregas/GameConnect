@@ -1,3 +1,5 @@
+/*MERGE TEST COMMENT*/
+
 export { default as PostDetail } from './PostDetail';
 
 export { default as CommentList } from './CommentList';

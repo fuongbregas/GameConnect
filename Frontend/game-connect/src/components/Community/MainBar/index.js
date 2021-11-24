@@ -11,6 +11,7 @@ import {Posts, AddPost} from '../';
 
 export default function MainBar({type}) {
 
+    /*MERGE TEST COMMENT*/
     const URL = '/backend/posts/';
     const [posts, setPosts] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);

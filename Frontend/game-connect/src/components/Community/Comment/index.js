@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function Comment({comment, updateKarma, deleteComment}) {
+    /*MERGE TEST COMMENT*/
     const {user} = useContext(AuthContext);
     const history = useHistory();
     const [del, setDelete] = useState(false);

@@ -4,6 +4,7 @@ import communities from "../../../data/communities.json";
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
 
 export default function SideBar() {
+    /*MERGE TEST COMMENT*/
     return (
         <div className="side-bar">
             <div className="community-section">

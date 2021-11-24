@@ -134,6 +134,7 @@
 }
 
 .chatMenuInput {
+    /*MERGE TEST COMMENT*/
     background-color: #242526;
     outline:none;
     caret-color: white;

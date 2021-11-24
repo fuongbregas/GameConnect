@@ -5,6 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 export default function AddPost({id}) {
 
+    /*MERGE TEST COMMENT*/
     const history = useHistory();
     const { user } = useContext(AuthContext);
 

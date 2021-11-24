@@ -27,6 +27,7 @@ const Footer = () => {
     const location = useLocation();
     if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/resetpass"
         || location.pathname === "/message" || location.pathname === "/community" || location.pathname.includes("/sub/")) return null;
+        /*MERGE TEST COMMENT*/
 
     return (
         <FooterContainer>

@@ -7,6 +7,7 @@ import './PostDetailElements.css';
 import axios from 'axios';
 
 export default function PostDetail() {
+    /*MERGE TEST COMMENT*/
     const { user } = useContext(AuthContext);
     const [postData, setPostData] = useState({});
     const [comments, setComments] = useState([]);

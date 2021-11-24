@@ -6,6 +6,7 @@ import './CommentElements.css';
 import axios from 'axios';
 
 export default function CommentList({postData, addComment, updateComment}) {
+  /*MERGE TEST COMMENT*/
     const URL = '/backend/comments/';
     const { user } = useContext(AuthContext);
     const [commentData, setCommentData] = useState([]);
