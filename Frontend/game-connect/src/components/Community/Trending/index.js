@@ -9,8 +9,11 @@ export default function Trending() {
         <div className="trending-today-section">
            <span className="title">Trending PC games</span>
            <div className="items">
-               {trendingItems.map((item, index) => (
-                   <div className="trending-item hoverable" style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(${item.cover})` }}>
+               {trendingItems.map((item) => (
+                   <div className="trending-item hoverable" 
+                        style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(${item.cover})` }}
+                        key={item.name}    
+                    >
                        <div className="context">
                             <span className="title">{item.name}</span>
                             <br />

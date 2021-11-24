@@ -21,8 +21,6 @@ export default function MainBar({type}) {
     useEffect(() => {
         // Get post data for current page
         const getData = async () => {
-            const path = URL + getURL() + pageNumber;
-            console.log(path);
             const res = await axios.get(URL + getURL() + pageNumber);
             setPosts(res.data);
         };
@@ -34,7 +32,7 @@ export default function MainBar({type}) {
         };
         getData();
         getNextData();
-    }, [pageNumber, filter]);
+    }, [pageNumber]);
 
     const getURL = () => {
         if(type === "subcommunity") {
@@ -107,7 +105,7 @@ export default function MainBar({type}) {
                         <br />
                         <span className="description">The only way to play games at your best is to stay healthy. More fun for you and everyone!</span>
                     </div>
-                    <img src="/assets/images/pin.jpg"/>
+                    <img src="pin.jpg"/>
                 </div>
             </div>
 

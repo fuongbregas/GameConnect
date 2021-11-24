@@ -41,8 +41,7 @@ export default function PostForm() {
             if(res.status === 200) history.push(`/post/${res.data._id}`);
         };
         if(createPost > 0) checkData();
-        // eslint-disable-next-line
-    }, [createPost]);
+    }, [createPost, history, post, postid, user]);
 
     const changeHandler = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });

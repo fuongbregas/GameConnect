@@ -12,10 +12,10 @@ export default function SideBar() {
                 </div>
                <div className="communities-wrapper">
                    {communities.map((community, index) => (
-                        <div className="community hoverable">
+                        <div className="community hoverable" key={community.name}>
                             <span>{index+1}</span>
                             <ArrowDropUp />
-                            <img src={community.cover} />
+                            <img src={community.cover} alt="community cover" />
                             <span className="name">{community.name}</span>
                         </div>
                     ))}

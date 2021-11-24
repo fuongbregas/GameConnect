@@ -32,7 +32,6 @@ export default function PostDetail() {
         }
         };
         fetchData();
-        // eslint-disable-next-line 
     }, [initial]);
 
     // Get comments info
