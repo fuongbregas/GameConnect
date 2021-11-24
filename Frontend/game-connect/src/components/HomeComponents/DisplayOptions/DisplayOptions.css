@@ -28,6 +28,11 @@
 
 .DisplayOptionsDisplay{
     padding-bottom: 15px;
+    display: flex;
+}
+
+.DisplayFirst{
+    flex: 1;
 }
 
 .DisplayEachGame{
@@ -35,6 +40,10 @@
     flex-direction: column;
     flex-wrap: wrap;
     cursor: pointer;
+}
+
+.DisplaySecond{
+    flex: 6;
 }
 
 .DisplayEachGameName {
@@ -50,10 +59,18 @@
     color: #0084ff;
 }
 
+.DisplayThird{
+    flex: 4;
+}
+
 .DisplayEachGameRating{
     text-align: center;
     display: inline-block;
     color: white;
+}
+
+.DisplayFourth{
+    flex: 4;
 }
 
 .MoveDisplayPageButtonContainer{

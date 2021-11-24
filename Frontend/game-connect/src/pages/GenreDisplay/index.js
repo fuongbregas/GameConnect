@@ -57,13 +57,21 @@ const GenreDisplay = () => {
             <div className="BottomContainer">
                 {
                     genreGames.map(eachGame => (
-                        <div className="GameOfGenre" key={eachGame.id} onClick={() => handleClick(eachGame.id)}> 
-                            <img className = "GameOfGenreCover" 
-                             src = {eachGame.cover !== '' && eachGame.cover  !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
-                             alt = ''/>
-                             <h2 className = 'GameOfGenreName'>{eachGame.name}</h2>
-                             {roundRating(eachGame.rating)}
-                             {convertReleaseDate(eachGame.first_release_date)}
+                        <div className="GameOfGenre" key={eachGame.id} onClick={() => handleClick(eachGame.id)}>
+                            <div className='GenreFirst'>
+                                <img className="GameOfGenreCover"
+                                    src={eachGame.cover !== '' && eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
+                                    alt='' />
+                            </div> 
+                             <div className='GenreSecond'>
+                                <h2 className='GameOfGenreName'>{eachGame.name}</h2>
+                             </div>
+                             <div className='GenreThird'>
+                                {roundRating(eachGame.rating)}
+                             </div>
+                             <div className='GenreFourth'>
+                                {convertReleaseDate(eachGame.first_release_date)}
+                             </div>
                         </div> 
                     ))
                 }

@@ -12,12 +12,6 @@
     color: white;
 }
 
-.BottomContainer {
-    height: 100%;
-    width: 100%;
-    color: white;
-}
-
 .GenreDisplayName{
     padding-left: 15px;
     padding-bottom: 10px;
@@ -25,6 +19,47 @@
 
 .GenreDisplayBlurb{
     padding-left: 15px;
+}
+
+.BottomContainer {
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+
+.GameOfGenre {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 15px;
+    padding-left: 25px;
+}
+
+.GenreFirst{
+    flex: 1;
+}
+
+.GameOfGenreCover {
+    height: 100px;
+    border: solid grey;
+    border-width: 1px;
+}
+
+.GenreSecond{
+    flex: 6;
+}
+
+.GameOfGenreName {
+    padding-left: 12px;
+    color: white;
+}
+
+.GenreThird{
+    flex: 4;
+}
+
+.GenreFourth{
+    flex: 4;
 }
 
 .MoveGenrePageButton{
@@ -46,25 +81,6 @@
 .MoveGenrePageButton:disabled {
     cursor: not-allowed;
     background-color: grey;
-}
-
-.GameOfGenre {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding-bottom: 15px;
-    padding-left: 25px;
-}
-
-.GameOfGenreCover {
-    height: 100px;
-    border: solid grey;
-    border-width: 1px;
-}
-
-.GameOfGenreName {
-    padding-left: 12px;
-    color: white;
 }
 
 .GameOfGenreName:hover{

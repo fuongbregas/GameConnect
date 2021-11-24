@@ -40,7 +40,7 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
 
     const convertReleaseDate = (date) =>{
         const releaseDate = new Date(date).toLocaleDateString('en-GB', {month: 'long', day: 'numeric', year: 'numeric'});
-        return <h4>Initial Release Date: {releaseDate}</h4>
+        return <h4 className='EachSearchGameDate'>Initial Release Date: {releaseDate}</h4>
     }
 
     return(
@@ -56,14 +56,20 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
                     {
                         searchedGame.map(eachGame =>
                             <div className='EachResult' key={eachGame._id} onClick={() => routeToGame(eachGame.id)}>
-                                <img className='DisplayEachSearchedGame'
-                                    src = {eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
-                                    alt = ''
-                                    onClick={() => routeToGame(eachGame.id)}>
-                                </img>
-                                <div className='EachSearchGameName'>{eachGame.name}</div>
-                                {roundRating(eachGame.rating)}
-                                {convertReleaseDate(eachGame.first_release_date)}
+                                <div className='SearchFirst'>
+                                    <img className='DisplayEachSearchedGame'
+                                        src={eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
+                                        alt=''/>
+                                </div>
+                                <div className='SearchSecond'> 
+                                    <div className='EachSearchGameName'>{eachGame.name}</div>
+                                </div>
+                                <div className='SearchThird'>
+                                    {roundRating(eachGame.rating)}
+                                </div>
+                                <div className='SearchFourth'>
+                                    {convertReleaseDate(eachGame.first_release_date)}
+                                </div>
                             </div>)
                     }
                 </div>

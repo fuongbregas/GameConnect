@@ -3,49 +3,6 @@
     color: white;
 }
 
-.DisplaySearch{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin-left: 25px;
-    margin-top: 15px;
-    cursor: pointer;
-}
-
-.DisplayEachSearchedGame{
-    padding: 5px;
-    height: 150px;
-    flex-direction: column;
-    flex-wrap: wrap;
-    cursor: pointer;
-}
-
-.EachSearchGameName{
-    text-align: center;
-    display: inline-block;
-    vertical-align: top;
-    cursor: pointer;
-    font-size: 22px;
-}
-
-.EachSearchGameRating{
-    text-align: left;
-    display: inline-block;
-    vertical-align: top;
-    padding-top: 60px;
-    padding-left: 15px;
-
-}
-
-.EachResult{
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
-
-.EachGameName:hover{
-    color: #0084ff;
-}
-
 .SearchResults{
     font-size: xx-large;
     display: flex;
@@ -60,12 +17,6 @@
     padding-right: 20px;
 }
 
-.ButtonContainer{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-}
-
 .MoveSearchPageBackButton{
     width: 80px;
     height: 40px;
@@ -77,6 +28,78 @@
     color: white;
     font-size: 20px;
     font-weight: 100;
+}
+
+.DisplaySearch{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-left: 25px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.EachResult{
+    padding-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.SearchFirst{
+    flex: 1;
+}
+
+.DisplayEachSearchedGame{
+    padding: 5px;
+    height: 150px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.SearchSecond{
+    flex: 6;
+}
+
+.EachSearchGameName{
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    font-size: 22px;
+    padding-top: 50px;
+    padding-left: 15px;
+}
+
+.EachSearchGameName:hover{
+    color: #0084ff;
+}
+
+.SearchThird{
+    flex: 4;
+}
+.EachSearchGameRating{
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 60px;
+    padding-left: 15px;
+}
+
+.SearchFourth{
+    flex: 4;
+}
+
+.EachSearchGameDate{
+    padding-top: 60px;
+    padding-left: 15px;
+}
+
+.ButtonContainer{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }
 
 .MoveSearchPageButton{

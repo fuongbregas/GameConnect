@@ -116,14 +116,22 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
                     {
                         data.map(eachGame => (
                             <div className = 'DisplayOptionsDisplay' key={eachGame.id}>
-                                <img className='DisplayEachGame'
-                                    src = {eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
-                                    alt = ''
-                                    onClick={() => routeToGame(eachGame.id)}>
-                                </img>
-                                <h2 className='DisplayEachGameName' onClick ={() => routeToGame(eachGame.id)}> {eachGame.name} </h2>
-                                {roundRating(eachGame.rating)}
-                                {convertReleaseDate(eachGame.first_release_date)}
+                                <div className='DisplayFirst'>
+                                    <img className='DisplayEachGame'
+                                        src={eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
+                                        alt=''
+                                        onClick={() => routeToGame(eachGame.id)}>
+                                    </img>
+                                </div>
+                                <div className='DisplaySecond'>
+                                    <h2 className='DisplayEachGameName' onClick={() => routeToGame(eachGame.id)}> {eachGame.name} </h2>
+                                </div>
+                                <div className='DisplayThird'>
+                                    {roundRating(eachGame.rating)}
+                                </div>
+                                <div className='DisplayFourth'>
+                                    {convertReleaseDate(eachGame.first_release_date)}
+                                </div>
                             </div>))
                     }
                 </div>
