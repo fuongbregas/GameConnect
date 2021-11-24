@@ -1,19 +1,19 @@
 import React from 'react';
 import { Trending, MainBar, SideBar } from '../../components';
-import './CommunityElements.css';
+import './SubCommunityElements.css';
 
-export default function Community() {
+export default function SubCommunity() {
   /* TEST COMMENT  */
-  return (
-    <div className="content">
+    return (
+      <div className="content">
       <Trending />
       <div className="bars-wrapper">
         <span className="popular-posts-title">Popular posts</span>
         <div className="bars-wrapper-inside">
-          <MainBar type={"community"}/>
+          <MainBar type={"subcommunity"}/>
           <SideBar />
         </div>
       </div>
     </div>
-  );
+    );
 } 

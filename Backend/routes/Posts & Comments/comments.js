@@ -41,6 +41,20 @@ router.get('/post/:postID/:pageNumber', async (req, res) => {
     }
 });
 
+// Get all comments with a post ID (get number of comments for post)
+// MERGE TEST COMMENT
+router.get('/:postID', async (req, res) => {
+    const postID = req.params.postID;
+    try {
+        // MERGE TEST COMMENT
+        const comments = await Comment.find({post_id: postID});
+        res.status(200).json(comments);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // Delete
 router.delete('/:commentID', async (req, res) => {
     const commentID = req.params.commentID;
