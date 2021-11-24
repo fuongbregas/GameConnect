@@ -27,12 +27,21 @@ export default function PostForm() {
             const res = await axios.get('/backend/communities/' + (post.community_id).toString());
             if(res.data !== null) createData();
             else setError("Invalid community");
+            setPost({
+                title: '', 
+                post_content: '', 
+                community_id: parseInt(postid), 
+                username: user,
+                karma: 0,
+                image_URL: "" 
+            });
         };
         const createData = async () => {
             const res = await axios.post('/backend/posts', post);
             if(res.status === 200) history.push(`/post/${res.data._id}`);
         };
         if(createPost > 0) checkData();
+        // eslint-disable-next-line
     }, [createPost]);
 
     const changeHandler = (e) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trending, MainBar, SideBar } from '../../components';
-import './index.css';
+import './SubCommunityElements.css';
 
 export default function SubCommunity() {
     return (
