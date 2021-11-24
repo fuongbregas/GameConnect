@@ -19,39 +19,68 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
     const nextButton = (event) => {
         event.preventDefault();
         setPageNumber(pageNumber+1);
+        console.log(pageNumber);
     }
 
     const prevButton = (event) => {
         event.preventDefault();
         setPageNumber(pageNumber-1);
+        console.log(pageNumber);
+    }
+
+    const roundRating = (rating) => {
+        const rounded = Math.round(rating);
+        if(rounded !== 0){
+            return <h4 className='EachSearchGameRating'>Rating: {rounded}</h4>
+        }
+        else{
+            return <h4 className='EachSearchGameRating'>Rating: N/A</h4>        
+        }
+    }
+
+    const convertReleaseDate = (date) =>{
+        const releaseDate = new Date(date).toLocaleDateString('en-GB', {month: 'long', day: 'numeric', year: 'numeric'});
+        return <h4>Initial Release Date: {releaseDate}</h4>
     }
 
     return(
-        <div>
+        <div className='DisplaySearchPageContainer'>
             <div className='SearchResults'>
-                Search Results
-            </div>
-
-            <button className='MoveSearchPageButton' onClick={backButton}>
+                <h3 className='HeaderText'>Search Results</h3>
+                <button className='MoveSearchPageBackButton' onClick={backButton}>
                     Back
-            </button>
+                </button>
+            </div>
 
             <div className='DisplaySearch'>
                     {
                         searchedGame.map(eachGame =>
                             <div className='EachResult' key={eachGame._id} onClick={() => routeToGame(eachGame.id)}>
-                                {eachGame.name}
+                                <img className='DisplayEachSearchedGame'
+                                    src = {eachGame.cover !== null ? 'https://' + eachGame.cover : '/no_image.jpg'}
+                                    alt = ''
+                                    onClick={() => routeToGame(eachGame.id)}>
+                                </img>
+                                <div className='EachSearchGameName'>{eachGame.name}</div>
+                                {roundRating(eachGame.rating)}
+                                {convertReleaseDate(eachGame.first_release_date)}
                             </div>)
                     }
                 </div>
-
-            <button className='MoveSearchPageButton' onClick={prevButton}>
+            <div className='ButtonContainer'>
+                <button className='MoveSearchPageButton' onClick={prevButton} disabled={
+                    pageNumber === 1 ? true : false
+                }> {'< '}
                     Prev
-            </button>
-
-            <button className='MoveSearchPageButton' onClick={nextButton}>
-                    Next
-            </button>
+                </button>
+                {' | '}
+                <button className='MoveSearchPageButton' onClick={nextButton} disabled={
+                    searchedGame.length === 1 ? true : false
+                }>
+                    Next {'>'}
+                </button>
+            </div>
+            
         </div>
         
     );

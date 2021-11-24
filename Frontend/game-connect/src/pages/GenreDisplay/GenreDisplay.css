@@ -1,17 +1,30 @@
 .FullContentContainer{
     height: 100%;
     width: 100%;
+    background-color: #242526;
+    color: white;
 }
 
 .TopContainer {
     height: 100%;
     width: 100%;
     padding-bottom: 25px;
+    color: white;
 }
 
 .BottomContainer {
     height: 100%;
     width: 100%;
+    color: white;
+}
+
+.GenreDisplayName{
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.GenreDisplayBlurb{
+    padding-left: 15px;
 }
 
 .MoveGenrePageButton{
@@ -51,5 +64,9 @@
 
 .GameOfGenreName {
     padding-left: 12px;
-    color: black;
+    color: white;
+}
+
+.GameOfGenreName:hover{
+    color: #0084ff;
 }
