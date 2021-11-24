@@ -11,4 +11,6 @@
 .post-container input[type="text"] {
     width: 100%;
     padding: 10px;
+    background: white;
+    caret-color: none;
 }
