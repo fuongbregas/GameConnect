@@ -10,8 +10,12 @@ import {
   ResetPass,
   Signin,
   Signup,
+  Post,
+  SubCommunity,
+  CreatePost,
   NotFound,
   Message,
+  ProfileImage,
   Game,
   GenreDisplay
 } from './pages';
@@ -21,6 +25,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
+  /*MERGE TEST COMMENT*/
   
   return (
     <div className="App">
@@ -30,7 +35,6 @@ function App() {
         <Switch>
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
-          <Route exact path='/community/:gameID'><Community/></Route>
           <Route path='/profile/:username'>
             <Profile/> 
           </Route>
@@ -51,9 +55,13 @@ function App() {
           <Route exact path='/message'>
             {user ? <Message/> : <Redirect to = "/"/> }
           </Route>
-
+          <Route exact path='/community'><Community/></Route>
           <Route path="/signoff" exact ><Signoff/></Route>
-          
+          <Route exact path='/post/:id'><Post/></Route>
+
+          <Route exact path='/sub/:id'><SubCommunity/></Route>
+
+          <Route exact path='/postform/:id'><CreatePost/></Route>
           <Route path='/game/:gameID'><Game/></Route>
 
           <Route path='/genre/:genreID'><GenreDisplay/></Route>
