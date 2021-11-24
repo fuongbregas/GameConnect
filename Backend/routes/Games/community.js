@@ -3,6 +3,18 @@ const router = express.Router();
 const Community = require('../../models/Games/CommunitySchema');
 const User = require('../../models/Users/UserSchema');
 
+//Get communitydata from community id
+router.get('/:communityID', async (req, res) => {
+    const communityID = parseInt(req.params.communityID);
+    try {
+        const community = await Community.findOne({id: communityID });
+        res.status(200).json(community);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // Check if the user has joined a community
 router.get('/:user/:communityID', async (req, res) => {
     const username = req.params.user;
@@ -30,8 +42,8 @@ router.put('/join', async (req, res) => {
     // Add the communityID to user's communites list
     try {
         await User.findOneAndUpdate({username : username}, {$push: {communities: communityID}});
-        await Community.findOneAndUpdate({_id: communityID}, {$inc: {total_members : 1}});
-        const community = await Community.findOne({_id: communityID});
+        await Community.findOneAndUpdate({id: communityID}, {$inc: {total_members : 1}});
+        const community = await Community.findOne({id: communityID});
         const data = {
             join_status : "Joined",
             community: community,
@@ -50,8 +62,8 @@ router.put('/unjoin', async (req, res) => {
     // Remove a user to the community member list
     try {
         await User.findOneAndUpdate({username : username}, {$pull: {communities: communityID}});
-        await Community.findOneAndUpdate({_id: communityID}, {$inc: {total_members : -1}});
-        const community = await Community.findOne({_id: communityID});
+        await Community.findOneAndUpdate({id: communityID}, {$inc: {total_members : -1}});
+        const community = await Community.findOne({id: communityID});
         const data = {
             join_status : "Unjoined",
             community: community,
