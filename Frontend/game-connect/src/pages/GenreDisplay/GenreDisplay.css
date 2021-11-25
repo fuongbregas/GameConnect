@@ -62,6 +62,12 @@
     flex: 4;
 }
 
+.GenrePageButtonContainer{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
 .MoveGenrePageButton{
     width: 120px;
     height: 40px;

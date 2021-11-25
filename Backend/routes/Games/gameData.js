@@ -116,7 +116,8 @@ router.get('/genres/:genreId/:pageNumber', async (req, res) => {
 router.get('/get_new_games/:pageNumber', async (req, res) => {
     try{
         const pageNumber = req.params.pageNumber;
-        const newReleases = await Games.find({}, {'name': 1, 'id': 1, 'cover': 1, 'first_release_date': 1, 'rating': 1, '_id': 0})
+        const todayDate = new Date().toISOString();
+        const newReleases = await Games.find({'first_release_date': {'$lte': todayDate}}, {'name': 1, 'id': 1, 'cover': 1, 'first_release_date': 1, 'rating': 1, '_id': 0})
                                         .sort({'first_release_date': -1})
                                         .skip((pageNumber - 1) * 15)
                                         .limit(15);

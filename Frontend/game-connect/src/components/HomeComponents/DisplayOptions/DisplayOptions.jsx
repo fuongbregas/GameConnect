@@ -91,7 +91,7 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
 
     const convertReleaseDate = (date) =>{
         const releaseDate = new Date(date).toLocaleDateString('en-GB', {month: 'long', day: 'numeric', year: 'numeric'});
-        return <h4>Initial Release Date: {releaseDate}</h4>
+        return <h4 className='DisplayEachGameDate'>Initial Release Date: {releaseDate}</h4>
     }
    
     const routeToGame = (gameID) => {
@@ -136,7 +136,7 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
                     }
                 </div>
                 {
-                    navState !== 'Recommendations' ? <div>
+                    navState !== 'Recommendations' ? <div className='MoveDisplayPageButtonContainer'>
                         <button className='MoveDisplayPageButton' onClick={prevButton} disabled={
                             pageNumber === 1 ? true : false
                         }> {'< '}

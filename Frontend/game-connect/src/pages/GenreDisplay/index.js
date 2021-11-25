@@ -75,17 +75,20 @@ const GenreDisplay = () => {
                         </div> 
                     ))
                 }
-                <button className='MoveGenrePageButton' onClick={prevButton} disabled = {
+                <div className='GenrePageButtonContainer'>
+                        <button className='MoveGenrePageButton' onClick={prevButton} disabled={
                             genrePageNumber === 1 ? true : false
                         }> {'< '}
-                    Prev
-                </button>
-                {' | '}
-                <button className='MoveGenrePageButton' onClick={nextButton} disabled = {
+                            Prev
+                        </button>
+                        {' | '}
+                        <button className='MoveGenrePageButton' onClick={nextButton} disabled={
                             genreGames.length === 1 ? true : false
                         }>
-                    Next {'>'}
-                </button>
+                            Next {'>'}
+                        </button>
+                </div>
+                
             </div>
         </div>
       </>
