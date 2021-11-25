@@ -29,6 +29,7 @@
 .DisplayOptionsDisplay{
     padding-bottom: 15px;
     display: flex;
+    flex-direction: row;
 }
 
 .DisplayFirst{
@@ -50,7 +51,6 @@
     text-align: center;
     display: inline-block;
     padding-left: 20px;
-    vertical-align: top;
     color: white;
     cursor: pointer;
 }
