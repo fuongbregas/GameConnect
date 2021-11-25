@@ -249,15 +249,17 @@ const Messenger = () => {
                         {/*
                         <input placeholder="Search Messenger" className="chatMenuInput"/>
                         */}
-                        {
-                            conversations.length !== 0 ?
-                                conversations.map((each_conversation) => (
-                                    <div key={each_conversation._id} onClick={() => openConversation(each_conversation)}>
-                                        <Conversation conversation={each_conversation} currentUser={user} />
-                                    </div>
-                                ))
-                                : null
-                        }
+                        <div className='conversation-list'>
+                            {
+                                conversations.length !== 0 ?
+                                    conversations.map((each_conversation) => (
+                                        <div key={each_conversation._id} onClick={() => openConversation(each_conversation)}>
+                                            <Conversation conversation={each_conversation} currentUser={user} />
+                                        </div>
+                                    ))
+                                    : null
+                            }
+                        </div>
                     </div>
                 </div>
 
@@ -301,11 +303,13 @@ const Messenger = () => {
                         <div className="onlineTop">
                             <span className="onlineLabel">Online Friends</span>
                         </div>
-                        {
-                            onlineUsers.length !== 0 ?
-                                <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} setPageNumber={setPageNumber} setMessages={setMessages} />
-                                : null
-                        }
+                        <div className='online-list'>
+                            {
+                                onlineUsers.length !== 0 ?
+                                    <Online onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} setPageNumber={setPageNumber} setMessages={setMessages} />
+                                    : null
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
