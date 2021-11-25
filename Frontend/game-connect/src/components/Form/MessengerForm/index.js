@@ -222,7 +222,6 @@ const Messenger = () => {
         setPageNumber(1);
         setCurrentChat(each_conversation);
         setTimeout(() => { setMessages([]) });
-        console.log(messages);
         const res = await axios.get('backend/messages/' + each_conversation._id + '/' + 1);
         setMessages(res.data);
     }

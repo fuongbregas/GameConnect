@@ -19,7 +19,6 @@ const GenreList = () => {
         grabGenreList();
     }, [])
 
-    console.log('genreList: ' + genreList);
     return(
         <div className="GenreListBox">
             <h3 className='BrowseByGenreHeading'>Browse by Genres</h3>
