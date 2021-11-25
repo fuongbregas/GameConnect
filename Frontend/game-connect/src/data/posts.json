@@ -1,0 +1,78 @@
+[
+    {
+      "community_id": 1,
+      "_id": 1,
+      "title": "Which fictional world would you live in?",
+      "post_content": "What was your best and biggest snack?",
+      "karma": 39,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "AskReddit"
+      },
+      "username": "edward"
+    },
+    {
+      "community_id": 2,
+      "_id": 2,
+      "title": "Crossover!",
+      "post_content": "What was your best and biggest snack?",
+      "image_src": "assets/images/post-1.jpg",
+      "karma": 100,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "Memes"
+      },
+      "username": "brian"
+    },
+    {
+      "community_id": 3,
+      "_id": 3,
+      "title": "Snacks",
+      "post_content": "What was your best and biggest snack?",
+      "karma": 3,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "Snacks"
+      },
+      "username": "dragon"
+    },
+    {
+      "community_id": 4,
+      "_id": 4,
+      "title": "Penguin!",
+      "post_content": "What was your best and biggest snack?",
+      "karma": 100,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "Memes"
+      },
+      "username": "brian"
+    },
+    {
+      "community_id": 5,
+      "_id": 5,
+      "title": "Favorite vacation destination?",
+      "post_content": "What was your best and biggest snack?",
+      "image_URL": "assets/images/post-2.jpg",
+      "karma": 4,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "VacationDestinations"
+      },
+      "username": "edward"
+    },
+    {
+      "community_id": 10,
+      "_id": 5,
+      "title": "test",
+      "post_content": "What was your best and biggest snack?",
+      "image_URL": "assets/images/post-2.jpg",
+      "karma": 4,
+      "community": {
+        "image_src": "assets/images/subreddit.jpg",
+        "name": "VacationDestinations"
+      },
+      "username": "edward"
+    }
+  ]
+  
