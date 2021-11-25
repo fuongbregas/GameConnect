@@ -59,7 +59,7 @@ function App() {
           <Route path="/signoff" exact ><Signoff/></Route>
           <Route exact path='/post/:id'><Post/></Route>
 
-          <Route exact path='/sub/:id'><SubCommunity/></Route>
+          <Route exact path='/community/:id'><SubCommunity/></Route>
 
           <Route exact path='/postform/:id'><CreatePost/></Route>
           <Route path='/game/:gameID'><Game/></Route>
