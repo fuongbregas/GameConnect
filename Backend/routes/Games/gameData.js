@@ -60,7 +60,7 @@ router.get('/autosearch/:gameName/:pageNumber', async (req, res) => {
         let query = {
             "$or": [{"name": {"$regex": q, "$options": "i"}}]
         };
-        const games = await Games.find(query, {'name' : 1, 'id': 1},)
+        const games = await Games.find(query, {'name' : 1, 'id': 1, 'cover': 1, 'rating': 1, 'first_release_date': 1})
                                 .skip((pageNumber - 1) * 15)
                                 .limit(15);
         console.log(games);
@@ -72,16 +72,20 @@ router.get('/autosearch/:gameName/:pageNumber', async (req, res) => {
 });
 
 // Return array of games with ratings to display in Discover Games
-router.get('/get_rated_game', async (req, res) => {
+router.get('/get_rated_game/:pageNumber', async (req, res) => {
+    const pageNumber = req.params.pageNumber;
     try{
-        const games = await Games.find({'rating': {"$ne": null}}, {'name': 1, 'id': 1, 'cover': 1, 'rating': 1});
+        const games = await Games.find({'rating': {"$ne": null}}, {'name': 1, 'id': 1, 'cover': 1, 'rating': 1, 'first_release_date': 1})
+                                .sort({'rating': -1})
+                                .skip((pageNumber - 1) * 15)
+                                .limit(15);
         console.log(games);
         res.status(200).json(games);
 
     }catch(error){
         res.status(404).json(error);
     }
-})
+});
 
 // Get all genres from MongoDB
 router.get('/genres', async (req, res) => {
@@ -92,17 +96,52 @@ router.get('/genres', async (req, res) => {
     catch (error) {
         res.status(404).json(error);
     }
-})
+});
 
 // Get all games of a particular genre
-router.get('/genres/:genreId/', async (req, res) => {
+router.get('/genres/:genreId/:pageNumber', async (req, res) => {
     try{
         const genreId = parseInt(req.params.genreId);
-        const genreGames = await Games.find({'genres': genreId}, {'name': 1, 'id': 1, 'cover': 1});
+        const pageNumber = req.params.pageNumber;
+        const genreGames = await Games.find({'genres': genreId}, {'name': 1, 'id': 1, 'cover': 1, 'rating': 1, 'first_release_date': 1})
+                                    .skip((pageNumber - 1) * 15)
+                                    .limit(15);
         res.status(200).json(genreGames);
     }catch(error){
         res.status(404).json(error);
     }
-})
+});
+
+// Get all games and sort by release date
+router.get('/get_new_games/:pageNumber', async (req, res) => {
+    try{
+        const pageNumber = req.params.pageNumber;
+        const todayDate = new Date().toISOString();
+        const newReleases = await Games.find({'first_release_date': {'$lte': todayDate}}, {'name': 1, 'id': 1, 'cover': 1, 'first_release_date': 1, 'rating': 1, '_id': 0})
+                                        .sort({'first_release_date': -1})
+                                        .skip((pageNumber - 1) * 15)
+                                        .limit(15);
+        res.status(200).json(newReleases);
+    }catch(error){
+        res.status(404).json(error);
+    }
+});
+
+// Get similar games of a certain saved game
+router.get('/get_recommended_game/:user/:pageNumber', async (req, res) => {
+    try{
+        const user = req.params.user;
+        const currentUser = await User.findOne({username: user});
+        const savedGames = currentUser.saved_games;
+        var randomSavedGameId = savedGames[Math.floor(Math.random() * savedGames.length)];
+        const randomSavedGame = await Games.findOne({'id': randomSavedGameId});
+        const similarGames = randomSavedGame.similar_games;
+
+        const recommendedGames = await Games.find({'id': {$in: similarGames}}, {'id': 1, '_id': 0, 'name': 1, 'cover': 1, 'rating': 1, 'first_release_date': 1});
+        res.status(200).json(recommendedGames);
+    }catch(error){
+        res.status(404).json(error);
+    }
+});
 
 module.exports = router;

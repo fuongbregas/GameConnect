@@ -35,7 +35,6 @@ function App() {
         <Switch>
           <Route exact path='/'><Home /></Route>
           <Route exact path='/about'><About/></Route>
-          <Route exact path='/community'><Community/></Route>
           <Route path='/profile/:username'>
             <Profile/> 
           </Route>
@@ -53,25 +52,19 @@ function App() {
             {user ? <Redirect to = "/"/> : <Signup/>} 
           </Route>
 
-          <Route path="/signoff" exact ><Signoff/></Route>
-
           <Route exact path='/message'>
             {user ? <Message/> : <Redirect to = "/"/> }
           </Route>
-
+          <Route exact path='/community'><Community/></Route>
+          <Route path="/signoff" exact ><Signoff/></Route>
           <Route exact path='/post/:id'><Post/></Route>
 
           <Route exact path='/sub/:id'><SubCommunity/></Route>
 
           <Route exact path='/postform/:id'><CreatePost/></Route>
-          
-          <Route path = '/profile_image'>
-            {user ?  <ProfileImage/> : <Redirect to = "/"/>} 
-          </Route>
-          
           <Route path='/game/:gameID'><Game/></Route>
 
-          <Route path='/genre/:genreID'><GenreDisplay/></Route>
+          <Route path='/genre/:genreID/:genreName'><GenreDisplay/></Route>
 
           <Route component={NotFound}/>
         </Switch>

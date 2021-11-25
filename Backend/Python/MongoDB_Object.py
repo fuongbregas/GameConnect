@@ -79,7 +79,6 @@ class MongoDB(object):
         response = []
         for doc in cursor:
             del doc["unique_ids"][0]
-            for id in doc["unique_ids"]:
-                response.append(id)
+            response.extend(doc["unique_ids"])
 
         self._collection.delete_many({"_id": {"$in": response}})

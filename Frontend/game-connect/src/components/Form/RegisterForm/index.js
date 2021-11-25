@@ -58,9 +58,11 @@ const Register = () => {
                   <FormInput type="email" required ref={email}/>
                   <FormLabel htmlFor="for">Password</FormLabel>
                   <FormInput type="password" required ref={password} minLength='6'/>
+                  {/*
                   <FormLabel htmlFor="for">
                     <FormInput type="checkbox"/> Remember Me
                   </FormLabel>
+                  */}
                   <FormButton type="submit">Sign Up</FormButton>
                   <Text><TextLink to='/signin'>Login to Account</TextLink></Text>
                   {(error !== "") ? <Error>{error}</Error>: ""}

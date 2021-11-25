@@ -2,6 +2,7 @@ import React from 'react';
 import './About.css';
 
 export default function About() {
+  
   const handleClick = (link) => {
     window.open(link, '_blank');
   }
@@ -11,7 +12,7 @@ export default function About() {
       <div className="about-section">
         <h1>About Us</h1>
         <p>We are guys who enjoy gaming on PC.</p>
-        <p>And memes</p>
+        <p>And cringe memes</p>
       </div>
       <div className='team-container'>
         <h1 className='team'>Our team</h1>
@@ -40,10 +41,10 @@ export default function About() {
           <div className='individual'>
             <div className='individual-container'>
               <img className='individual-profilePic' src='/avatar.png' alt='' />
-              <h1 className='individual-name'>Ligma</h1>
-              <h2 className='individual-role'>Mental Support</h2>
-              <span className='individual-detais'>Yikes.</span>
-              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/fuongbregas/')}>Contact Me</button>
+              <h1 className='individual-name'>Vignesh Thyagarajan</h1>
+              <h2 className='individual-role'>Software Engineer</h2>
+              <span className='individual-detais'>Worked on home page components, backend routes, and integration</span>
+              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/krishnamurthy-vignesh-thyagarajan-a0a61512a/')}>Contact Me</button>
             </div>
           </div>
 

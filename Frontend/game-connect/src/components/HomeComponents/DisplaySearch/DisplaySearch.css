@@ -1,3 +1,35 @@
+.DisplaySearchPageContainer{
+    background-color: #242526;
+    color: white;
+}
+
+.SearchResults{
+    font-size: xx-large;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+.HeaderText{
+    color: white;
+    padding-bottom: 20px;
+    padding-right: 20px;
+}
+
+.MoveSearchPageBackButton{
+    width: 80px;
+    height: 40px;
+    flex-direction: row;
+    border: none;
+    border-radius: 10px;
+    background-color: #0084ff;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+}
+
 .DisplaySearch{
     display: flex;
     flex-direction: column;
@@ -9,32 +41,65 @@
 
 .EachResult{
     padding-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
 }
 
-.EachResult:hover{
+.SearchFirst{
+    flex: 1;
+}
+
+.DisplayEachSearchedGame{
+    padding: 5px;
+    height: 150px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.SearchSecond{
+    flex: 6;
+}
+
+.EachSearchGameName{
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    font-size: 22px;
+    padding-top: 50px;
+    padding-left: 15px;
+}
+
+.EachSearchGameName:hover{
     color: #0084ff;
 }
 
-.BackButton{
-    position: absolute;
-    top: 93px;
-    left: 240px;
+.SearchThird{
+    flex: 4;
+}
+.EachSearchGameRating{
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 60px;
+    padding-left: 15px;
 }
 
-.NextButton{
-    position: relative;
-    bottom: 90px;
-    left: 35px;
+.SearchFourth{
+    flex: 4;
 }
 
-.PrevButton{
-    position: relative;
-    bottom: 90px;
-    left: 25px;
+.EachSearchGameDate{
+    padding-top: 60px;
+    padding-left: 15px;
 }
 
-.SearchResults{
-    font-size: xx-large;
+.DisplaySearchButtonContainer{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }
 
 .MoveSearchPageButton{
