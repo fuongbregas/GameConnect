@@ -70,10 +70,12 @@ router.get('/game/:pageNumber', async (req, res) => {
 });
 
 // Get posts with highest karmas from different communities
+// MERGE TEST COMMENT
 router.get('/karma/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
-        const post = await Post.find({}).sort({"karma": -1}).skip((pageNumber - 1) * 15).limit(15);
+        // MERGE TEST COMMENT
+        const posts = await Post.find({}).sort({"karma": -1}).skip((pageNumber - 1) * 15).limit(15);
         res.status(200).json(posts);
     }
     catch (error) {

@@ -1,12 +1,11 @@
-
-  .about-section {
+.about-section {
     padding: 50px;
     text-align: center;
     background-color: #474e5d;
     color: white;
-  }
-  
-  .team-container {
+}
+
+.team-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -14,48 +13,77 @@
     width: 100%;
     height: 100%;
     background-color: #242526;
-  }
+    padding-top: 20px;
+}
 
-  .team {
-      color: white;
-  }
+.team {
+    color: white;
+}
 
-  .people-container {
+.people-container {
     display: flex;
     flex-direction: row;
     width: 100%;
-  }
+    padding-top: 20px;
+}
 
-  .individual {
+.individual {
     flex: 3;
-  }
+}
 
-  .individual-container {
+.individual-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+    padding: 15px;
+}
 
-  .contact-button {
+.individual-profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.individual-name {
+    color: white;
+    padding-top: 10px
+}
+
+.individual-role {
+    color: yellow;
+    font-weight: 100;
+    padding: 10px;
+}
+
+.individual-detais {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 13px;
+}
+
+.contact-button {
     border: none;
     outline: 0;
     display: inline-block;
-    padding: 8px;
     color: white;
+    font-size: 22px;
     background-color: #000;
     text-align: center;
     cursor: pointer;
-    width: 100%;
-  }
+    height: 50px;
+    width: 30%;
+}
 
-  .contact-button:hover {
+.contact-button:hover {
     background-color: #555;
-  }
+}
 
-  @media screen and (max-width: 650px) {
+@media screen and (max-width: 650px) {
     .column {
-      width: 100%;
-      display: block;
+        width: 100%;
+        display: block;
     }
-  }
+}

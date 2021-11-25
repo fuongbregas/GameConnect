@@ -55,7 +55,7 @@ const Login = () => {
                   : error_checker === 401 ? <Error> Error logging in, please try again.</Error>
                   : error_checker === 404 ? <Error> Error logging in, please try again.</Error>
                   : null}
-                  <Text><TextLink to='/resetpass'>Forgot Password</TextLink></Text>
+                  {/*<Text><TextLink to='/resetpass'>Forgot Password</TextLink></Text>*/}
                   <Text><TextLink to='/signup'>Create New Account</TextLink></Text>
                 </Form>
               </FormContent>
