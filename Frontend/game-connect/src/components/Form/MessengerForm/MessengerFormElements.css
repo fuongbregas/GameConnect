@@ -133,16 +133,19 @@
     background-color: #242526;
 }
 
-.chatMenuInput {
-    /*MERGE TEST COMMENT*/
-    background-color: #242526;
+.conversation-list, .online-list {
+    height: 93%;
+    width: 100%;
+    overflow-y: scroll;
+    overflow: auto;
+}
+
+input{
     outline:none;
     caret-color: white;
     font-size: 20px;
     background-color: #242526;
 }
-
-
 
 .buttonWrapper {
     display: flex;
