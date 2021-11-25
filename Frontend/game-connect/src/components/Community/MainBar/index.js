@@ -20,6 +20,28 @@ export default function MainBar({type}) {
 
     // Preload post data
     useEffect(() => {
+        // Get full path of api
+        const getURL = () => {
+            if(type === "subcommunity") {
+                const path = window.location.pathname;
+                const communityid = path.split("/")[2];
+                return 'post/' + communityid.toString() + "/";  
+            }
+            let url = "";
+            switch(filter) {
+                case 1:
+                    url = 'post/'; 
+                    break;
+                case 2: 
+                    url = 'game/'; 
+                    break;
+                case 3:
+                    url = 'karma/';  
+                    break;
+                default: break;
+            }
+            return url;
+        }
         // Get post data for current page
         const getData = async () => {
             const res = await axios.get(URL + getURL() + pageNumber);
@@ -33,29 +55,7 @@ export default function MainBar({type}) {
         };
         getData();
         getNextData();
-    }, [pageNumber]);
-
-    const getURL = () => {
-        if(type === "subcommunity") {
-            const path = window.location.pathname;
-            const communityid = path.split("/")[2];
-            return 'post/' + communityid.toString() + "/";  
-        }
-        let url = "";
-        switch(filter) {
-            case 1:
-                url = 'post/'; 
-                break;
-            case 2: 
-                url = 'game/'; 
-                break;
-            case 3:
-                url = 'karma/';  
-                break;
-            default: break;
-        }
-        return url;
-    }
+    }, [pageNumber, filter, type]);
 
     const typeCheck = () => {
         if(type === "subcommunity") {
@@ -106,7 +106,7 @@ export default function MainBar({type}) {
                         <br />
                         <span className="description">The only way to play games at your best is to stay healthy. More fun for you and everyone!</span>
                     </div>
-                    <img src="pin.jpg"/>
+                    <img src="/pin.jpg" alt="pin"/>
                 </div>
             </div>
 

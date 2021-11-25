@@ -32,7 +32,7 @@ export default function CommentList({postData, addComment, updateComment}) {
       };
       getData();
       getNextData();
-    }, [pageNumber]);
+    }, [pageNumber, postid]);
 
     // Add comment
     useEffect(() => {
@@ -49,6 +49,7 @@ export default function CommentList({postData, addComment, updateComment}) {
           }
       };
       postData();
+      // eslint-disable-next-line
     }, [newComment]);
 
     const goNext = () => {
@@ -78,8 +79,8 @@ export default function CommentList({postData, addComment, updateComment}) {
         post_id: postid,
         username: user
       };
-      console.log(data);
       setNewComment(data);
+      setReply({ body: '' });
     }
 
     const deleteComment = (comment_id) => {

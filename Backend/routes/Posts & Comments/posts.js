@@ -102,6 +102,7 @@ router.delete('/:postID', async (req, res) => {
     const postID = req.params.postID;
     try {
         await Comment.deleteMany({ post_id: postID });
+        await User.updateMany({like_posts: postID}, { $pull: { like_posts: postID } });
         await Post.deleteOne({ _id: postID });
         res.status(200).json("Post is deleted");
     }

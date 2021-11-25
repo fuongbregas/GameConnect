@@ -33,7 +33,7 @@ export default function PostDetail() {
         }
         };
         fetchData();
-    }, [initial]);
+    }, [initial, postid]);
 
     // Get comments info
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function PostDetail() {
             if(res.status === 200) setComments(res.data);
         };
         getCommentData();
-    }, [user]);
+    }, [user, postid]);
 
     // Check if user already like post
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function PostDetail() {
             else if(res.data === "Unliked") setUserStatus("like");
         };
         if(click > 0) checkData();
-    }, [click]);
+    }, [click, user, postData._id]);
 
     // Update karma of post
     useEffect(() => {
@@ -65,7 +65,7 @@ export default function PostDetail() {
             if(res.status === 200) setPostData(res.data.post);
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
-    }, [userstatus]);
+    }, [userstatus, user, postData._id]);
 
     // Display karma update
     const karmaHandler = (e) => {

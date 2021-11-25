@@ -18,7 +18,7 @@ export default function Comment({comment, updateKarma, deleteComment}) {
             if(res.status === 200) deleteComment(comment._id);
         };
         if(del) deleteData();
-    }, [del]);
+    }, [del, comment._id, deleteComment]);
 
     // Delete comment
     const deleteHandler = (e) => {

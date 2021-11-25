@@ -28,7 +28,7 @@ export default function Posts({post,updateKarma,deletePost}) {
             if(res.status === 200) setCommunity(res.data);
         };
         getData();
-    }, [user]);
+    }, [user, post._id, post.community_id]);
 
     // Delete post and all related comments
     useEffect(() => {
@@ -44,6 +44,7 @@ export default function Posts({post,updateKarma,deletePost}) {
         };
         if(click > 0) checkData();
         if(del) deleteData();
+        // eslint-disable-next-line
     }, [click, del]);
 
     // Update karma of post
@@ -57,6 +58,7 @@ export default function Posts({post,updateKarma,deletePost}) {
             if(res.status === 200) updateKarma(post._id, res.data.post);
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
+        // eslint-disable-next-line
     }, [userstatus]);
 
     const karmaHandler = (e) => {
@@ -85,7 +87,7 @@ export default function Posts({post,updateKarma,deletePost}) {
                 <span>{post.karma}</span>
             </div>
             <div className="post-title-main">
-                <img src={`http://${community.cover}`}/>
+                <img src={`http://${community.cover}`} alt="community cover"/>
                 <span className="subreddit-name">
                     <Link to={`/sub/${community.id}`} style={{textDecoration: "none"}}>
                         {community.name}
