@@ -2,12 +2,13 @@ import { React} from 'react';
 import './DisplaySearch.css';
 import { useHistory } from 'react-router';
 
-const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber, setSearchValue}) => {
+const DisplaySearch = ({searchedGame, setSearchedGame, nextSearchedGame, setNextSearchedGame, pageNumber, setPageNumber, setSearchValue}) => {
     const history = useHistory();
 
     const backButton = (event) => {
         event.preventDefault();
         setSearchedGame(null);
+        setNextSearchedGame([]);
         setPageNumber(1);
         setSearchValue('');
     }
@@ -19,13 +20,11 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
     const nextButton = (event) => {
         event.preventDefault();
         setPageNumber(pageNumber+1);
-        console.log(pageNumber);
     }
 
     const prevButton = (event) => {
         event.preventDefault();
         setPageNumber(pageNumber-1);
-        console.log(pageNumber);
     }
 
     const roundRating = (rating) => {
@@ -81,7 +80,7 @@ const DisplaySearch = ({searchedGame, setSearchedGame, pageNumber, setPageNumber
                 </button>
                 {' | '}
                 <button className='MoveSearchPageButton' onClick={nextButton} disabled={
-                    searchedGame.length === 1 ? true : false
+                    nextSearchedGame.length === 0 ? true : false
                 }>
                     Next {'>'}
                 </button>

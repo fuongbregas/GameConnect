@@ -83,7 +83,7 @@ const GenreDisplay = () => {
                         </button>
                         {' | '}
                         <button className='MoveGenrePageButton' onClick={nextButton} disabled={
-                            genreGames.length === 1 ? true : false
+                            genreGames.length === 0 ? true : false
                         }>
                             Next {'>'}
                         </button>

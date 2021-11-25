@@ -2,12 +2,12 @@ import { React, useContext, useRef } from 'react';
 import {AuthContext} from '../../../context/AuthContext';
 import './HomeNavBar.css';
 
-const HomeNavBar = ({pageNumber, setPageNumber, setSearchValue, setNavState}) => {
+const HomeNavBar = ({setPageNumber, setSearchValue, setNavState}) => {
     const searchInput = useRef();
     const {user} = useContext(AuthContext);
 
     //Search function
-    const searchGames = async(event) => {
+    const searchGames = (event) => {
         event.preventDefault();
         const search = searchInput.current.value;
         setSearchValue(search);

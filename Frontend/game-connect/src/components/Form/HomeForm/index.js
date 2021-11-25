@@ -15,6 +15,7 @@ import {
 
 const HomeForm = () => {
   const [searchedGame, setSearchedGame] = useState(null);
+  const [nextSearchedGame, setNextSearchedGame] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [navState, setNavState] = useState('New Releases');
@@ -34,6 +35,21 @@ const HomeForm = () => {
     }
 }, [searchValue, pageNumber]);
 
+useEffect(() => {
+  const getNextSearchData = async () =>{
+    try{
+      const nextPageNumber = pageNumber + 1;
+      const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + nextPageNumber);
+      setNextSearchedGame(res.data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+  if(searchValue !== ''){
+    getNextSearchData();
+  }
+}, [searchValue, pageNumber]);
+
     return(
       <>
       {searchedGame === null ?
@@ -45,13 +61,13 @@ const HomeForm = () => {
 
           <MainFeatureContainer>
             <RightSideBox>
-              <HomeNavBar pageNumber={pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
+              <HomeNavBar setPageNumber={setPageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
               <DisplayOptions pageNumber={pageNumber} setPageNumber={setPageNumber} navState={navState}/>
             </RightSideBox>
             
           </MainFeatureContainer>
         </HomeContainer> :
-        <DisplaySearch searchedGame={searchedGame} setSearchedGame={setSearchedGame} pageNumber= {pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue}/>
+        <DisplaySearch searchedGame={searchedGame} setSearchedGame={setSearchedGame} nextSearchedGame = {nextSearchedGame} setNextSearchedGame = {setNextSearchedGame} pageNumber= {pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue}/>
       }
       </>
     );

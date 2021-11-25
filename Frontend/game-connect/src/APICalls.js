@@ -11,7 +11,6 @@ export const loginCall = async (userCredential, dispatch) => {
             LoginSuccess(response.data)      
             
         );
-        console.log(response.data);
     }
     catch (error) {
         
