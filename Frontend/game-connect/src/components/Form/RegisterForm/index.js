@@ -31,7 +31,6 @@ const Register = () => {
         email: email.current.value,
         password: password.current.value,
       };
-      console.log(user);
 
       try {
         await axios.post("/backend/auth/register", user);

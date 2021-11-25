@@ -144,7 +144,7 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
                         </button>
                         {' | '}
                         <button className='MoveDisplayPageButton' onClick={nextButton} disabled={
-                            data.length === 1 ? true : false
+                            nextData.length === 0 ? true : false
                         }>
                             Next {'>'}
                         </button>
