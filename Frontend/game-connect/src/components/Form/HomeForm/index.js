@@ -21,7 +21,7 @@ const HomeForm = () => {
 
   useEffect(() => {
     const getSearchData = async () => {
-        setPageNumber(1);
+        //setPageNumber(1);
         try {
             const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + pageNumber);
             setSearchedGame(res.data);
@@ -45,7 +45,7 @@ const HomeForm = () => {
 
           <MainFeatureContainer>
             <RightSideBox>
-              <HomeNavBar pageNumber={pageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
+              <HomeNavBar pageNumber={pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
               <DisplayOptions pageNumber={pageNumber} setPageNumber={setPageNumber} navState={navState}/>
             </RightSideBox>
             

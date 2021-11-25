@@ -64,7 +64,7 @@ function App() {
           <Route exact path='/postform/:id'><CreatePost/></Route>
           <Route path='/game/:gameID'><Game/></Route>
 
-          <Route path='/genre/:genreID'><GenreDisplay/></Route>
+          <Route path='/genre/:genreID/:genreName'><GenreDisplay/></Route>
 
           <Route component={NotFound}/>
         </Switch>
