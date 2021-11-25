@@ -29,7 +29,7 @@ import pymysql.cursors
 
 threads = []
 
-connection = pymysql.connect(host='127.0.0.1',
+connection = pymysql.connect(host='192.168.50.81',
                              user='cmpe295b',
                              password='jamesbond2021!',
                              database='gameConnect',
@@ -86,7 +86,7 @@ def generate_data(thread_num,numbatch):
              }
 
             print(record)
-            r = requests.post(url = 'http://127.0.0.1:3000/backend/auth/register', data = record)
+            r = requests.post(url = 'http://192.168.50.81:3000/backend/auth/register', data = record)
                 
 
 
