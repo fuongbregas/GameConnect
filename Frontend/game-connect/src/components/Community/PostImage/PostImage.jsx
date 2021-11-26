@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import './PostImage.css';
 
-const PostImage = ({ imageURL }) => {
+const PostImage = ({ album, imageURL }) => {
     //const [url, setURL] = useState('');
     const [images, setImages] = useState([]);
     const client_id = process.env.REACT_APP_Imgur_ClientID;
@@ -50,7 +50,7 @@ const PostImage = ({ imageURL }) => {
             {
                 images.length === 0 ? null :
                     <>
-                        <span className="post-image-url" onClick={() => openImageLink(imageURL)}>{imageURL}</span>
+                        <span className="post-image-url" onClick={() => openImageLink(album)}>{album}</span>
 
                         <div className='post-image-container'>
                             {

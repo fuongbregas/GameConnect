@@ -126,7 +126,7 @@ export default function PostDetail() {
                         
                         <div>
                             <div className="post-body">{postData.post_content}</div>
-                            <PostImage imageURL = {apiURL}/>
+                            <PostImage album = {postData.image_URL} imageURL = {apiURL}/>
                             <div className="post-info">
                                 Posted By:
                                 <span className="post-user underline" onClick={readProfile}> {postData.username} </span>
