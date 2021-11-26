@@ -20,6 +20,11 @@ const GameTab = ({gameInfo, gameID}) => {
         }
     }, [user, gameID]);
 
+    const handelClick = () => {
+        var link = '/community/' + gameID;
+        window.open(link, '_blank');
+    }
+
     return(
         <Tabs selected={tabIndex} onSelect = {index => setTabIndex(index)}>
             <TabList>
@@ -38,6 +43,7 @@ const GameTab = ({gameInfo, gameID}) => {
                         user ? <Button gameID = {gameID} gameStatus = {gameStatus} setGameStatus = {setGameStatus}/>
                         : null
                     }
+                    <button className = 'community-link' onClick={handelClick}>Go to community</button>
                 </div>
             </TabPanel>
         </Tabs>
