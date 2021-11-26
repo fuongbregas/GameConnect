@@ -24,7 +24,7 @@ export default function PostForm() {
         setPost({ ...post, [e.target.name]: e.target.value });
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         if (!post.title || !post.post_content ) {
             setError("Please enter a title, body");
