@@ -2,7 +2,7 @@ import {React} from 'react';
 import { useHistory } from 'react-router';
 import './CommentContent.css';
 
-const PostCommentContent = ({data}) => {
+const CommentContent = ({data}) => {
     const history = useHistory();
 
     const handleClick = (postID) => {
@@ -22,4 +22,4 @@ const PostCommentContent = ({data}) => {
     );
 };
 
-export default PostCommentContent;
+export default CommentContent;
