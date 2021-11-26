@@ -87,7 +87,7 @@ export default function Posts({post,updateKarma,deletePost}) {
                 <span>{post.karma}</span>
             </div>
             <div className="post-title-main">
-                <img src={`http://${community.cover}`} alt="community cover"/>
+                {/*<img src={`http://${community.cover}`} alt="community cover"/>*/}
                 <span className="subreddit-name">
                     <Link to={`/community/${community.id}`} style={{textDecoration: "none"}}>
                         {community.name}

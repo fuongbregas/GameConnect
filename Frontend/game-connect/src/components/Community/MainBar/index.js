@@ -116,8 +116,10 @@ export default function MainBar({type}) {
                     <img src="/pin.jpg" alt="pin"/>
                 </div>
             </div>
-
-            <AddPost id={typeCheck()}/>
+            {
+                type === 'community' ? null :
+                <AddPost id={typeCheck()}/>
+            }
 
             {typeCheck() === "" &&
             <div className="filter-container">
