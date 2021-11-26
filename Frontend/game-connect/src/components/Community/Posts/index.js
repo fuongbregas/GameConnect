@@ -13,9 +13,9 @@ export default function Posts({post,updateKarma,deletePost}) {
     const URL = '/backend/posts/';
     const { user } = useContext(AuthContext);
     const history = useHistory();
-    const [click, setClickCount] = useState(0);
+    //const [click, setClickCount] = useState(0);
     const [userstatus, setUserStatus] = useState("");
-    const [del, setDelete] = useState(false);
+    //const [del, setDelete] = useState(false);
     const [comments, setComments] = useState([]);
     const [community, setCommunity] = useState([]);
 
@@ -34,34 +34,7 @@ export default function Posts({post,updateKarma,deletePost}) {
             
         };
         getData();
-    }, [user, post._id, post.community_id]);
-
-    // Delete post and all related comments
-    useEffect(() => {
-        // Check if user already like post
-        const checkData = async () => {
-            try {
-                const res = await axios.get(URL + 'karma/' + user + "/" + post._id);
-                if(res.data === "Liked") setUserStatus("unlike");
-                else if(res.data === "Unliked") setUserStatus("like");
-            }
-            catch (error) {
-                console.log(error);
-            }
-        };
-        const deleteData = async () => {
-            try {
-                await axios.delete(URL + post._id);
-                deletePost(post._id);
-            }
-            catch (error) {
-                console.log(error);
-            }           
-        };
-        if(click > 0) checkData();
-        if(del) deleteData();
-        // eslint-disable-next-line
-    }, [click, del]);
+    }, [user, post]);
 
     // Update karma of post
     useEffect(() => {
@@ -83,15 +56,28 @@ export default function Posts({post,updateKarma,deletePost}) {
         // eslint-disable-next-line
     }, [userstatus]);
 
-    const karmaHandler = (e) => {
+    const karmaHandler = async (e) => {
         e.preventDefault();
         if(user === null) history.push(`/signin`);
-        setClickCount(click+1);
+        try {
+            const res = await axios.get(URL + 'karma/' + user + "/" + post._id);
+            if(res.data === "Liked") setUserStatus("unlike");
+            else if(res.data === "Unliked") setUserStatus("like");
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
-    const deleteHandler = (e) => {
+    const deleteHandler = async (e) => {
         e.preventDefault();
-        setDelete(true);
+        try {
+            await axios.delete(URL + post._id);
+            deletePost(post._id);
+        }
+        catch (error) {
+            console.log(error);
+        }  
     }
 
     const readProfile = () => {

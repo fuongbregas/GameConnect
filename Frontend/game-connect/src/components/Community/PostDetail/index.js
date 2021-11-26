@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 import { Link } from 'react-router-dom';
 import { CommentList } from '../';
+import PostImage from '../PostImage/PostImage';
 import './PostDetailElements.css';
 import axios from 'axios';
 
@@ -12,6 +13,7 @@ export default function PostDetail() {
     const [postData, setPostData] = useState({});
     const [comments, setComments] = useState([]);
     const [community, setCommunity] = useState([]);
+    const [apiURL, setAPIURL] = useState('');
     const initial = true;
     const history = useHistory();
     const path = window.location.pathname;
@@ -24,8 +26,9 @@ export default function PostDetail() {
         const fetchData = async () => {
             try {
                 let res = await axios.get('/backend/posts/' + postid);
-                setPostData(res.data);
-                res = await axios.get('/backend/communities/' + (res.data.community_id).toString());
+                setPostData(res.data.post);
+                setAPIURL(res.data.api)
+                res = await axios.get('/backend/communities/' + (res.data.post.community_id).toString());
                 setCommunity(res.data);
             }
             catch (err) {
@@ -120,9 +123,10 @@ export default function PostDetail() {
                             </div>
                             <div style={{ color: "#0000FF" }}>{postData.title}</div>
                         </div>
-
+                        
                         <div>
                             <div className="post-body">{postData.post_content}</div>
+                            <PostImage album = {postData.image_URL} imageURL = {apiURL}/>
                             <div className="post-info">
                                 Posted By:
                                 <span className="post-user underline" onClick={readProfile}> {postData.username} </span>

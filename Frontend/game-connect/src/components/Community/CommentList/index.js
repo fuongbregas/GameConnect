@@ -15,7 +15,7 @@ export default function CommentList({ postData, addComment, updateComment }) {
   const path = window.location.pathname;
   const postid = path.split("/")[2];
   const [reply, setReply] = useState({ body: '' })
-  const [newComment, setNewComment] = useState({});
+  //const [newComment, setNewComment] = useState({});
 
   // Preload post data
   useEffect(() => {
@@ -45,29 +45,6 @@ export default function CommentList({ postData, addComment, updateComment }) {
     getNextData();
   }, [pageNumber, postid]);
 
-  // Add comment
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        const res = await axios.post(URL, newComment);
-
-        addComment(res.data);
-        if (commentData.length === 15) setPageNumber(pageNumber + 1);
-        else {
-          const newComments = commentData.slice();
-          newComments.push(res.data);
-          setCommentData(newComments);
-        }
-
-      }
-      catch (error) {
-        console.log(error);
-      }
-    };
-    postData();
-    // eslint-disable-next-line
-  }, [newComment]);
-
   const goNext = () => {
     setPageNumber(pageNumber + 1);
   }
@@ -81,11 +58,11 @@ export default function CommentList({ postData, addComment, updateComment }) {
   }
 
   // Add new comment to post; get username and user id
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
     if (!reply.body) {
       alert("Comment cannot be blank");
-      return
+      return;
     }
     const data = {
       community_id: postData.community_id,
@@ -95,8 +72,20 @@ export default function CommentList({ postData, addComment, updateComment }) {
       post_id: postid,
       username: user
     };
-    setNewComment(data);
-    setReply({ body: '' });
+    try {
+      const res = await axios.post(URL, data);
+      addComment(res.data);
+      if (commentData.length === 15) setPageNumber(pageNumber + 1);
+      else {
+        const newComments = commentData.slice();
+        newComments.push(res.data);
+        setCommentData(newComments);
+      }
+      setReply({ body: '' });
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 
   const deleteComment = (comment_id) => {

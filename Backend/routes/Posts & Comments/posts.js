@@ -21,7 +21,16 @@ router.get('/:postID', async (req, res) => {
     const postID = req.params.postID;
     try {
         const post = await Post.findOne({ _id: postID });
-        res.status(200).json(post);
+        var apiURL = '';
+        if (post.image_URL !== '') {
+            var hexValue = post.image_URL.substring(post.image_URL.lastIndexOf("/") + 1, post.image_URL.length);
+            apiURL = "https://api.imgur.com/3/album/" + hexValue;
+        }
+        const data = {
+            'post': post,
+            'api' : apiURL
+        }
+        res.status(200).json(data);
     }
     catch (error) {
         res.status(500).json(error);
