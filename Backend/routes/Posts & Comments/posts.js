@@ -58,7 +58,7 @@ router.get('/game/:pageNumber', async (req, res) => {
     const pageNumber = req.params.pageNumber;
     try {
         // Get an array of gameID/communityID with highest rating
-        const communities = await Game.find({}, { '_id': 0, 'id': 1 }).sort({ "rating": -1 }).skip((pageNumber - 1) * 15).
+        const communities = await Games.find({}, { '_id': 0, 'id': 1 }).sort({ "rating": -1 }).skip((pageNumber - 1) * 15).
             limit(15);
         // Search post with IDs in the array
         const posts = await Post.find({ community_id: { $in: communities.id } });

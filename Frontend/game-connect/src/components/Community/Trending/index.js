@@ -1,19 +1,37 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import './TrendingElements.css';
-
-import trendingItems from '../../../data/trending-items.json';
 
 export default function Trending() {
     /*MERGE TEST COMMENT*/
+    const history = useHistory();
+    const [top, setTop] = useState([]);
+    const [initial] = useState(true);
+
+    // Get top 5 games
+    useEffect(() => {
+        const getData = async () => {
+            const res = await axios.get('/backend/game/top');
+            setTop(res.data);
+        };
+        getData();
+    }, [initial]);
+
+    // Get full path to image cover
+    const getURL = (path) => {
+        return 'http://' + path;
+    }
+
     return (
         <div className="trending-today-section">
            <span className="title">Trending PC games</span>
            <div className="items">
-               {trendingItems.map((item) => (
+               {top.map((item) => (
                    <div className="trending-item hoverable" 
-                        style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(${item.cover})` }}
-                        key={item.name}    
+                        style={{ backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0.7) 35%, transparent), url(' + getURL(item.cover) + ')' }}
+                        key={item.name}
+                        onClick={e => {history.push(`/game/${item.id}`)}}    
                     >
                        <div className="context">
                             <span className="title">{item.name}</span>
