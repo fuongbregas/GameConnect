@@ -28,7 +28,9 @@ export default function Posts({post,updateKarma,deletePost}) {
             if(res.status === 200) setCommunity(res.data);
         };
         getData();
-    }, [user, post._id, post.community_id]);
+    }, [user, post]);
+
+    console.log('Community', community.cover);
 
     // Delete post and all related comments
     useEffect(() => {

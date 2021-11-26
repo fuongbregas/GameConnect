@@ -79,6 +79,7 @@ export default function PostForm() {
                         placeholder="Enter post content"
                         onChange={changeHandler}
                     />
+                    {/*
                     <input
                         id="community_id"
                         name="community_id"
@@ -86,7 +87,7 @@ export default function PostForm() {
                         value={post.community_id}
                         placeholder="Enter a game community"
                         onChange={changeHandler}
-                    />
+                    />*/}
                     {err && <div className="err-msg">{err}</div>}
                     {user !== null ?
                         <button className="postForm-button">

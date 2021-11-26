@@ -8,7 +8,7 @@ import Menu from '@material-ui/icons/Menu';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {Posts, AddPost} from '../';
 
-export default function MainBar({type}) {
+export default function MainBar({type, id}) {
 
     /*MERGE TEST COMMENT*/
     const URL = '/backend/posts/';
@@ -116,8 +116,10 @@ export default function MainBar({type}) {
                     <img src="/pin.jpg" alt="pin"/>
                 </div>
             </div>
-
-            <AddPost id={typeCheck()}/>
+            {
+                type === 'community' ? null :
+                <AddPost id={id}/>
+            }
 
             {typeCheck() === "" &&
             <div className="filter-container">
