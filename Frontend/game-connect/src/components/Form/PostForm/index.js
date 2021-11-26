@@ -10,7 +10,7 @@ export default function PostForm() {
     const history = useHistory();
     
     const {id} = useParams();
-    console.log('id', id);
+    const [err, setError] = useState("");
     const [post, setPost] = useState({ 
         title: '', 
         post_content: '', 
@@ -19,42 +19,6 @@ export default function PostForm() {
         karma: 0,
         image_URL: "" 
     });
-    const [createPost, setCreatePost] = useState(0);
-    const [err, setError] = useState("");
-
-    // Create Post
-    useEffect(() => {
-        // Check if community id is valid
-        const checkData = async () => {
-            try {
-                const res = await axios.get('/backend/communities/' + (post.community_id).toString());
-                if(res.data !== null) {
-                    createData();
-                    setPost({
-                        title: '', 
-                        post_content: '', 
-                        community_id: parseInt(id), 
-                        username: user,
-                        karma: 0,
-                        image_URL: "" 
-                    });
-                }
-            }
-            catch (error) {
-                setError("Invalid community");
-            }
-        };
-        const createData = async () => {
-            try {
-                const res = await axios.post('/backend/posts', post);
-                history.push(`/post/${res.data._id}`);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        };
-        if(createPost > 0) checkData();
-    }, [createPost, history, post, id, user]);
 
     const changeHandler = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -66,7 +30,15 @@ export default function PostForm() {
             setError("Please enter a title, body");
             return
         }
-        setCreatePost(createPost+1);
+        else {
+            try {
+                const res = await axios.post('/backend/posts', post);
+                history.push(`/post/${res.data._id}`);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     return(

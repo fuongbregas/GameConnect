@@ -3,32 +3,22 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
-export default function Comment({comment, updateKarma, deleteComment}) {
+export default function Comment({comment, deleteComment}) {
     /*MERGE TEST COMMENT*/
     const {user} = useContext(AuthContext);
     const history = useHistory();
-    const [del, setDelete] = useState(false);
-    const [likecomment, setLikeComment] = useState(false);
     const [click, setClickCount] = useState(0);
-
+    
     // Delete comment
-    useEffect(() => {
-        const deleteData = async () => {
-            try {
-                const res = await axios.delete('/backend/comments/' + comment._id);
-                if(res.status === 200) deleteComment(comment._id);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        };
-        if(del) deleteData();
-    }, [del, comment._id, deleteComment]);
-
-    // Delete comment
-    const deleteHandler = (e) => {
+    const deleteHandler = async (e) => {
         e.preventDefault();
-        setDelete(true);
+        try {
+            const res = await axios.delete('/backend/comments/' + comment._id);
+            deleteComment(comment._id);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     // TODO: Update likes in comments

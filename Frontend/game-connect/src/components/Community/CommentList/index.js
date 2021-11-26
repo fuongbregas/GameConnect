@@ -50,15 +50,15 @@ export default function CommentList({ postData, addComment, updateComment }) {
     const postData = async () => {
       try {
         const res = await axios.post(URL, newComment);
-        if (res.status === 200) {
-          addComment(res.data);
-          if (commentData.length === 15) setPageNumber(pageNumber + 1);
-          else {
-            const newComments = commentData.slice();
-            newComments.push(res.data);
-            setCommentData(newComments);
-          }
+
+        addComment(res.data);
+        if (commentData.length === 15) setPageNumber(pageNumber + 1);
+        else {
+          const newComments = commentData.slice();
+          newComments.push(res.data);
+          setCommentData(newComments);
         }
+
       }
       catch (error) {
         console.log(error);

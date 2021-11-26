@@ -22,10 +22,16 @@ export default function Posts({post,updateKarma,deletePost}) {
     // Get comments
     useEffect(() => {
         const getData = async () => {
-            let res = await axios.get('/backend/comments/' + post._id);
-            if(res.status === 200) setComments(res.data);
-            res = await axios.get('/backend/communities/' + (post.community_id).toString());
-            if(res.status === 200) setCommunity(res.data);
+            try {
+                let res = await axios.get('/backend/comments/' + post._id);
+                if(res.status === 200) setComments(res.data);
+                res = await axios.get('/backend/communities/' + (post.community_id).toString());
+                if(res.status === 200) setCommunity(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            
         };
         getData();
     }, [user, post._id, post.community_id]);
@@ -34,13 +40,23 @@ export default function Posts({post,updateKarma,deletePost}) {
     useEffect(() => {
         // Check if user already like post
         const checkData = async () => {
-            const res = await axios.get(URL + 'karma/' + user + "/" + post._id);
-            if(res.data === "Liked") setUserStatus("unlike");
-            else if(res.data === "Unliked") setUserStatus("like");
+            try {
+                const res = await axios.get(URL + 'karma/' + user + "/" + post._id);
+                if(res.data === "Liked") setUserStatus("unlike");
+                else if(res.data === "Unliked") setUserStatus("like");
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
         const deleteData = async () => {
-            const res = await axios.delete(URL + post._id);
-            if(res.status === 200) deletePost(post._id);
+            try {
+                const res = await axios.delete(URL + post._id);
+                deletePost(post._id);
+            }
+            catch (error) {
+                console.log(error);
+            }           
         };
         if(click > 0) checkData();
         if(del) deleteData();
@@ -50,12 +66,18 @@ export default function Posts({post,updateKarma,deletePost}) {
     // Update karma of post
     useEffect(() => {
         const updateData = async () => {
-            const header = {
-                user: user,
-                postID: post._id
+            try {
+                const header = {
+                    user: user,
+                    postID: post._id
+                }
+                const res = await axios.put(URL + 'karma/' + userstatus, header);
+                updateKarma(post._id, res.data.post);
             }
-            const res = await axios.put(URL + 'karma/' + userstatus, header);
-            if(res.status === 200) updateKarma(post._id, res.data.post);
+            catch (error) {
+                console.log(error);
+            }
+            
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
         // eslint-disable-next-line
