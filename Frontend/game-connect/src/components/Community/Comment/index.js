@@ -1,19 +1,19 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext} from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function Comment({comment, deleteComment}) {
     /*MERGE TEST COMMENT*/
     const {user} = useContext(AuthContext);
-    const history = useHistory();
-    const [click, setClickCount] = useState(0);
+    //const history = useHistory();
+    //const [click, setClickCount] = useState(0);
     
     // Delete comment
     const deleteHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.delete('/backend/comments/' + comment._id);
+            await axios.delete('/backend/comments/' + comment._id);
             deleteComment(comment._id);
         }
         catch (error) {
@@ -22,11 +22,12 @@ export default function Comment({comment, deleteComment}) {
     }
 
     // TODO: Update likes in comments
+    /*
     const karmaHandler = (e) => {
         e.preventDefault();
         if(user === null) history.push(`/signin`);
         setClickCount(click+1);
-    }
+    }*/
 
     return(
         <>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../../context/AuthContext";
@@ -24,7 +24,7 @@ export default function PostForm() {
         setPost({ ...post, [e.target.name]: e.target.value });
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         if (!post.title || !post.post_content ) {
             setError("Please enter a title, body");
