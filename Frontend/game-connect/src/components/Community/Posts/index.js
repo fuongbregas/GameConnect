@@ -51,7 +51,7 @@ export default function Posts({post,updateKarma,deletePost}) {
         };
         const deleteData = async () => {
             try {
-                const res = await axios.delete(URL + post._id);
+                await axios.delete(URL + post._id);
                 deletePost(post._id);
             }
             catch (error) {
