@@ -1,7 +1,6 @@
 import {React, useState, useEffect} from 'react';
 import axios from 'axios';
 import './MainBarElements.css';
-import {FaTimes} from 'react-icons/fa';
 import WhatsHot from '@material-ui/icons/Whatshot';
 import NewReleases from '@material-ui/icons/NewReleases';
 import TrendingUp from '@material-ui/icons/TrendingUp';
@@ -88,9 +87,18 @@ export default function MainBar({type}) {
 
     const changeFilter = (e, id) => {
         e.preventDefault();
-        setFilter(id);
+        updateFilter(id);
         setPosts([]);
         setNextPosts([]);
+    }
+
+    const updateFilter = id => {
+        const options = document.querySelectorAll('.filter');
+        options[id - 1].classList.add('filter-element');
+        options[id - 1].classList.remove('filter-element-secondary');
+        options[filter - 1].classList.add('filter-element-secondary');
+        options[filter - 1].classList.remove('filter-element');
+        setFilter(id);
     }
 
     return (
@@ -98,7 +106,6 @@ export default function MainBar({type}) {
             <div className="update-card">
                 <div className="top-section">
                     <span>UPDATES FROM GameConnect</span>
-                    <FaTimes className="hoverable" />
                 </div>
                 <div className="body">
                     <div className="context">
@@ -114,15 +121,15 @@ export default function MainBar({type}) {
 
             {typeCheck() === "" &&
             <div className="filter-container">
-                 <div className="filter-element hoverable" onClick={e => {changeFilter(e,1)}}>
+                 <div className="filter filter-element hoverable" onClick={e => {changeFilter(e,1)}}>
                     <NewReleases />
                     <span>New</span>
                 </div>
-                <div className="filter-element-secondary hoverable" onClick={e => {changeFilter(e,2)}}>
+                <div className="filter filter-element-secondary hoverable" onClick={e => {changeFilter(e,2)}}>
                     <WhatsHot />
                     <span>Hot</span>
                 </div>
-                <div className="filter-element-secondary hoverable" onClick={e => {changeFilter(e,3)}}>
+                <div className="filter filter-element-secondary hoverable" onClick={e => {changeFilter(e,3)}}>
                     <TrendingUp />
                     <span>Top</span>
                 </div>

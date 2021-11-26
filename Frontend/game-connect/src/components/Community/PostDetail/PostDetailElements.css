@@ -4,11 +4,13 @@
     display:flex;
     position: relative;
     min-height: 100vh;
+    background: #242526;
  }
  
  .post-container{
     margin: 30px 10px;
     width: 100%;
+    flex-direction: column;
  }
  
  .upvote-container{
@@ -21,7 +23,8 @@
     border: 1px solid rgb(206,212,218);
     box-shadow: 0 19px 18px rgba(0.3,0.3,0.3,0.03), 0 15px 12px rgba(0.1,0.1,0.1,0.1);
     border-radius: 5px;
- 
+    margin-left: 10px;
+    margin-top: 10px;
  }
  
  /* .post-body{
@@ -38,3 +41,7 @@
     display: flex;
     align-items: center;
  }
+
+.post-info > .underline:hover {
+   text-decoration: underline;
+}

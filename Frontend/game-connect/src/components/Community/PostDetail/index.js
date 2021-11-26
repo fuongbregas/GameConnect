@@ -87,6 +87,11 @@ export default function PostDetail() {
         setComments(newComments);
     }
 
+    // Redirect user to profile
+    const readProfile = () => {
+        history.push(`/profile/${postData.username}`);
+    }
+
     return (
       <>
         <div className="postPage-container">
@@ -104,9 +109,11 @@ export default function PostDetail() {
               <div>
                 <div className="post-body">{postData.post_content}</div>
                 <div className="post-info">
-                    Posted By: {postData.username} on <br />
+                    Posted By: 
+                    <span className="post-user underline" onClick={readProfile}> {postData.username} </span>
+                    on <br />
                     <span style={{ color: "#007BFD", cursor: "pointer" }}>
-                        <Link to={`/sub/${community.name}`}>
+                        <Link to={`/community/${community.id}`}>
                             {community.name}
                         </Link>
                     </span>

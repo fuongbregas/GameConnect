@@ -120,3 +120,12 @@
     background-color: rgb(245, 245, 245);
     border-radius: 20px;
 }
+
+.bottom-container {
+    margin-left: 0px;
+}
+
+.nothing-here {
+    color: black;
+    text-align: center;
+} 
