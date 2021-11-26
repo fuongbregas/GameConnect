@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../../context/AuthContext";
 import './PostFormElements.css';
@@ -8,41 +8,17 @@ export default function PostForm() {
     /*MERGE TEST COMMENT*/
     const { user } = useContext(AuthContext);
     const history = useHistory();
-    const path = window.location.pathname;
-    const postid = path.split("/")[2];
+    
+    const {id} = useParams();
+    const [err, setError] = useState("");
     const [post, setPost] = useState({ 
         title: '', 
         post_content: '', 
-        community_id: parseInt(postid), 
+        community_id: parseInt(id), 
         username: user,
         karma: 0,
         image_URL: "" 
     });
-    const [createPost, setCreatePost] = useState(0);
-    const [err, setError] = useState("");
-
-    // Create Post
-    useEffect(() => {
-        // Check if community id is valid
-        const checkData = async () => {
-            const res = await axios.get('/backend/communities/' + (post.community_id).toString());
-            if(res.data !== null) createData();
-            else setError("Invalid community");
-            setPost({
-                title: '', 
-                post_content: '', 
-                community_id: parseInt(postid), 
-                username: user,
-                karma: 0,
-                image_URL: "" 
-            });
-        };
-        const createData = async () => {
-            const res = await axios.post('/backend/posts', post);
-            if(res.status === 200) history.push(`/post/${res.data._id}`);
-        };
-        if(createPost > 0) checkData();
-    }, [createPost, history, post, postid, user]);
 
     const changeHandler = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -50,11 +26,19 @@ export default function PostForm() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if (!post.title || !post.post_content || !post.community_id) {
-            setError("Please enter a title, body and a valid community");
+        if (!post.title || !post.post_content ) {
+            setError("Please enter a title, body");
             return
         }
-        setCreatePost(createPost+1);
+        else {
+            try {
+                const res = await axios.post('/backend/posts', post);
+                history.push(`/post/${res.data._id}`);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     return(
@@ -80,11 +64,11 @@ export default function PostForm() {
                         onChange={changeHandler}
                     />
                     <input
-                        id="community_id"
-                        name="community_id"
+                        id="image_URL"
+                        name="image_URL"
                         type="text"
-                        value={post.community_id}
-                        placeholder="Enter a game community"
+                        value={post.image_URL}
+                        placeholder="Insert a imgur link"
                         onChange={changeHandler}
                     />
                     {err && <div className="err-msg">{err}</div>}

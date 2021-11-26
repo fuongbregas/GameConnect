@@ -13,11 +13,16 @@ const GameInformation = ({gameID}) => {
 
     useEffect(() => {
         const getGameInfo = async () => {
-            const res = await axios.get('/backend/game/get_one_game/' + gameID);
-            setGameInfo(res.data);
-            setRating(Math.round(res.data.rating));
-            if (rating > 50) {
-                setColor('#50C878');
+            try {
+                const res = await axios.get('/backend/game/get_one_game/' + gameID);
+                setGameInfo(res.data);
+                setRating(Math.round(res.data.rating));
+                if (rating > 50) {
+                    setColor('#50C878');
+                }
+            }
+            catch (error) {
+                console.log(error);
             }
         }
 

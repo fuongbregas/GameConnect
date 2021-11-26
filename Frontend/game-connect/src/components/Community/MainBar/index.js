@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import axios from 'axios';
 import './MainBarElements.css';
+import { useParams, } from 'react-router';
 import WhatsHot from '@material-ui/icons/Whatshot';
 import NewReleases from '@material-ui/icons/NewReleases';
 import TrendingUp from '@material-ui/icons/TrendingUp';
@@ -9,8 +10,7 @@ import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {Posts, AddPost} from '../';
 
 export default function MainBar({type}) {
-
-    /*MERGE TEST COMMENT*/
+    const {id} = useParams();
     const URL = '/backend/posts/';
     const [posts, setPosts] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
@@ -22,9 +22,9 @@ export default function MainBar({type}) {
         // Get full path of api
         const getURL = () => {
             if(type === "subcommunity") {
-                const path = window.location.pathname;
-                const communityid = path.split("/")[2];
-                return 'post/' + communityid.toString() + "/";  
+                //const path = window.location.pathname;
+                //const communityid = path.split("/")[2];
+                return 'post/' + id + "/";  
             }
             let url = "";
             switch(filter) {
@@ -43,24 +43,32 @@ export default function MainBar({type}) {
         }
         // Get post data for current page
         const getData = async () => {
-            const res = await axios.get(URL + getURL() + pageNumber);
-            setPosts(res.data);
+            try {
+                const res = await axios.get(URL + getURL() + pageNumber);
+                setPosts(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
         // Get post data for next page
         const getNextData = async () => {
-            const nextPage = pageNumber + 1;
-            const res = await axios.get(URL + getURL() + nextPage);
-            setNextPosts(res.data);
+            try {
+                const nextPage = pageNumber + 1;
+                const res = await axios.get(URL + getURL() + nextPage);
+                setNextPosts(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
         getData();
         getNextData();
-    }, [pageNumber, filter, type]);
+    }, [pageNumber, filter, type, id]);
 
     const typeCheck = () => {
         if(type === "subcommunity") {
-            const path = window.location.pathname;
-            const communityid = path.split("/")[2];
-            return communityid.toString() + "/";
+            return id;
         } else return '';
     }
 
