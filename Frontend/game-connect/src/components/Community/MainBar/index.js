@@ -134,10 +134,10 @@ export default function MainBar({type}) {
                     <span>Top</span>
                 </div>
                 <div className="spacer"></div>
-                <div className="filter-element-menu hoverable">
+                {/* <div className="filter-element-menu hoverable">
                     <Menu />
                     <ArrowDropDown />
-                </div>
+                </div> */}
             </div>
             }
 

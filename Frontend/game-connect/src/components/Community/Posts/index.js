@@ -96,7 +96,6 @@ export default function Posts({post,updateKarma,deletePost}) {
                 <span className="post-user">Posted by</span>
                 <span className="post-user underline" onClick={readProfile}>{post.username}</span>
                 <div className="spacer"></div>
-                {/* <div className="button primary-button">+ JOIN</div> */}
             </div>
             <div className="post-body">
                 <span className="title" onClick={postLinkHandler}>{post.title}</span>

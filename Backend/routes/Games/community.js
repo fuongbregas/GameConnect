@@ -17,6 +17,21 @@ router.get('/:communityID', async (req, res) => {
     }
 });
 
+// Get community data from game name
+router.get('/search/:gameName', async (req, res) => {
+    try {
+        let q = req.params.gameName;
+        let query = {
+            "$or": [{"name": {"$regex": q, "$options": "i"}}]
+        };
+        const community = await Community.find(query);
+        res.status(200).json(community);
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
+
 // Check if the user has joined a community
 router.get('/:user/:communityID', async (req, res) => {
     const username = req.params.user;

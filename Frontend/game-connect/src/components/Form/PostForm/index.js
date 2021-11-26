@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+// import Select from 'react-select';
 import axios from 'axios';
 import { AuthContext } from "../../../context/AuthContext";
 import './PostFormElements.css';
@@ -25,6 +26,8 @@ export default function PostForm() {
     useEffect(() => {
         // Check if community id is valid
         const checkData = async () => {
+            // const res = await axios.get('/backend/communities/search/' + (post.community_id).toString());
+            // console.log(res.data);
             const res = await axios.get('/backend/communities/' + (post.community_id).toString());
             if(res.data !== null) createData();
             else setError("Invalid community");
@@ -42,7 +45,8 @@ export default function PostForm() {
             if(res.status === 200) history.push(`/post/${res.data._id}`);
         };
         if(createPost > 0) checkData();
-    }, [createPost, history, post, postid, user]);
+        // eslint-disable-next-line
+    }, [createPost]);
 
     const changeHandler = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -56,6 +60,12 @@ export default function PostForm() {
         }
         setCreatePost(createPost+1);
     }
+
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' }
+    // ]
 
     return(
         <>
@@ -87,6 +97,7 @@ export default function PostForm() {
                         placeholder="Enter a game community"
                         onChange={changeHandler}
                     />
+                    {/* <Select options={options} /> */}
                     {err && <div className="err-msg">{err}</div>}
                     {user !== null ?
                         <button className="postForm-button">
