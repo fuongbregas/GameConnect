@@ -144,4 +144,16 @@ router.get('/get_recommended_game/:user/:pageNumber', async (req, res) => {
     }
 });
 
+// Get top 5 games with highest ratings
+router.get('/top', async (req, res) => {
+    try {
+        // Get an array of gameID/communityID with highest rating
+        const games = await Games.find({}, { '_id': 0, 'id': 1, 'name': 1, 'summary': 1, 'cover': 1 }).sort({ "rating": -1 }).limit(5);
+        res.status(200).json(games);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;
