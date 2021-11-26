@@ -5,15 +5,15 @@ import './PostContent.css';
 const PostContent = ({data}) => {
     const history = useHistory();
 
-    const handleClick = (communityID, postID) => {
-        history.push(`/community/${communityID}/${postID}`);
+    const handleClick = (postID) => {
+        history.push(`/post/${postID}`);
     }
 
     return (
         <>
             {
                 data.map((each_data, index) => (
-                    <div key = {index} className = 'post' onClick={() => handleClick(each_data.community_id, each_data._id)}>
+                    <div key = {index} className = 'post' onClick={() => handleClick(each_data._id)}>
                         <p className = 'title-paragraph'>
                             <span className = 'post-karma'>{each_data.karma}</span>
                             <span className = 'postTitle'>{each_data.title}</span>

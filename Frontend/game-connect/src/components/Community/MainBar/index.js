@@ -1,7 +1,6 @@
 import {React, useState, useEffect} from 'react';
 import axios from 'axios';
 import './MainBarElements.css';
-import {FaTimes} from 'react-icons/fa';
 import WhatsHot from '@material-ui/icons/Whatshot';
 import NewReleases from '@material-ui/icons/NewReleases';
 import TrendingUp from '@material-ui/icons/TrendingUp';
@@ -20,6 +19,28 @@ export default function MainBar({type}) {
 
     // Preload post data
     useEffect(() => {
+        // Get full path of api
+        const getURL = () => {
+            if(type === "subcommunity") {
+                const path = window.location.pathname;
+                const communityid = path.split("/")[2];
+                return 'post/' + communityid.toString() + "/";  
+            }
+            let url = "";
+            switch(filter) {
+                case 1:
+                    url = 'post/'; 
+                    break;
+                case 2: 
+                    url = 'game/'; 
+                    break;
+                case 3:
+                    url = 'karma/';  
+                    break;
+                default: break;
+            }
+            return url;
+        }
         // Get post data for current page
         const getData = async () => {
             const res = await axios.get(URL + getURL() + pageNumber);
@@ -33,29 +54,7 @@ export default function MainBar({type}) {
         };
         getData();
         getNextData();
-    }, [pageNumber]);
-
-    const getURL = () => {
-        if(type === "subcommunity") {
-            const path = window.location.pathname;
-            const communityid = path.split("/")[2];
-            return 'post/' + communityid.toString() + "/";  
-        }
-        let url = "";
-        switch(filter) {
-            case 1:
-                url = 'post/'; 
-                break;
-            case 2: 
-                url = 'game/'; 
-                break;
-            case 3:
-                url = 'karma/';  
-                break;
-            default: break;
-        }
-        return url;
-    }
+    }, [pageNumber, filter, type]);
 
     const typeCheck = () => {
         if(type === "subcommunity") {
@@ -88,9 +87,18 @@ export default function MainBar({type}) {
 
     const changeFilter = (e, id) => {
         e.preventDefault();
-        setFilter(id);
+        updateFilter(id);
         setPosts([]);
         setNextPosts([]);
+    }
+
+    const updateFilter = id => {
+        const options = document.querySelectorAll('.filter');
+        options[id - 1].classList.add('filter-element');
+        options[id - 1].classList.remove('filter-element-secondary');
+        options[filter - 1].classList.add('filter-element-secondary');
+        options[filter - 1].classList.remove('filter-element');
+        setFilter(id);
     }
 
     return (
@@ -98,7 +106,6 @@ export default function MainBar({type}) {
             <div className="update-card">
                 <div className="top-section">
                     <span>UPDATES FROM GameConnect</span>
-                    <FaTimes className="hoverable" />
                 </div>
                 <div className="body">
                     <div className="context">
@@ -106,7 +113,7 @@ export default function MainBar({type}) {
                         <br />
                         <span className="description">The only way to play games at your best is to stay healthy. More fun for you and everyone!</span>
                     </div>
-                    <img src="pin.jpg"/>
+                    <img src="/pin.jpg" alt="pin"/>
                 </div>
             </div>
 
@@ -114,15 +121,15 @@ export default function MainBar({type}) {
 
             {typeCheck() === "" &&
             <div className="filter-container">
-                 <div className="filter-element hoverable" onClick={e => {changeFilter(e,1)}}>
+                 <div className="filter filter-element hoverable" onClick={e => {changeFilter(e,1)}}>
                     <NewReleases />
                     <span>New</span>
                 </div>
-                <div className="filter-element-secondary hoverable" onClick={e => {changeFilter(e,2)}}>
+                <div className="filter filter-element-secondary hoverable" onClick={e => {changeFilter(e,2)}}>
                     <WhatsHot />
                     <span>Hot</span>
                 </div>
-                <div className="filter-element-secondary hoverable" onClick={e => {changeFilter(e,3)}}>
+                <div className="filter filter-element-secondary hoverable" onClick={e => {changeFilter(e,3)}}>
                     <TrendingUp />
                     <span>Top</span>
                 </div>

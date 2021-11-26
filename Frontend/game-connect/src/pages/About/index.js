@@ -30,11 +30,11 @@ export default function About() {
 
           <div className='individual'>
             <div className='individual-container'>
-              <img className='individual-profilePic' src='/avatar.png' alt='' />
-              <h1 className='individual-name'>Summa Cum Laude</h1>
-              <h2 className='individual-role'>lul</h2>
-              <span className='individual-detais'>huh</span>
-              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/fuongbregas/')}>Contact Me</button>
+              <img className='individual-profilePic' src='/profile2.jpg' alt='' />
+              <h1 className='individual-name'>Edward Nguyen</h1>
+              <h2 className='individual-role'>Frontend Engineer</h2>
+              <span className='individual-detais'>Designed overall structure of React project. Worked on community related components and integration.</span>
+              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/edwardjnguyen/')}>Contact Me</button>
             </div>
           </div>
 

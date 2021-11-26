@@ -61,7 +61,7 @@ router.get('/game/:pageNumber', async (req, res) => {
         const communities = await Game.find({}, { '_id': 0, 'id': 1 }).sort({ "rating": -1 }).skip((pageNumber - 1) * 15).
             limit(15);
         // Search post with IDs in the array
-        const posts = await Post.find({ community_id: { $in: communities } });
+        const posts = await Post.find({ community_id: { $in: communities.id } });
         res.status(200).json(posts);
     }
     catch (error) {
@@ -102,6 +102,7 @@ router.delete('/:postID', async (req, res) => {
     const postID = req.params.postID;
     try {
         await Comment.deleteMany({ post_id: postID });
+        await User.updateMany({like_posts: postID}, { $pull: { like_posts: postID } });
         await Post.deleteOne({ _id: postID });
         res.status(200).json("Post is deleted");
     }

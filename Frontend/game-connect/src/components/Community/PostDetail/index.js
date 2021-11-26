@@ -33,7 +33,7 @@ export default function PostDetail() {
         }
         };
         fetchData();
-    }, [initial]);
+    }, [initial, postid]);
 
     // Get comments info
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function PostDetail() {
             if(res.status === 200) setComments(res.data);
         };
         getCommentData();
-    }, [user]);
+    }, [user, postid]);
 
     // Check if user already like post
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function PostDetail() {
             else if(res.data === "Unliked") setUserStatus("like");
         };
         if(click > 0) checkData();
-    }, [click]);
+    }, [click, user, postData._id]);
 
     // Update karma of post
     useEffect(() => {
@@ -65,7 +65,7 @@ export default function PostDetail() {
             if(res.status === 200) setPostData(res.data.post);
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
-    }, [userstatus]);
+    }, [userstatus, user, postData._id]);
 
     // Display karma update
     const karmaHandler = (e) => {
@@ -87,6 +87,11 @@ export default function PostDetail() {
         setComments(newComments);
     }
 
+    // Redirect user to profile
+    const readProfile = () => {
+        history.push(`/profile/${postData.username}`);
+    }
+
     return (
       <>
         <div className="postPage-container">
@@ -104,9 +109,11 @@ export default function PostDetail() {
               <div>
                 <div className="post-body">{postData.post_content}</div>
                 <div className="post-info">
-                    Posted By: {postData.username} on <br />
+                    Posted By: 
+                    <span className="post-user underline" onClick={readProfile}> {postData.username} </span>
+                    on <br />
                     <span style={{ color: "#007BFD", cursor: "pointer" }}>
-                        <Link to={`/sub/${community.name}`}>
+                        <Link to={`/community/${community.id}`}>
                             {community.name}
                         </Link>
                     </span>
