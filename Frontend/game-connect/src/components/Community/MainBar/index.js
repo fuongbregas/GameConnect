@@ -5,8 +5,8 @@ import { useParams, } from 'react-router';
 import WhatsHot from '@material-ui/icons/Whatshot';
 import NewReleases from '@material-ui/icons/NewReleases';
 import TrendingUp from '@material-ui/icons/TrendingUp';
-import Menu from '@material-ui/icons/Menu';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+//import Menu from '@material-ui/icons/Menu';
+//import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {Posts, AddPost} from '../';
 
 export default function MainBar({type}) {

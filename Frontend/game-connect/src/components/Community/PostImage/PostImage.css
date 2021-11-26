@@ -1,0 +1,27 @@
+.post-image-container {
+    width: 80%;
+    height: 280px;
+    white-space: nowrap;
+    overflow-y:hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.div_to_hold_images{
+    width:500px;
+    height:144;
+    display: inline-block;
+    overflow:hidden;
+    margin-right: -220px;
+}
+.post-image-url {
+    cursor: pointer;
+    color: #0084ff;
+}
+
+.post-image-url:hover {
+    color: #3d4bca;
+}
+
+.post-image {
+    width: 50%;
+}
