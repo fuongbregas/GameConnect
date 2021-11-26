@@ -3,6 +3,7 @@ import { Trending, MainBar, SideBar } from '../../components';
 import './SubCommunityElements.css';
 
 export default function SubCommunity() {
+  
   /* TEST COMMENT  */
     return (
       <div className="content">

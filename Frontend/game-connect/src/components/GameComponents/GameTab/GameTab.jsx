@@ -12,8 +12,13 @@ const GameTab = ({gameInfo, gameID}) => {
 
     useEffect(() => {
         const getGameStatus = async () => {
-            const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
-            setGameStatus(res.data);
+            try {
+                const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
+                setGameStatus(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
         if(user !== null) {
             getGameStatus();

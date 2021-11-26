@@ -15,8 +15,13 @@ const TabContent = ({type, username, URL}) => {
     useEffect(() => {
         // Get data for current page
         const getData = async () => {
-            const res = await axios.get(URL + username + '/' + pageNumber);
-            setData(res.data);
+            try {
+                const res = await axios.get(URL + username + '/' + pageNumber);
+                setData(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
 
         if (username !== '' && username !== null){
