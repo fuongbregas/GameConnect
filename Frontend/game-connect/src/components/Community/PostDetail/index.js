@@ -22,15 +22,15 @@ export default function PostDetail() {
     // Fetch single post and community data
     useEffect(() => {
         const fetchData = async () => {
-        try {
-            let res = await axios.get('/backend/posts/' + postid);
-            setPostData(res.data);
-            res = await axios.get('/backend/communities/' + (res.data.community_id).toString());
-            if(res.status === 200) setCommunity(res.data);
-        }
-        catch (err) {
-            console.log(err);
-        }
+            try {
+                let res = await axios.get('/backend/posts/' + postid);
+                setPostData(res.data);
+                res = await axios.get('/backend/communities/' + (res.data.community_id).toString());
+                setCommunity(res.data);
+            }
+            catch (err) {
+                console.log(err);
+            }
         };
         fetchData();
     }, [initial, postid]);
@@ -38,8 +38,13 @@ export default function PostDetail() {
     // Get comments info
     useEffect(() => {
         const getCommentData = async () => {
-            const res = await axios.get('/backend/comments/' + postid);
-            if(res.status === 200) setComments(res.data);
+            try {
+                const res = await axios.get('/backend/comments/' + postid);
+                setComments(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
         getCommentData();
     }, [user, postid]);
@@ -47,11 +52,16 @@ export default function PostDetail() {
     // Check if user already like post
     useEffect(() => {
         const checkData = async () => {
-            const res = await axios.get('/backend/posts/karma/' + user + "/" + postData._id);
-            if(res.data === "Liked") setUserStatus("unlike");
-            else if(res.data === "Unliked") setUserStatus("like");
+            try {
+                const res = await axios.get('/backend/posts/karma/' + user + "/" + postData._id);
+                if (res.data === "Liked") setUserStatus("unlike");
+                else if (res.data === "Unliked") setUserStatus("like");
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
-        if(click > 0) checkData();
+        if (click > 0) checkData();
     }, [click, user, postData._id]);
 
     // Update karma of post
@@ -61,17 +71,22 @@ export default function PostDetail() {
                 user: user,
                 postID: postData._id
             }
-            const res = await axios.put('/backend/posts/karma/' + userstatus, header);
-            if(res.status === 200) setPostData(res.data.post);
+            try {
+                const res = await axios.put('/backend/posts/karma/' + userstatus, header);
+                setPostData(res.data.post);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
-        if(userstatus === "like" || userstatus === "unlike") updateData();
+        if (userstatus === "like" || userstatus === "unlike") updateData();
     }, [userstatus, user, postData._id]);
 
     // Display karma update
     const karmaHandler = (e) => {
         e.preventDefault();
-        if(user === null) history.push(`/signin`);
-        setClickCount(click+1);
+        if (user === null) history.push(`/signin`);
+        setClickCount(click + 1);
     }
 
     // Add comment to post
@@ -93,39 +108,39 @@ export default function PostDetail() {
     }
 
     return (
-      <>
-        <div className="postPage-container">
-          <div className="post-container">
-            <div className="post-details">
-              <div className="like-container PostPage">
-                  <div className="upvote-container">
-                      <div className="upvote" onClick={e => { karmaHandler(e) }}>
-                          <i className="fa fa-angle-up"></i>
-                      </div>
-                  </div>
-                  <div style={{ color: "#0000FF" }}>{postData.title}</div>
-              </div>
- 
-              <div>
-                <div className="post-body">{postData.post_content}</div>
-                <div className="post-info">
-                    Posted By: 
-                    <span className="post-user underline" onClick={readProfile}> {postData.username} </span>
-                    on <br />
-                    <span style={{ color: "#007BFD", cursor: "pointer" }}>
-                        <Link to={`/community/${community.id}`}>
-                            {community.name}
-                        </Link>
-                    </span>
+        <>
+            <div className="postPage-container">
+                <div className="post-container">
+                    <div className="post-details">
+                        <div className="like-container PostPage">
+                            <div className="upvote-container">
+                                <div className="upvote" onClick={e => { karmaHandler(e) }}>
+                                    <i className="fa fa-angle-up"></i>
+                                </div>
+                            </div>
+                            <div style={{ color: "#0000FF" }}>{postData.title}</div>
+                        </div>
+
+                        <div>
+                            <div className="post-body">{postData.post_content}</div>
+                            <div className="post-info">
+                                Posted By:
+                                <span className="post-user underline" onClick={readProfile}> {postData.username} </span>
+                                on <br />
+                                <span style={{ color: "#007BFD", cursor: "pointer" }}>
+                                    <Link to={`/community/${community.id}`}>
+                                        {community.name}
+                                    </Link>
+                                </span>
+                            </div>
+                            <div className="post-info">
+                                Likes: {postData.karma} Comments: {comments.length}
+                            </div>
+                        </div>
+                    </div>
+                    <CommentList postData={postData} addComment={addComment} updateComment={updateComment} />
                 </div>
-                <div className="post-info">
-                    Likes: {postData.karma} Comments: {comments.length}
-                </div>
-              </div>
             </div>
-            <CommentList postData={postData} addComment={addComment} updateComment={updateComment} />
-          </div>
-        </div>
-      </>
+        </>
     );
-} 
+}

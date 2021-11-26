@@ -14,8 +14,13 @@ export default function Comment({comment, updateKarma, deleteComment}) {
     // Delete comment
     useEffect(() => {
         const deleteData = async () => {
-            const res = await axios.delete('/backend/comments/' + comment._id);
-            if(res.status === 200) deleteComment(comment._id);
+            try {
+                const res = await axios.delete('/backend/comments/' + comment._id);
+                if(res.status === 200) deleteComment(comment._id);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
         if(del) deleteData();
     }, [del, comment._id, deleteComment]);

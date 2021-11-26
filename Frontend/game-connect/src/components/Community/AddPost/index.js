@@ -11,18 +11,11 @@ export default function AddPost({id}) {
 
     const postHandler = (e) => {
         e.preventDefault();
-        if(user !== null) history.push('/postform/' + postID());
+        if(user !== null) history.push('/postform/' + id);
         else history.push(`/signin`);
     }
 
-    const postID = () => {
-        if(id !== '') {
-            id = id.substring(0, id.length - 1);
-        } else {
-            id = 0;
-        }
-        return id;
-    }
+    
 
     return (
         <div className="post-container">
