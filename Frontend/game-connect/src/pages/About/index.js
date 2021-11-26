@@ -40,7 +40,7 @@ export default function About() {
 
           <div className='individual'>
             <div className='individual-container'>
-              <img className='individual-profilePic' src='/avatar.png' alt='' />
+              <img className='individual-profilePic' src='/vignesht.jpg' alt='' />
               <h1 className='individual-name'>Vignesh Thyagarajan</h1>
               <h2 className='individual-role'>Software Engineer</h2>
               <span className='individual-detais'>Worked on home page components, backend routes, and integration</span>
