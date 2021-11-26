@@ -8,7 +8,7 @@ import Menu from '@material-ui/icons/Menu';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {Posts, AddPost} from '../';
 
-export default function MainBar({type, id}) {
+export default function MainBar({type}) {
 
     /*MERGE TEST COMMENT*/
     const URL = '/backend/posts/';
@@ -118,7 +118,7 @@ export default function MainBar({type, id}) {
             </div>
             {
                 type === 'community' ? null :
-                <AddPost id={id}/>
+                <AddPost id={typeCheck()}/>
             }
 
             {typeCheck() === "" &&

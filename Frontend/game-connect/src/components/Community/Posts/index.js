@@ -28,9 +28,7 @@ export default function Posts({post,updateKarma,deletePost}) {
             if(res.status === 200) setCommunity(res.data);
         };
         getData();
-    }, [user, post]);
-
-    console.log('Community', community.cover);
+    }, [user, post._id, post.community_id]);
 
     // Delete post and all related comments
     useEffect(() => {
@@ -89,7 +87,7 @@ export default function Posts({post,updateKarma,deletePost}) {
                 <span>{post.karma}</span>
             </div>
             <div className="post-title-main">
-                <img src={`http://${community.cover}`} alt="community cover"/>
+                {/*<img src={`http://${community.cover}`} alt="community cover"/>*/}
                 <span className="subreddit-name">
                     <Link to={`/community/${community.id}`} style={{textDecoration: "none"}}>
                         {community.name}

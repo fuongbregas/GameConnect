@@ -15,6 +15,7 @@ import {
   CreatePost,
   NotFound,
   Message,
+  ProfileImage,
   Game,
   GenreDisplay
 } from './pages';
