@@ -50,11 +50,11 @@ export default function About() {
 
           <div className='individual'>
             <div className='individual-container'>
-              <img className='individual-profilePic' src='/avatar.png' alt='' />
-              <h1 className='individual-name'>Deez</h1>
-              <h2 className='individual-role'>Nutz</h2>
-              <span className='individual-detais'>Lmao.</span>
-              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/fuongbregas/')}>Contact Me</button>
+              <img className='individual-profilePic' src='/vu_profile.jpg' alt='' />
+              <h1 className='individual-name'>Vu Nguyen</h1>
+              <h2 className='individual-role'>Machine Learning Engineer</h2>
+              <span className='individual-detais'>Recommended Systems, Web Scaling/Performance/Unit Testing, CI/CD pipeline.</span>
+              <button className='contact-button' onClick={() => handleClick('https://www.linkedin.com/in/vuhnguyen1/')}>Contact Me</button>
             </div>
           </div>
         </div>
