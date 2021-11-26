@@ -1,0 +1,12 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 70vh;
+    background-color: #242526;
+}
+
+.bottom {
+    height: 100%;
+    width: 100%;
+}

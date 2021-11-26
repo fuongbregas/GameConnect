@@ -1,0 +1,131 @@
+/*MERGE TEST COMMENT*/
+
+.main-bar {
+    flex: 0.65;   
+}
+
+.main-bar .popular-posts-title {
+    font-weight: 600;
+}
+
+.main-bar .update-card {
+    background-color: rgb(235, 225, 225);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgb(200,200,200);
+    margin-top: 15px;
+}
+
+.main-bar .update-card .top-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-bar .update-card .top-section span {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.main-bar .update-card .top-section svg {
+    font-size: 18px;
+}
+
+.main-bar .update-card .top-section svg:hover {
+    background-color: rgb(200,200,200);
+    color: black;
+    border-radius: 10px;
+}
+
+.main-bar .update-card .body {
+    margin: 15px 20px;
+    margin-bottom: 5px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgb(139, 133, 133);
+    display: flex;
+}
+
+.main-bar .update-card .body:hover {
+    cursor: pointer;
+    border: 1px solid rgb(65, 60, 60); 
+}
+
+.main-bar .update-card .body .context .title {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.main-bar .update-card .body .context .description {
+    font-size: 13px;
+}
+
+.main-bar .update-card .body img {
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    margin-right: 30px;
+}
+
+.main-bar .filter-container {
+    display: flex;
+    background-color: rgb(235, 225, 225);
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.main-bar .filter-container .filter-element {
+    display: flex;
+    color: blue;
+    background-color: rgb(245, 245, 245);
+    border-radius: 20px;
+    padding: 5px 8px;
+    margin: 0px 5px;
+    font-size: 15px;
+    align-items: center;
+}
+
+.main-bar .filter-container .filter-element:first-child {
+    margin-left: 0;
+}
+
+.main-bar .filter-container .filter-element-secondary {
+    display: flex;
+    align-items: center;
+    color: rgb(173, 166, 166);
+    padding: 5px 8px;
+    margin: 0px 5px;
+}
+
+.main-bar .filter-container .filter-element-secondary svg {
+    margin-right: 5px;
+}
+
+.main-bar .filter-container .filter-element-secondary:hover {
+    color: black;
+    background-color: rgb(245, 245, 245);
+    border-radius: 20px;
+}
+
+.main-bar .filter-container .filter-element-menu {
+    display: flex;
+    align-items: center;
+    color: blue;
+    padding: 5px 8px;
+}
+
+.main-bar .filter-container .filter-element-menu:hover {
+    background-color: rgb(245, 245, 245);
+    border-radius: 20px;
+}
+
+.bottom-container {
+    margin-left: 0px;
+}
+
+.nothing-here {
+    color: black;
+    text-align: center;
+} 

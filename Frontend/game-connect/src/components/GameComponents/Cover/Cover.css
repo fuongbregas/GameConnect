@@ -1,0 +1,17 @@
+.coverContainer {
+    display: flex;
+    flex-direction: column wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.coverImage {
+    object-fit: contain;
+    width: 70%;
+    height: 750px;
+    padding-top: 30px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}

@@ -1,0 +1,41 @@
+/*MERGE TEST COMMENT*/
+
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 15px;
+}    
+
+.messageTop {
+    display: flex;
+    
+}
+
+.messageText{
+    color: white;
+    background-color: #3e4042;
+    border-radius: 14px;
+    padding: 10px;
+    max-width: 300px;
+    align-self: center;
+    font-size: 20px;
+    font-weight: 100;
+    white-space: pre-line;
+    overflow-wrap: break-word;
+}
+
+.messageBottom {
+    font-size: 16px;
+    margin-top: 10px;
+    color: rgb(107, 107, 107);
+    font-weight: 100;
+}
+
+.message.own {
+    align-items: flex-end;
+}
+
+.message.own .messageText{
+    background-color: #0084ff;
+}
