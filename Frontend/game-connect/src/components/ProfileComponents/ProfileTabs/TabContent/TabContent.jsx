@@ -58,7 +58,7 @@ const TabContent = ({type, username, URL}) => {
                 }
             </div>
             {
-                data.length === 0 ? <h1 className = 'nothing-here'>Nothing yet</h1> :
+                data.length === 0 ? <h1 className = 'nothing'>Nothing yet</h1> :
                 <div className = 'bottom-container'>
                     <button className = 'page-button' onClick={goBack} disabled = {
                                 pageNumber === 1 ? true : false

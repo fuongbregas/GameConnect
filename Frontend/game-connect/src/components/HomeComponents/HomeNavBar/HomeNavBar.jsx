@@ -2,15 +2,19 @@ import { React, useContext, useRef } from 'react';
 import {AuthContext} from '../../../context/AuthContext';
 import './HomeNavBar.css';
 
-const HomeNavBar = ({setSearchValue, setNavState}) => {
+const HomeNavBar = ({setPageNumber, setSearchValue, setNavState}) => {
     const searchInput = useRef();
     const {user} = useContext(AuthContext);
 
     //Search function
-    const searchGames = async(event) => {
+    const searchGames = (event) => {
         event.preventDefault();
         const search = searchInput.current.value;
         setSearchValue(search);
+    }
+
+    const resetPageNumber = () => {
+        setPageNumber(1);
     }
 
     return(
@@ -29,21 +33,9 @@ const HomeNavBar = ({setSearchValue, setNavState}) => {
                 </div>
             </div>
 
-            {user ?
-                <div className='SecondNavBarContainer'>
-                    <div className='LinkContainer'>
-                        <div className='NavbarLink' onClick={() => setNavState('Recommendations')}>
-                            Recommendations
-                        </div>
-                    </div>
-                </div>
-                : null
-            }
-            
-
             <div className='SecondNavBarContainer'>
                 <div className='LinkContainer'>
-                        <div className = 'NavbarLink' onClick={() => setNavState('New Releases')}>
+                        <div className = 'NavbarLink' onClick={() => {setNavState('New Releases'); resetPageNumber();}}>
                             New Releases
                         </div>
                 </div>
@@ -51,7 +43,7 @@ const HomeNavBar = ({setSearchValue, setNavState}) => {
 
             <div className='SecondNavBarContainer'>
                 <div className='LinkContainer'>
-                        <div className = 'NavbarLink' onClick={() => setNavState('Discover Games')}>
+                        <div className = 'NavbarLink' onClick={() => {setNavState('Discover Games'); resetPageNumber();}}>
                             Discover Games
                         </div>
                 </div>
@@ -59,15 +51,24 @@ const HomeNavBar = ({setSearchValue, setNavState}) => {
             {user ?
                 <div className='SecondNavBarContainer'>
                     <div className='LinkContainer'>
-                        <div className='NavbarLink' onClick={() => setNavState('Saved Games')}>
+                        <div className='NavbarLink' onClick={() => {setNavState('Saved Games'); resetPageNumber();}}>
                             Saved Games
                         </div>
                     </div>
                 </div>
                 : null
             }
-            
-            
+
+            {user ?
+                <div className='SecondNavBarContainer'>
+                    <div className='LinkContainer'>
+                        <div className='NavbarLink' onClick={() => { setNavState('Recommendations'); resetPageNumber(); }}>
+                            Recommendations
+                        </div>
+                    </div>
+                </div>
+                : null
+            }
         </div>
     );
 }

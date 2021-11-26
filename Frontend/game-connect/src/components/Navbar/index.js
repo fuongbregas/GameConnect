@@ -19,6 +19,7 @@ import {
 const Navbar = () => {
     const [isOpen, setisOpen] = useState(false);
     const {user} = useContext(AuthContext);
+    /*MERGE TEST COMMENT*/
 
     const toggle = () => {
       setisOpen(!isOpen);
