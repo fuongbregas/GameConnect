@@ -13,7 +13,7 @@ export default function Posts({post,updateKarma,deletePost}) {
     const URL = '/backend/posts/';
     const { user } = useContext(AuthContext);
     const history = useHistory();
-    const [click, setClickCount] = useState(0);
+    //const [click, setClickCount] = useState(0);
     const [userstatus, setUserStatus] = useState("");
     //const [del, setDelete] = useState(false);
     const [comments, setComments] = useState([]);
