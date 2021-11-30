@@ -16,6 +16,7 @@ const Messenger = ({socket}) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [arrivalConversation, setArrivalConversation] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     // For pagination
     const [nextData, setNextData] = useState([]);
@@ -40,7 +41,6 @@ const Messenger = ({socket}) => {
         scrollRef.current?.scrollIntoView();
     }, [messages]);
 
-    // Run socket connection once
     useEffect(() => {
         let mounted = true;
         //socket.current = io(link);
@@ -60,6 +60,22 @@ const Messenger = ({socket}) => {
             mounted = false;
         };
     }, /*[link]*/[socket]);
+
+    // Add new conversation
+    useEffect(() => {
+        let mounted = true;
+
+        // Get message from socket
+        socket.current.on('getConversation', data => {
+            if (mounted) {
+                setArrivalConversation(data.new_conversation);
+            }
+        });
+
+        return function cleanup() {
+            mounted = false;
+        };
+    }, [socket]);
 
     // Add user to socket
     useEffect(() => {
@@ -105,6 +121,35 @@ const Messenger = ({socket}) => {
     }, [arrivalMessage, currentChat]);
 
     // Changes if there is new conversation
+    useEffect(() => {
+        const source = axios.CancelToken.source();
+        const getConversations = async () => {
+            try {
+                const res = await axios.get("backend/conversations/" + user, {
+                    cancelToken: source.token,
+                });
+                setConversations(res.data);
+            }
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
+            }
+        };
+
+        if(arrivalConversation!== null && !conversations.includes(arrivalConversation)) {
+            getConversations();
+            setArrivalConversation(null);
+        }
+        
+        return () => {
+            source.cancel();
+        }
+        
+    }, [arrivalConversation, conversations, user]);
+    
     useEffect(() => {
         const source = axios.CancelToken.source();
         const getConversations = async () => {

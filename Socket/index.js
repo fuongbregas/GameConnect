@@ -53,7 +53,15 @@ io.on('connection', (socket) => {
     });
 
     // Send & get a conversation
-    
+    socket.on('conversation', ({receiver, new_conversation}) => {
+        const user = getUser(receiver);
+        //console.log(sender+ receiver + new_conversation);
+        if (user !== undefined) {
+            io.to(user.socketID).emit('getConversation', {
+                new_conversation,
+            });
+        }
+    });
 
     // User disconnect
     socket.on('disconnect', () => {
