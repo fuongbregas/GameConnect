@@ -1,10 +1,10 @@
 import React from 'react';
 import { MessengerForm } from '../../components';
 
-export default function Message() {
+export default function Message({socket}) {
     return(
         <>
-          <MessengerForm/>
+          <MessengerForm socket={socket}/>
         </>
     );
 }
