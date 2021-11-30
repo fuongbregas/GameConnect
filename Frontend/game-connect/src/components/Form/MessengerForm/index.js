@@ -59,7 +59,7 @@ const Messenger = ({socket}) => {
         return function cleanup() {
             mounted = false;
         };
-    }, /*[link]*/[]);
+    }, /*[link]*/[socket]);
 
     // Add user to socket
     useEffect(() => {
@@ -78,7 +78,7 @@ const Messenger = ({socket}) => {
             mounted = false;
         };
 
-    }, [user]);
+    }, [user, socket]);
 
     // Remove a user from socket
     useEffect(() => {
@@ -96,7 +96,7 @@ const Messenger = ({socket}) => {
         return function cleanup() {
             mounted = false;
         };
-    }, [user]);
+    }, [user, socket]);
 
     // if there is new message
     useEffect(() => {
