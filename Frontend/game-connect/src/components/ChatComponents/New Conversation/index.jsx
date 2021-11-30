@@ -89,7 +89,7 @@ const NewConversation = ({setCurrentChat, setConversations, setMessages, socket}
                 
                 socket.current.emit('sendMessage', {
                     sender: user,
-                    receiver,
+                    receiver: receiver_user,
                     message_content: message_content,
                 });
             }
