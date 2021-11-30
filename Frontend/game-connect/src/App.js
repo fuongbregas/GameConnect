@@ -32,6 +32,8 @@ function App() {
   const ip = process.env.REACT_APP_IP;
   const link = 'ws://' + ip + ':6969';
   socket.current = io(link);
+  // Add user to Socket
+  socket.current.emit('addUser', user);
 
   return (
     <div className="App">

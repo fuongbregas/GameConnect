@@ -80,9 +80,7 @@ const Messenger = ({socket}) => {
     // Add user to socket
     useEffect(() => {
         let mounted = true;
-        // Add user to Socket
-        socket.current.emit('addUser', user);
-
+        
         // Get all users from socket server
         socket.current.on('getUsers', users => {
             if (mounted) {
