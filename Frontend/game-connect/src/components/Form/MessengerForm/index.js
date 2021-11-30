@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 import Conversation from '../../ChatComponents/Conversation/index'
 import Message from '../../ChatComponents/Message/index'
 import Online from '../../ChatComponents/Online/index'
@@ -8,7 +8,7 @@ import './MessengerFormElements.css'
 import { React, useContext, useEffect, useState, useRef, } from 'react';
 import { MdCreate } from 'react-icons/md'
 import { AuthContext } from '../../../context/AuthContext';
-const Messenger = () => {
+const Messenger = ({socket}) => {
 
     // All the states of different components
     const [conversations, setConversations] = useState([]);
@@ -25,9 +25,9 @@ const Messenger = () => {
     const { user } = useContext(AuthContext);
 
     // Socket reference
-    const socket = useRef();
-    const ip = process.env.REACT_APP_IP;
-    const link = 'ws://' + ip + ':6969';
+    //const socket = useRef();
+    //const ip = process.env.REACT_APP_IP;
+    //const link = 'ws://' + ip + ':6969';
     // Autoscroll when new message added
     const scrollRef = useRef();
 
@@ -43,7 +43,7 @@ const Messenger = () => {
     // Run socket connection once
     useEffect(() => {
         let mounted = true;
-        socket.current = io(link);
+        //socket.current = io(link);
 
         // Get message from socket
         socket.current.on('getMessage', data => {
@@ -59,7 +59,7 @@ const Messenger = () => {
         return function cleanup() {
             mounted = false;
         };
-    }, [link]);
+    }, /*[link]*/[]);
 
     // Add user to socket
     useEffect(() => {
@@ -293,7 +293,7 @@ const Messenger = () => {
                                             newMessage === '' ? true : false
                                         }>Send</button>
                                     </div>
-                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber} />
+                                </> : <NewConversation setCurrentChat={setCurrentChat} setConversations={setConversations} setMessages={setMessages} setPageNumber={setPageNumber} socket={socket} />
                         }
                     </div>
                 </div>

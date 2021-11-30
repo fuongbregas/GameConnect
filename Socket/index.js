@@ -12,7 +12,8 @@ let users = [];
 const addUser = (userName, socketID) => {
     removeUserName(userName);
     users.push({userName, socketID});
-    console.log('Socket', users);
+    console.log('Users in Socket: ', users);
+    console.log('Total users in Socket:', users.length);
 }
 
 // get user from the 'user' array
@@ -43,13 +44,16 @@ io.on('connection', (socket) => {
     // Send & get a message
     socket.on('sendMessage', ({sender, receiver, message_content}) => {
         const user = getUser(receiver); // Receiver username & socketID
-        console.log('Receiver', user);
+        //console.log('Receiver', user);
         if (user !== undefined) {
             io.to(user.socketID).emit('getMessage', {
                 sender, message_content,
             });
         }
     });
+
+    // Send & get a conversation
+    
 
     // User disconnect
     socket.on('disconnect', () => {
@@ -58,5 +62,5 @@ io.on('connection', (socket) => {
         io.emit('getUsers', users);
     });
 
-    console.log('Total users in Socket', users.length);
+    //console.log('Total users in Socket', users.length);
 });

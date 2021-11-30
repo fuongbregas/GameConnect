@@ -12,7 +12,7 @@ import {Background,
     } from './NewConversationElement';
     import {AuthContext} from '../../../context/AuthContext';
 
-const NewConversation = ({setCurrentChat, setConversations, setMessages}) => {
+const NewConversation = ({setCurrentChat, setConversations, setMessages, socket}) => {
     const {user} = useContext(AuthContext);
     const receiver = useRef();
     const messageText = useRef();
@@ -86,6 +86,12 @@ const NewConversation = ({setCurrentChat, setConversations, setMessages}) => {
                 setConversations(res.data.conversations);
                 setMessages(res.data.messages);
                 setCurrentChat(res.data.savedConversation);
+                
+                socket.current.emit('sendMessage', {
+                    sender: user,
+                    receiver,
+                    message_content: message_content,
+                });
             }
             else {
                 const data = {

@@ -1,4 +1,6 @@
 import './App.css';
+import {React, useEffect, useRef} from 'react';
+import { io } from 'socket.io-client';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import { Navbar, Footer, Signoff } from './components';
 import { 
@@ -24,8 +26,16 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-  /*MERGE TEST COMMENT*/
+
+  // Socket reference
+  const socket = useRef();
+  const ip = process.env.REACT_APP_IP;
+  const link = 'ws://' + ip + ':6969';
   
+  useEffect(() => {
+    socket.current = io(link);
+  }, [link]);
+
   return (
     <div className="App">
       <Router>
@@ -52,7 +62,7 @@ function App() {
           </Route>
 
           <Route exact path='/message'>
-            {user ? <Message/> : <Redirect to = "/"/> }
+            {user ? <Message socket = {socket}/> : <Redirect to = "/"/> }
           </Route>
           <Route exact path='/community'><Community/></Route>
           <Route path="/signoff" exact ><Signoff/></Route>
