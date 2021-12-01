@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
     // Send & get a conversation
     socket.on('conversation', ({receiver, new_conversation}) => {
         const user = getUser(receiver);
-        //console.log(sender+ receiver + new_conversation);
+        console.log(receiver, new_conversation);
         if (user !== undefined) {
             io.to(user.socketID).emit('getConversation', {
                 new_conversation,
@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
         console.log('A user disconnected from your channel');
         removeUser(socket.id);
         io.emit('getUsers', users);
+        console.log('Users in Socket: ', users);
     });
 
     //console.log('Total users in Socket', users.length);

@@ -24,7 +24,7 @@ const Messenger = ({socket}) => {
 
     // Username
     const { user } = useContext(AuthContext);
-
+    
     // Socket reference
     //const socket = useRef();
     //const ip = process.env.REACT_APP_IP;
@@ -80,6 +80,8 @@ const Messenger = ({socket}) => {
     // Add user to socket
     useEffect(() => {
         let mounted = true;
+        // Add user to Socket
+        socket.current.emit('addUser', user);
         
         // Get all users from socket server
         socket.current.on('getUsers', users => {

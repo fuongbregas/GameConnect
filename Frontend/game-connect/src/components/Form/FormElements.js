@@ -86,8 +86,7 @@ export const FormInput = styled.input`
   border: none;
   border-radius: 4px;
   font-size: 20px;
-  /*MERGE TEST COMMENT*/
-  color: black;
+  color: white;
 `
 
 export const FormButton = styled.button`
