@@ -56,11 +56,19 @@ const Messenger = ({socket}) => {
             }
         });
 
+        // Get message from socket
+        socket.current.on('getConversation', data => {
+            if (mounted) {
+                setArrivalConversation(data.new_conversation);
+            }
+        });
+
         return function cleanup() {
             mounted = false;
         };
     }, /*[link]*/[socket]);
 
+    /*
     // Add new conversation
     useEffect(() => {
         let mounted = true;
@@ -75,14 +83,14 @@ const Messenger = ({socket}) => {
         return function cleanup() {
             mounted = false;
         };
-    }, [socket]);
+    }, [socket]);*/
 
     // Add user to socket
     useEffect(() => {
         let mounted = true;
         // Add user to Socket
         socket.current.emit('addUser', user);
-        
+
         // Get all users from socket server
         socket.current.on('getUsers', users => {
             if (mounted) {
@@ -129,6 +137,7 @@ const Messenger = ({socket}) => {
                     cancelToken: source.token,
                 });
                 setConversations(res.data);
+                setArrivalConversation(null);
             }
             catch (error) {
                 if (axios.isCancel(error)) {
@@ -141,7 +150,6 @@ const Messenger = ({socket}) => {
 
         if(arrivalConversation!== null && !conversations.includes(arrivalConversation)) {
             getConversations();
-            setArrivalConversation(null);
         }
         
         return () => {
