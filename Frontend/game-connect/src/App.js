@@ -33,7 +33,9 @@ function App() {
   const link = 'ws://' + ip + ':6969';
   socket.current = io(link);
   // Add user to Socket
-  socket.current.emit('addUser', user);
+  if (user !== null) {
+    socket.current.emit('addUser', user);
+  }
 
   return (
     <div className="App">
