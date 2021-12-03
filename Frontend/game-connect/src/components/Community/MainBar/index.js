@@ -19,6 +19,7 @@ export default function MainBar({type}) {
 
     // Preload post data
     useEffect(() => {
+        const source = axios.CancelToken.source();
         // Get full path of api
         const getURL = () => {
             if(type === "subcommunity") {
@@ -44,26 +45,41 @@ export default function MainBar({type}) {
         // Get post data for current page
         const getData = async () => {
             try {
-                const res = await axios.get(URL + getURL() + pageNumber);
+                const res = await axios.get(URL + getURL() + pageNumber, {
+                    cancelToken: source.token,
+                });
                 setPosts(res.data);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         // Get post data for next page
         const getNextData = async () => {
             try {
                 const nextPage = pageNumber + 1;
-                const res = await axios.get(URL + getURL() + nextPage);
+                const res = await axios.get(URL + getURL() + nextPage, {
+                    cancelToken: source.token,
+                });
                 setNextPosts(res.data);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         getData();
         getNextData();
+        return () => {
+            source.cancel();
+        }
     }, [pageNumber, filter, type, id]);
 
     const typeCheck = () => {

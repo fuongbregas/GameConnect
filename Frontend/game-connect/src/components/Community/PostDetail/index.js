@@ -23,66 +23,108 @@ export default function PostDetail() {
 
     // Fetch single post and community data
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const fetchData = async () => {
             try {
-                let res = await axios.get('/backend/posts/' + postid);
+                let res = await axios.get('/backend/posts/' + postid, {
+                    cancelToken: source.token,
+                });
                 setPostData(res.data.post);
                 setAPIURL(res.data.api)
-                res = await axios.get('/backend/communities/' + (res.data.post.community_id).toString());
+                res = await axios.get('/backend/communities/' + (res.data.post.community_id).toString(), {
+                    cancelToken: source.token,
+                });
                 setCommunity(res.data);
             }
-            catch (err) {
-                console.log(err);
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         fetchData();
+        return () => {
+            source.cancel();
+        }
     }, [initial, postid]);
 
     // Get comments info
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getCommentData = async () => {
             try {
-                const res = await axios.get('/backend/comments/' + postid);
+                const res = await axios.get('/backend/comments/' + postid, {
+                    cancelToken: source.token,
+                });
                 setComments(res.data);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         getCommentData();
+        return () => {
+            source.cancel();
+        }
     }, [user, postid]);
 
     // Check if user already like post
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const checkData = async () => {
             try {
-                const res = await axios.get('/backend/posts/karma/' + user + "/" + postData._id);
+                const res = await axios.get('/backend/posts/karma/' + user + "/" + postData._id, {
+                    cancelToken: source.token,
+                });
                 if (res.data === "Liked") setUserStatus("unlike");
                 else if (res.data === "Unliked") setUserStatus("like");
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         if (click > 0) checkData();
+        return () => {
+            source.cancel();
+        }
     }, [click, user, postData._id]);
 
     // Update karma of post
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const updateData = async () => {
             const header = {
                 user: user,
                 postID: postData._id
             }
             try {
-                const res = await axios.put('/backend/posts/karma/' + userstatus, header);
+                const res = await axios.put('/backend/posts/karma/' + userstatus, header, {
+                    cancelToken: source.token,
+                });
                 setPostData(res.data.post);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         };
         if (userstatus === "like" || userstatus === "unlike") updateData();
+        return () => {
+            source.cancel();
+        }
     }, [userstatus, user, postData._id]);
 
     // Display karma update

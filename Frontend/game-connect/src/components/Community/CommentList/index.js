@@ -19,30 +19,47 @@ export default function CommentList({ postData, addComment, updateComment }) {
 
   // Preload post data
   useEffect(() => {
+    const source = axios.CancelToken.source();
     // Get post data for current page
     const getData = async () => {
       try {
-        const res = await axios.get(URL + 'post/' + postid + "/" + pageNumber);
+        const res = await axios.get(URL + 'post/' + postid + "/" + pageNumber, {
+          cancelToken: source.token,
+        });
         setCommentData(res.data);
       }
       catch (error) {
-        console.log(error);
-      }
+        if (axios.isCancel(error)) {
 
+        } else {
+          console.log(error);
+        }
+      }
     };
+
     // Get post data for next page
     const getNextData = async () => {
       try {
         const nextPage = pageNumber + 1;
-        const res = await axios.get(URL + 'post/' + postid + "/" + nextPage);
+        const res = await axios.get(URL + 'post/' + postid + "/" + nextPage, {
+          cancelToken: source.token,
+        });
         setNextComments(res.data);
       }
       catch (error) {
-        console.log(error);
+        if (axios.isCancel(error)) {
+
+        } else {
+          console.log(error);
+        }
       }
     };
+
     getData();
     getNextData();
+    return () => {
+      source.cancel();
+    }
   }, [pageNumber, postid]);
 
   const goNext = () => {

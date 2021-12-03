@@ -6,9 +6,12 @@ const Cover = ({gameID, setError}) => {
     const [cover, setCover] = useState('');
 
     useEffect (() => {
+        const source = axios.CancelToken.source();
         const getImage = async () => {
             try {
-                const res = await axios.get('/backend/game/get_one_game_image/' + gameID);
+                const res = await axios.get('/backend/game/get_one_game_image/' + gameID, {
+                    cancelToken: source.token,
+                });
                 // Need http header to work correctly
                 if(res.data === null ) {
     
@@ -18,11 +21,18 @@ const Cover = ({gameID, setError}) => {
                 }
             }
             catch (error) {
-                setError(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         }
         
         getImage();
+        return () => {
+            source.cancel();
+        }
     }, [gameID, setError]);
 
     return (

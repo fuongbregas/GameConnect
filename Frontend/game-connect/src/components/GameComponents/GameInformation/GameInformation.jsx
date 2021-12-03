@@ -12,9 +12,12 @@ const GameInformation = ({gameID}) => {
     const [rating, setRating] = useState(0);
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getGameInfo = async () => {
             try {
-                const res = await axios.get('/backend/game/get_one_game/' + gameID);
+                const res = await axios.get('/backend/game/get_one_game/' + gameID, {
+                    cancelToken: source.token,
+                });
                 setGameInfo(res.data);
                 setRating(Math.round(res.data.rating));
                 if (rating > 50) {
@@ -22,11 +25,19 @@ const GameInformation = ({gameID}) => {
                 }
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         }
 
         getGameInfo();
+        return () => {
+            source.cancel();
+        }
+        
     }, [gameID, rating]);
 
     return (

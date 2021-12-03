@@ -12,18 +12,28 @@ const RequestButton = ({username}) => {
     const [friendStatus, setFriendStatus] = useState(null);
 
     useEffect (() => {
+        const source = axios.CancelToken.source();
         // Get friend status between two users
         const checkFriendStatus = async () => {
             try {
-                const res = await axios.get('/backend/users/friends/' + user + '/' + username);
+                const res = await axios.get('/backend/users/friends/' + user + '/' + username, {
+                    cancelToken: source.token,
+                });
                 setFriendStatus(res.data);
             }
             catch (error) {
-                console.error(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }        
         }
         if (user !== null) {
             checkFriendStatus();
+        }
+        return () => {
+            source.cancel();
         }
         
     }, [user, username])

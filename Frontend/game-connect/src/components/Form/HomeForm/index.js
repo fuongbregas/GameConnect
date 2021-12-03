@@ -1,11 +1,9 @@
-import {React, useEffect, useState} from 'react';
+import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import HomeNavBar from '../../HomeComponents/HomeNavBar/HomeNavBar';
 import DisplaySearch from '../../HomeComponents/DisplaySearch/DisplaySearch';
 import GenreList from '../../HomeComponents/GenreList/GenreList';
 import DisplayOptions from '../../HomeComponents/DisplayOptions/DisplayOptions';
-
-
 import {
   HomeContainer,
   MainFeatureContainer,
@@ -21,56 +19,76 @@ const HomeForm = () => {
   const [navState, setNavState] = useState('New Releases');
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     const getSearchData = async () => {
-        //setPageNumber(1);
-        try {
-            const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + pageNumber);
-            setSearchedGame(res.data);
-        } catch (error) {
-            console.log(error);
+      //setPageNumber(1);
+      try {
+        const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + pageNumber, {
+          cancelToken: source.token,
+        });
+        setSearchedGame(res.data);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+
+        } else {
+          console.log(error);
         }
+      }
     }
-    if(searchValue !== ''){
+    if (searchValue !== '') {
       getSearchData();
     }
-}, [searchValue, pageNumber]);
-
-useEffect(() => {
-  const getNextSearchData = async () =>{
-    try{
-      const nextPageNumber = pageNumber + 1;
-      const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + nextPageNumber);
-      setNextSearchedGame(res.data);
-    }catch(error){
-      console.log(error);
+    return () => {
+      source.cancel();
     }
-  }
-  if(searchValue !== ''){
-    getNextSearchData();
-  }
-}, [searchValue, pageNumber]);
+  }, [searchValue, pageNumber]);
 
-    return(
-      <>
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getNextSearchData = async () => {
+      try {
+        const nextPageNumber = pageNumber + 1;
+        const res = await axios.get("/backend/game/autosearch/" + searchValue + "/" + nextPageNumber, {
+          cancelToken: source.token,
+        });
+        setNextSearchedGame(res.data);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+
+        } else {
+          console.log(error);
+        }
+      }
+    }
+    if (searchValue !== '') {
+      getNextSearchData();
+    }
+    return () => {
+      source.cancel();
+    }
+  }, [searchValue, pageNumber]);
+
+  return (
+    <>
       {searchedGame === null ?
 
         <HomeContainer>
           <GenreListContainer>
-            <GenreList/>
+            <GenreList />
           </GenreListContainer>
 
           <MainFeatureContainer>
             <RightSideBox>
-              <HomeNavBar setPageNumber={setPageNumber} setSearchValue={setSearchValue} setNavState={setNavState}/>
-              <DisplayOptions pageNumber={pageNumber} setPageNumber={setPageNumber} navState={navState}/>
+              <HomeNavBar setPageNumber={setPageNumber} setSearchValue={setSearchValue} setNavState={setNavState} />
+              <DisplayOptions pageNumber={pageNumber} setPageNumber={setPageNumber} navState={navState} />
             </RightSideBox>
-            
+
           </MainFeatureContainer>
         </HomeContainer> :
-        <DisplaySearch searchedGame={searchedGame} setSearchedGame={setSearchedGame} nextSearchedGame = {nextSearchedGame} setNextSearchedGame = {setNextSearchedGame} pageNumber= {pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue}/>
+        <DisplaySearch searchedGame={searchedGame} setSearchedGame={setSearchedGame} nextSearchedGame={nextSearchedGame} setNextSearchedGame={setNextSearchedGame} pageNumber={pageNumber} setPageNumber={setPageNumber} setSearchValue={setSearchValue} />
       }
-      </>
-    );
+    </>
+  );
 }
 
 export default HomeForm;

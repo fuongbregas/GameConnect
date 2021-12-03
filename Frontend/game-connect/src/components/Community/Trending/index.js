@@ -11,11 +11,26 @@ export default function Trending() {
 
     // Get top 5 games
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getData = async () => {
-            const res = await axios.get('/backend/game/top');
-            setTop(res.data);
+            try {
+                const res = await axios.get('/backend/game/top', {
+                    cancelToken: source.token,
+                });
+                setTop(res.data);
+            }
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
+            }
         };
         getData();
+        return () => {
+            source.cancel();
+        }
     }, [initial]);
 
     // Get full path to image cover

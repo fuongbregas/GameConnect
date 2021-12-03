@@ -11,17 +11,28 @@ const GameTab = ({gameInfo, gameID}) => {
     const [gameStatus, setGameStatus] = useState('');
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getGameStatus = async () => {
             try {
-                const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID);
+                const res = await axios.get('/backend/savedGames/saved_games/'+ user + '/' + gameID, {
+                    cancelToken: source.token,
+                });
                 setGameStatus(res.data);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
         }
         if(user !== null) {
             getGameStatus();
+        }
+
+        return () => {
+            source.cancel();
         }
     }, [user, gameID]);
 

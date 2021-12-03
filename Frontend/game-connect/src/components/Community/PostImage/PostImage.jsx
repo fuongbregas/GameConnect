@@ -11,6 +11,7 @@ const PostImage = ({ album, imageURL }) => {
     }
 
     useEffect(() => {
+        let mounted = true;
         const getImages = () => {
             const clientID = "Client-ID " + client_id;
             var myHeaders = new Headers();
@@ -35,13 +36,19 @@ const PostImage = ({ album, imageURL }) => {
                     }
 
                     // Set images with imageURLs
-                    setImages(imageURLs);
+                    if (mounted) {
+                        setImages(imageURLs);
+                    }
                 })
                 .catch(error => console.log('error', error));
         }
         if (imageURL !== '') {
             getImages();
         }
+
+        return function cleanup() {
+            mounted = false;
+        };
         
     }, [client_id, imageURL]);
 

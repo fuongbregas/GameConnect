@@ -40,11 +40,29 @@ const GenreDisplay = () => {
     }
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
+        
         const grabGenreGames = async() => {
-            const res = await axios.get('/backend/game/genres/' + genreID + '/' + genrePageNumber);
-            setGenreGames(res.data);
+            try {
+                const res = await axios.get('/backend/game/genres/' + genreID + '/' + genrePageNumber, {
+                    cancelToken: source.token,
+                });
+                setGenreGames(res.data);
+            }
+
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
+            }
         }
         grabGenreGames();
+
+        return () => {
+            source.cancel();
+        }
     }, [genreID, genrePageNumber]);
 
     return(

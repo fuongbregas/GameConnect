@@ -21,40 +21,61 @@ export default function Posts({post,updateKarma,deletePost}) {
 
     // Get comments
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getData = async () => {
             try {
-                let res = await axios.get('/backend/comments/' + post._id);
+                let res = await axios.get('/backend/comments/' + post._id, {
+                    cancelToken: source.token,
+                });
                 if(res.status === 200) setComments(res.data);
-                res = await axios.get('/backend/communities/' + (post.community_id).toString());
+                res = await axios.get('/backend/communities/' + (post.community_id).toString(), {
+                    cancelToken: source.token,
+                });
                 if(res.status === 200) setCommunity(res.data);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
             
         };
         getData();
+        return () => {
+            source.cancel();
+        }
     }, [user, post]);
 
     // Update karma of post
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const updateData = async () => {
             try {
                 const header = {
                     user: user,
                     postID: post._id
                 }
-                const res = await axios.put(URL + 'karma/' + userstatus, header);
+                const res = await axios.put(URL + 'karma/' + userstatus, header, {
+                    cancelToken: source.token,
+                });
                 updateKarma(post._id, res.data.post);
             }
             catch (error) {
-                console.log(error);
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
             }
             
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
-        // eslint-disable-next-line
-    }, [userstatus]);
+        return () => {
+            source.cancel();
+        }
+    }, [userstatus, updateKarma, user, post]);
 
     const karmaHandler = async (e) => {
         e.preventDefault();

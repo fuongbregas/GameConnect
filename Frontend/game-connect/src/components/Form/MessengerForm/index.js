@@ -68,23 +68,6 @@ const Messenger = ({socket}) => {
         };
     }, /*[link]*/[socket]);
 
-    /*
-    // Add new conversation
-    useEffect(() => {
-        let mounted = true;
-
-        // Get message from socket
-        socket.current.on('getConversation', data => {
-            if (mounted) {
-                setArrivalConversation(data.new_conversation);
-            }
-        });
-
-        return function cleanup() {
-            mounted = false;
-        };
-    }, [socket]);*/
-
     // Add user to socket
     useEffect(() => {
         let mounted = true;

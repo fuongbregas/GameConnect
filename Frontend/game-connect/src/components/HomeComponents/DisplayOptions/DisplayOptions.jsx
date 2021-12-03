@@ -12,56 +12,98 @@ const DisplayOptions = ({navState, pageNumber, setPageNumber}) => {
     const history = useHistory();
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const grabGameData = async() => {
-            if(navState === 'Saved Games'){
-                if(user !== null){
-                    const res = await axios.get('/backend/savedGames/' + user + '/' + pageNumber);
+            try {
+                if(navState === 'Saved Games'){
+                    if(user !== null){
+                        const res = await axios.get('/backend/savedGames/' + user + '/' + pageNumber, {
+                            cancelToken: source.token,
+                        });
+                        setData(res.data);
+                    }
+                }
+                else if(navState === 'Discover Games'){
+                    const res = await axios.get('/backend/game/get_rated_game/' + pageNumber, {
+                        cancelToken: source.token,
+                    });
+                    setData(res.data);
+                }
+                else if(navState === 'Recommendations'){
+                    if(user !== null){
+                        const res = await axios.get('backend/game/get_recommended_game/' + user + '/' + pageNumber, {
+                            cancelToken: source.token,
+                        });
+                        setData(res.data);
+                    }
+                }
+                else if(navState === 'New Releases'){
+                    const res = await axios.get('/backend/game/get_new_games/' + pageNumber, {
+                        cancelToken: source.token,
+                    });
                     setData(res.data);
                 }
             }
-            else if(navState === 'Discover Games'){
-                const res = await axios.get('/backend/game/get_rated_game/' + pageNumber);
-                setData(res.data);
-            }
-            else if(navState === 'Recommendations'){
-                if(user !== null){
-                    const res = await axios.get('backend/game/get_recommended_game/' + user + '/' + pageNumber);
-                    setData(res.data);
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
                 }
-            }
-            else if(navState === 'New Releases'){
-                const res = await axios.get('/backend/game/get_new_games/' + pageNumber);
-                setData(res.data);
             }
         }
         grabGameData();
+        return () => {
+            source.cancel();
+        }
     }, [pageNumber, user, navState]);
 
     useEffect(() => {
         const nextPageNumber = pageNumber + 1;
+        const source = axios.CancelToken.source();
         const grabNextGameData = async() => {
-            if(navState === 'Saved Games'){
-                if(user !== null){
-                    const res = await axios.get('/backend/savedGames/' + user + '/' + nextPageNumber);
+            try {
+                if(navState === 'Saved Games'){
+                    if(user !== null){
+                        const res = await axios.get('/backend/savedGames/' + user + '/' + nextPageNumber, {
+                            cancelToken: source.token,
+                        });
+                        setNextData(res.data);
+                    }
+                }
+                else if(navState === 'Discover Games'){
+                    const res = await axios.get('/backend/game/get_rated_game/' + pageNumber, {
+                        cancelToken: source.token,
+                    });
+                    setNextData(res.data);
+                }
+                else if(navState === 'Recommendations'){
+                    if(user !== null){
+                        const res = await axios.get('backend/game/get_recommended_game/' + user + '/' + pageNumber, {
+                            cancelToken: source.token,
+                        });
+                        setNextData(res.data);
+                    }
+                }
+                else if(navState === 'New Releases'){
+                    const res = await axios.get('/backend/game/get_new_games/' + pageNumber, {
+                        cancelToken: source.token,
+                    });
                     setNextData(res.data);
                 }
             }
-            else if(navState === 'Discover Games'){
-                const res = await axios.get('/backend/game/get_rated_game/' + pageNumber);
-                setNextData(res.data);
-            }
-            else if(navState === 'Recommendations'){
-                if(user !== null){
-                    const res = await axios.get('backend/game/get_recommended_game/' + user + '/' + pageNumber);
-                    setNextData(res.data);
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
                 }
-            }
-            else if(navState === 'New Releases'){
-                const res = await axios.get('/backend/game/get_new_games/' + pageNumber);
-                setNextData(res.data);
             }
         }
         grabNextGameData();
+        return () => {
+            source.cancel();
+        }
     }, [pageNumber, user, navState]);
 
     const textToReturn = (navState) => {

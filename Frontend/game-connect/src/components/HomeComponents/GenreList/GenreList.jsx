@@ -12,11 +12,27 @@ const GenreList = () => {
     }
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const grabGenreList = async() => {
-            const res = await axios.get('/backend/game/genres');
+            try {
+                const res = await axios.get('/backend/game/genres', {
+                    cancelToken: source.token,
+                });
             setGenreList(res.data);
+            }
+            catch (error) {
+                if (axios.isCancel(error)) {
+
+                } else {
+                    console.log(error);
+                }
+            }
         }
         grabGenreList();
+
+        return () => {
+            source.cancel();
+        }
     }, [])
 
     return(

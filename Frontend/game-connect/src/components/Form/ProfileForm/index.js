@@ -15,18 +15,28 @@ const Profile = () => {
     const [screen, changeScreen] = useState(false);
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
         const getProfilePicture = async () => {
             try {
-                const res = await axios.get('/backend/users?username=' + username);
+                const res = await axios.get('/backend/users?username=' + username, {
+                    cancelToken: source.token,
+                });
                 setProfilePicture(res.data.profile_picture);
                 
             }
             catch (error) {
-                history.push('/profile');
+                if (axios.isCancel(error)) {
+
+                } else {
+                    history.push('/profile');
+                }
             }
         }
 
         getProfilePicture();
+        return () => {
+            source.cancel();
+        }
     }, [history, username]);
 
     return (
