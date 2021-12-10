@@ -50,31 +50,22 @@ export default function Posts({post,updateKarma,deletePost}) {
 
     // Update karma of post
     useEffect(() => {
-        const source = axios.CancelToken.source();
         const updateData = async () => {
             try {
                 const header = {
                     user: user,
                     postID: post._id
                 }
-                const res = await axios.put(URL + 'karma/' + userstatus, header, {
-                    cancelToken: source.token,
-                });
+                const res = await axios.put(URL + 'karma/' + userstatus, header);
                 updateKarma(post._id, res.data.post);
             }
             catch (error) {
-                if (axios.isCancel(error)) {
-
-                } else {
-                    console.log(error);
-                }
+                console.log(error);
             }
             
         };
         if(userstatus === "like" || userstatus === "unlike") updateData();
-        return () => {
-            source.cancel();
-        }
+        
     }, [userstatus, updateKarma, user, post]);
 
     const karmaHandler = async (e) => {
